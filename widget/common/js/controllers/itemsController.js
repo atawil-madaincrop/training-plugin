@@ -1,13 +1,14 @@
 const itemsController = {
     get: (search, page, pageSize, callback) => {
+        if (typeof (search) === 'undefined') search = null;
         buildfire.datastore.search(
             {
                 page: page,
                 pageSize: pageSize,
-                filter: search ? {
+                filter: search !== null && search !== '' ? {
                     $or: [
-                        { "$json.title": search },
-                        { "$json.subtitle": search },
+                        { "$json.title": { '$regex': search.toString(), '$options': 'i' } },
+                        { "$json.subtitle": { '$regex': search.toString(), '$options': 'i' } },
                     ],
                 } : {},
             },

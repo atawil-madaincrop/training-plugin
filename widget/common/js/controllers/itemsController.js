@@ -1,5 +1,5 @@
 const itemsController = {
-    get: (search, page, pageSize, callback) => {
+    search: (search, page, pageSize, callback) => {
         if (typeof (search) === 'undefined') search = null;
         buildfire.datastore.search(
             {

@@ -19,10 +19,16 @@ export default class LocalNotifications {
 
     static schedule = (options) => {
         var _options = {
-            title: options.title || '',
-            text: options.text || '',
-            at: options.at || new Date(),
+            title: options.title || null,
+            text: options.text || null,
+            at: options.at || null,
+            data: options.data || {},
+            returnToPluginInstanceId: options.returnToPluginInstanceId || null,
         };
+
+        if (!_options.title || !_options.text || !_options.at) {
+            return console.error('Required options are missing.');
+        }
 
         return new Promise((resolve, reject) => {
             buildfire.notifications.localNotification.schedule(_options, (err, res) => {
@@ -39,6 +45,10 @@ export default class LocalNotifications {
             data: options.data || {},
         };
 
+        if (!_options.title || !_options.text) {
+            return console.error('Required options are missing.');
+        }
+
         return new Promise((resolve, reject) => {
             buildfire.notifications.localNotification.send(_options, (err, res) => {
                 if (err) return reject(err);
@@ -47,9 +57,13 @@ export default class LocalNotifications {
         });
     }
 
-    static cancel = (id) => {
+    static cancel = (notificationId) => {
+        if (!notificationId) {
+            return console.error('Required options are missing.');
+        }
+
         return new Promise((resolve, reject) => {
-            buildfire.notifications.localNotification.cancel(id, (err, res) => {
+            buildfire.notifications.localNotification.cancel(notificationId, (err, res) => {
                 if (err) return reject(err);
                 resolve(res);
             });

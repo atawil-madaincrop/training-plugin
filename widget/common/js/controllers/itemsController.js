@@ -23,7 +23,7 @@ const itemsController = {
             callback
         );
     },
-    save: (item, callback) => {
+    insert: (item, callback) => {
         buildfire.datastore.insert(
             item,
             constants.DATASTORE_ITEMS_KEY,

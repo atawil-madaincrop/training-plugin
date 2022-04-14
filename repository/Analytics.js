@@ -17,7 +17,7 @@ export default class Analytics {
         buildfire.analytics.trackAction(eventName, metaData);
     }
 
-    static registerEvent = (event, options) => {
+    static registerEvent = (event = {}, options = {}) => {
         var _event = {
             title: event.title || null,
             key: event.key || undefined,
@@ -33,7 +33,7 @@ export default class Analytics {
         }
 
         return new Promise((resolve, reject) => {
-            buildfire.notifications.pushNotification.registerEvent(_event, _options, (err, res) => {
+            buildfire.analytics.registerEvent(_event, _options, (err, res) => {
                 if (err) return reject(err);
                 resolve(res);
             });
@@ -46,24 +46,24 @@ export default class Analytics {
         }
 
         return new Promise((resolve, reject) => {
-            buildfire.notifications.pushNotification.unregisterEvent(key, (err, res) => {
+            buildfire.analytics.unregisterEvent(key, (err, res) => {
                 if (err) return reject(err);
                 resolve(res);
             });
         });
     }
 
-    static showReports = (options) => {
+    static showReports = (options = {}) => {
         var _options = {
             eventKey: options.eventKey || undefined,
         }
 
-        if (!_event.eventKey) {
+        if (!_options.eventKey) {
             return console.error(Constants.LANGUAGE_MISSING_REQUIRED_DATA);
         }
 
         return new Promise((resolve, reject) => {
-            buildfire.notifications.pushNotification.showReports(_options, (err, res) => {
+            buildfire.analytics.showReports(_options, (err, res) => {
                 if (err) return reject(err);
                 resolve(res);
             });

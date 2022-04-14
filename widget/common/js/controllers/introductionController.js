@@ -5,18 +5,9 @@ const introductionController = {
             callback
         );
     },
-    save: (item, callback) => {
-        buildfire.datastore.insert(
-            item,
-            constants.DATASTORE_INTRODUCTION_KEY,
-            false,
-            callback,
-        );
-    },
-    update: (item, callback) => {
-        buildfire.datastore.update(
-            item.id,
-            item,
+    save: (introduction, callback) => {
+        buildfire.datastore.save(
+            introduction,
             constants.DATASTORE_INTRODUCTION_KEY,
             callback,
         );

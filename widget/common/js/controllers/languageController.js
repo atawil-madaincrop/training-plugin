@@ -5,18 +5,9 @@ const languageController = {
             callback
         );
     },
-    save: (item, callback) => {
-        buildfire.datastore.insert(
-            item,
-            constants.DATASTORE_LANGUAGE_KEY,
-            false,
-            callback,
-        );
-    },
-    update: (item, callback) => {
-        buildfire.datastore.update(
-            item.id,
-            item,
+    save: (language, callback) => {
+        buildfire.datastore.save(
+            language,
             constants.DATASTORE_LANGUAGE_KEY,
             callback,
         );

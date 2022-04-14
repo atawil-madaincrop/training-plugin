@@ -12,7 +12,11 @@
     },
     "settings": {
       "enabled": false
-    }
+    },
+    "customTabs": [{
+      "title": "Test",
+      "url": "/test/test.html"
+    }]
   },
   "widget": {
 

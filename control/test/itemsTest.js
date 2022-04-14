@@ -72,7 +72,7 @@ describe('Test', async function () {
         expect(res.length).to.be.above(0);
     });
     it('Item Search Invalid Item Test ==>', async function () {
-        let res = await Items.search('ggggggggggggggggggggggggggggggggggggggggg');
+        let res = await Items.search('This Item Is not Available in the Database To check the Search Functionality'); 
         expect(res.length).to.equal(0);
     });
 

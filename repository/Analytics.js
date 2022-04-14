@@ -1,7 +1,9 @@
+import { Constants } from "../config/Constants.js";
+
 export default class Analytics {
     static trackView = (eventName, metaData) => {
         if (!eventName) {
-            return console.error('Required options are missing.');
+            return console.error(Constants.LANGUAGE_MISSING_REQUIRED_DATA);
         }
 
         buildfire.analytics.trackView(eventName, metaData);
@@ -9,7 +11,7 @@ export default class Analytics {
 
     static trackAction = (eventName, metaData) => {
         if (!eventName) {
-            return console.error('Required options are missing.');
+            return console.error(Constants.LANGUAGE_MISSING_REQUIRED_DATA);
         }
 
         buildfire.analytics.trackAction(eventName, metaData);
@@ -27,7 +29,7 @@ export default class Analytics {
         }
 
         if (!_event.title || !_event.key) {
-            return console.error('Required options are missing.');
+            return console.error(Constants.LANGUAGE_MISSING_REQUIRED_DATA);
         }
 
         return new Promise((resolve, reject) => {
@@ -40,7 +42,7 @@ export default class Analytics {
 
     static unregisterEvent = (key) => {
         if (!key) {
-            return console.error('Required options are missing.');
+            return console.error(Constants.LANGUAGE_MISSING_REQUIRED_DATA);
         }
 
         return new Promise((resolve, reject) => {
@@ -57,7 +59,7 @@ export default class Analytics {
         }
 
         if (!_event.eventKey) {
-            return console.error('Required options are missing.');
+            return console.error(Constants.LANGUAGE_MISSING_REQUIRED_DATA);
         }
 
         return new Promise((resolve, reject) => {

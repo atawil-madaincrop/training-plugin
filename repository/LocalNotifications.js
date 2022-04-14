@@ -1,3 +1,5 @@
+import { Constants } from "../config/Constants.js";
+
 export default class LocalNotifications {
     static checkPermissions = () => {
         return new Promise((resolve, reject) => {
@@ -27,7 +29,7 @@ export default class LocalNotifications {
         };
 
         if (!_options.title || !_options.text || !_options.at) {
-            return console.error('Required options are missing.');
+            return console.error(Constants.LANGUAGE_MISSING_REQUIRED_DATA);
         }
 
         return new Promise((resolve, reject) => {
@@ -46,7 +48,7 @@ export default class LocalNotifications {
         };
 
         if (!_options.title || !_options.text) {
-            return console.error('Required options are missing.');
+            return console.error(Constants.LANGUAGE_MISSING_REQUIRED_DATA);
         }
 
         return new Promise((resolve, reject) => {
@@ -59,7 +61,7 @@ export default class LocalNotifications {
 
     static cancel = (notificationId) => {
         if (!notificationId) {
-            return console.error('Required options are missing.');
+            return console.error(Constants.LANGUAGE_MISSING_REQUIRED_DATA);
         }
 
         return new Promise((resolve, reject) => {

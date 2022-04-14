@@ -1,3 +1,5 @@
+import { Constants } from "../config/Constants.js";
+
 export default class PushNotifications {
     static schedule = (options) => {
         var _options = {
@@ -13,7 +15,7 @@ export default class PushNotifications {
         };
 
         if (!_options.title || !_options.text) {
-            return console.error('Required options are missing.');
+            return console.error(Constants.LANGUAGE_MISSING_REQUIRED_DATA);
         }
 
         return new Promise((resolve, reject) => {
@@ -26,7 +28,7 @@ export default class PushNotifications {
 
     static cancel = (notificationId) => {
         if (!notificationId) {
-            return console.error('Required options are missing.');
+            return console.error(Constants.LANGUAGE_MISSING_REQUIRED_DATA);
         }
 
         return new Promise((resolve, reject) => {
@@ -56,7 +58,7 @@ export default class PushNotifications {
         };
 
         if (!_options.groupName) {
-            return console.error('Required options are missing.');
+            return console.error(Constants.LANGUAGE_MISSING_REQUIRED_DATA);
         }
 
         return new Promise((resolve, reject) => {

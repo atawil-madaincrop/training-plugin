@@ -1,6 +1,5 @@
 export default class Item {
     constructor(data = {}) {
-        this.id = data.id || undefined;
         this.title = data.title || null;
         this.subtitle = data.subtitle || null;
         this.description = data.description || null;

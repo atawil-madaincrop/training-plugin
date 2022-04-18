@@ -3,20 +3,20 @@ import IntroductionController from '../introduction/introduction.controller.js';
 
 var introduction = new Introduction();
 
-const initTiny = (selector) => {
-    tinymce.init({
-        selector: selector,
-        setup: function (editor) {
-            editor.on('init', (e) => {
-                editor.setContent(introduction.description);
-            });
+const initTiny = async (selector) => {
+    let editor;
 
-            editor.on('keyup', tinymce.util.Delay.debounce((e) => {
-                introduction.description = editor.getContent();
-                IntroductionController.saveIntroduction(introduction);
-            }, 500));
-        }
+    await tinymce.init({
+        selector: selector,
+        setup: (e) => editor = e,
     });
+
+    editor.setContent(introduction.description);
+
+    editor.on('keyup', tinymce.util.Delay.debounce((e) => {
+        introduction.description = editor.getContent();
+        IntroductionController.saveIntroduction(introduction);
+    }, 500));
 }
 
 const initCarousel = (selector) => {

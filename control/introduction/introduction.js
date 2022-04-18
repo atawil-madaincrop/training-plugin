@@ -14,19 +14,21 @@ const wysiwygContentHandler = (description) => {
     introductionManagement.pushItems(myIntroduction)
 }
 
-const initTiny = (selector) => {
-    let delay = 1000;
-    let timer;
+let delay = 1000;
+let timer;
+const handelWYSIWYG_Data = (e) => {
+    clearTimeout(timer);
+    timer = setTimeout(x => {
+        wysiwygContentHandler(tinymce.activeEditor.getContent());
+    }, delay, e)
+}
 
+const initTiny = (selector) => {
     tinymce.init({
         selector: selector,
         setup: editor => {
-            editor.on('input', (e) => {
-                clearTimeout(timer);
-                timer = setTimeout(x => {
-                    wysiwygContentHandler(e.target.textContent);
-                }, delay, e)
-            });
+            editor.on('input', (e)=>handelWYSIWYG_Data(e));
+            editor.on('change', (e)=>handelWYSIWYG_Data(e));
             
             editor.on('init', (e)=>{
                 editor.setContent(myIntroduction.description || '')

@@ -11,10 +11,10 @@ const initTiny = (selector) => {
                 editor.setContent(introduction.description);
             });
 
-            editor.on('keyup', (e) => {
+            editor.on('keyup', tinymce.util.Delay.debounce((e) => {
                 introduction.description = editor.getContent();
                 ContentController.saveIntroduction(introduction);
-            });
+            }, 500));
         }
     });
 }

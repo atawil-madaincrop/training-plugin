@@ -7,20 +7,22 @@
     "content": {
       "enabled": true
     },
-    "design":{
+    "design": {
       "enabled": false
     },
     "settings": {
       "enabled": false
     },
-    "customTabs": [{
-      "title": "Test",
-      "url": "/test/test.html"
-    }]
+    "customTabs": [
+      {
+        "title": "Tests",
+        "url": "/tests/index.html"
+      }
+    ]
   },
-  "widget": {
-
-  },
+  "widget": {},
   "features": [],
-  "languages": ["en"]
+  "languages": [
+    "en"
+  ]
 }

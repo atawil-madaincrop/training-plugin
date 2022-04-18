@@ -1,8 +1,7 @@
 import Items from '../../../widget/common/repository/Items.js';
 import Item from '../../../widget/common/entities/Item.js';
-import { Constants } from '../../../widget/common/config/Constants.js';
 
-export const itemsTests = (expect) => {
+export const itemsTests2 = (expect) => {
     let newItem = new Item({
         title: "test analytics",
         subtitle: "desc",
@@ -13,7 +12,7 @@ export const itemsTests = (expect) => {
     });
 
     describe('Test Part ==> ', async function () {
-        describe(`${Constants.TEST_ITEM_PROPERTIES} -->`, async function () {
+        describe('Item Properties Test -->', async function () {
             it('check properties of object', function () {
                 expect(newItem).to.be.an('Object');
                 expect(newItem).to.have.property('title');
@@ -31,7 +30,7 @@ export const itemsTests = (expect) => {
             });
         });
 
-        describe(`${Constants.TEST_ITEM_INSERT_FUNCTION} -->`, async function () {
+        describe('Item Insert Test -->', async function () {
             it('check if item can be inserted into database', async function () {
                 let insertedItem = await Items.insert(newItem);
                 newItem.id = insertedItem.id;
@@ -39,19 +38,26 @@ export const itemsTests = (expect) => {
             });
         });
 
-        describe(`${Constants.TEST_ITEM_FIND_FUNCTION} -->`, async function () {
+        describe('Item Find Test -->', async function () {
             it('Find by id Test', async function () {
                 let res = await Items.find(newItem.id);
                 expect(res.data).to.be.an('Object');
             });
 
             it(`Empty Find Test `, async function () {
-                let res = await Items.find();
-                expect(res.data).to.be.an('Object');
+                let res;
+
+                try {
+                    res = await Items.find();
+                } catch (e) {
+                    //
+                }
+
+                expect(res?.data).to.be.an('undefined');
             });
         });
 
-        describe(`${Constants.TEST_ITEM_SEARCH_FUNCTION} -->`, async function () {
+        describe('Item Search Test -->', async function () {
             it('check if item can be searched', async function () {
                 let res = await Items.search({ search: 'test' });
                 expect(res).to.be.an('Array');
@@ -70,20 +76,27 @@ export const itemsTests = (expect) => {
             });
         });
 
-        describe(`${Constants.TEST_ITEM_UPDATE_FUNCTION} -->`, async function () {
+        describe('Item Update Test -->', async function () {
             it('check if item can be updated', async function () {
+                let res;
+
                 newItem.title = "test analytics updated";
-                let res = await Items.update(newItem);
-                expect(res.data).to.be.an('Object');
-                expect(res.data.title).to.equal("test analytics updated");
+
+                try {
+                    res = await Items.update(newItem.id, newItem);
+                } catch (e) {
+                    //
+                }
+
+                expect(res?.data).to.be.an('Object');
+                expect(res?.data.title).to.equal("test analytics updated");
             });
         });
 
-        describe(`${Constants.TEST_ITEM_DELETE_FUNCTION} -->`, async function () {
+        describe('Item Delete Test -->', async function () {
             it('check if item can be deleted', async function () {
-                let res = await Items.delete(newItem);
+                let res = await Items.delete(newItem.id, newItem);
                 expect(res).to.be.an('Object');
-                expect(res.status).to.equal('deleted');
             });
         });
     });

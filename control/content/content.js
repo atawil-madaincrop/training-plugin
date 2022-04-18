@@ -6,6 +6,16 @@ var introduction = new Introduction();
 const initTiny = (selector) => {
     tinymce.init({
         selector: selector,
+        setup: function (editor) {
+            editor.on('init', (e) => {
+                editor.setContent(introduction.description);
+            });
+
+            editor.on('keyup', (e) => {
+                introduction.description = editor.getContent();
+                ContentController.saveIntroduction(introduction);
+            });
+        }
     });
 }
 
@@ -23,7 +33,7 @@ const initCarousel = (selector) => {
     };
 
     editor.onAddItems = async (items) => {
-        introduction.imageCarousel = [...introduction.imageCarousel || [], ...items];
+        introduction.imageCarousel = [...introduction.imageCarousel, ...items];
         ContentController.saveIntroduction(introduction);
     };
 
@@ -47,8 +57,8 @@ const load = async () => {
 const init = async () => {
     await load();
 
-    initTiny("#wysiwygContent");
-    initCarousel(".carousel");
+    initTiny("#description");
+    initCarousel("#carousel");
 }
 
 init();

@@ -1,8 +1,8 @@
 export default class Introduction {
     constructor(data = {}) {
         this.id = data.id || undefined;
-        this.imageCarousel = data.imageCarousel || null;
-        this.description = data.description || null;
+        this.imageCarousel = data.imageCarousel || [];
+        this.description = data.description || '';
 
         this.createdOn = data.createdOn || new Date();
         this.createdBy = data.createdBy || null;

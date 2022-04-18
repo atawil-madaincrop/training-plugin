@@ -1,18 +1,21 @@
 
-import {carouselManagement} from "./js/carouselManagement.js";
+import {introductionManagement} from "./js/introductionManagement.js";
+import Introduction from "./common/entities/Introduction.js"
 
 let viewer;
+let myIntroduction = new Introduction();
+let my_container_div = document.getElementById("my_container_div");
 
 
 const appendUpdatedData = async () => {
-    let carouselData = await carouselManagement.load();
- 
-    viewer.loadItems(carouselData)
+    myIntroduction = await introductionManagement.load();
+    viewer.loadItems(myIntroduction.imageCarousel);
+
+    my_container_div.innerHTML = myIntroduction.description
+
 }
 
 const initComponents = async () => {
-    document.getElementById("my_container_div").innerHTML = '<p><span style="background-color: #bfedd2; font-size: 24px;"><strong><em>Hello this is Abed &amp; Alaa!</em></strong></span></p>';
-
     viewer = new buildfire.components.carousel.view(".carousel");
 
     appendUpdatedData();

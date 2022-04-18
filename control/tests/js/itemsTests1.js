@@ -102,9 +102,8 @@ export const itemsTests1 = (expect) => {
 
         describe('#insert()', () => {
             it('insert an item should be an item', async () => {
-                let item = new Item({ id: "62573728820890036e8e6d93", subtitle: "item updated 2" });
-                let res = await Items.update(item.id, item);
-                console.log('res: ', res.data);
+                let item = new Item();
+                let res = await Items.insert(item);
                 expect(res.data).to.be.an('object');
             });
 
@@ -123,8 +122,9 @@ export const itemsTests1 = (expect) => {
 
         describe('#update()', () => {
             it('update an item should be an item', async () => {
-                let item = new Item();
-                let res = await Items.insert(item);
+                let item = new Item({ id: "62573728820890036e8e6d93", subtitle: "item updated 2" });
+                let res = await Items.update(item.id, item);
+                console.log('res: ', res.data);
                 expect(res.data).to.be.an('object');
             });
 

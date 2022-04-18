@@ -102,7 +102,7 @@ export const itemsTests1 = (expect) => {
 
         describe('#insert()', () => {
             it('insert an item should be an item', async () => {
-                let item = new Item();
+                let item = new Item({ title: 'item 1' });
                 let res = await Items.insert(item);
                 expect(res.data).to.be.an('object');
             });

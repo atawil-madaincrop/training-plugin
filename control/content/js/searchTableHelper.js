@@ -129,7 +129,7 @@ class SearchTableHelper {
 			let classes = [];
 			if (colConfig.type == "date")
 				classes = ["text-center"];
-			else if (colConfig.type == "number")
+			else if (colConfig.type == "number" || colConfig.type == "image")
 				classes = ["text-right"];
 			else classes = ["text-left"];
 			var td;

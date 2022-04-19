@@ -68,14 +68,13 @@ export default class Items {
         });
     }
 
-    static delete = (id, item) => {
-        if (!id || !item || Object.keys(item).length === 0) {
+    static delete = (id) => {
+        if (!id) {
             return console.error(Constants.LANGUAGE_MISSING_REQUIRED_DATA);
         }
 
-        item.deletedOn = new Date();
         return new Promise((resolve, reject) => {
-            buildfire.datastore.update(id, item, Items.TAG, (err, res) => {
+            buildfire.datastore.update(id, { $set: { deletedOn: new Date() } }, Items.TAG, (err, res) => {
                 if (err) return reject(err);
                 resolve(res);
             });

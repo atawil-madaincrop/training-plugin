@@ -196,12 +196,11 @@ class SearchTableHelper {
 
 						if (isConfirmed) {
 							tr.classList.add("hidden");
-							buildfire.datastore.update(obj.id, { $set: { deletedOn: new Date() } }, this.tag, e => {
-								if (e)
-									tr.classList.remove("hidden");
-								else
-									t.onRowDeleted(obj, tr);
-							});
+							try {
+								t.onRowDeleted(obj, tr);
+							} catch (e) {
+								tr.classList.remove("hidden");
+							}
 						} else {
 							//Prevent action
 						}

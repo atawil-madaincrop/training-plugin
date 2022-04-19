@@ -9,7 +9,7 @@ tbody tr {
 th {
     padding: 15px 8px 13px;
     line-height: 26px;
-    vertical-align: top;
+    vertical-align: middle;
     border-bottom: 1px solid #d8d8d8;
 }
 
@@ -23,6 +23,7 @@ td {
     overflow: hidden;
     text-overflow: ellipsis;
     width: 40px;
+    vertical-align: middle !important;
 }
 
 tbody {

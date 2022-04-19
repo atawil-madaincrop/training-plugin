@@ -3,22 +3,103 @@
 
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="../../../../styles/helper.css" rel="stylesheet" />
+
+  <!-- Load helper.css to use our helper classes. -->
+  <link href="../../../../styles/helper.css" rel="stylesheet">
+  <link href="../../../../styles/siteStyle.css" rel="stylesheet">
+  <link href="../../../../styles/control/siteIcons-control.css" rel="stylesheet">
+  <link href="../../../../styles/control/bf-base.css" rel="stylesheet">
+
   <link href="../../../../styles/siteIcons.css" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 
   <!-- JS -->
   <script src="../../../../scripts/buildfire.js"></script>
+  <script src="../../../../scripts/buildfire.min.js"></script>
+  <script src="../../../../scripts/buildfire/components/images/thumbnail.js"></script>
   <script src="../../../../scripts/buildfire/services/notifications/pushNotifications.js"></script>
   <script src="../../../../scripts/jquery/jquery-1.11.2.min.js"></script>
   <script src="../../../../scripts/sortable.min.js"></script>
-  <script type="module" src="content.js"></script>
+
+  <script src="../../../../scripts/tinymce/tinymce.min.js"></script>
+
+  <!-- Sweet Alert -->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
-<body>
-  <div class="carousel"></div>
-  <div class="margin-top-twenty"></div>
-  <textarea id="wysiwygContent" name="content"></textarea>
+<body class="sub-page">
+  <div id="list-Of-Items-From-DataStore" class="container slide-in padding-bottom-twenty">
+    <p class="info-note margin-bottom-twenty">You can create a list of items with images, actions and other details. Add
+      an introduction section on the <a class="link" href="/introduction/index.html">introduction</a> tab </p>
+
+    <div class="row">
+      <div class="col-md-9">
+        <div class="input-group margin-bottom-twenty">
+          <input id="getSearchInput" type="text" class="form-control" placeholder="Search">
+          <span class="input-group-btn">
+            <button id="getSearch" class="btn btn-info stretch margin-left-zero">
+              <span id="iconPlcaeSearch" class="icon icon-magnifier"></span>
+              <span id="iconPlcaeCancelSearch" class="icon icon-cross2"></span>
+            </button>
+          </span>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <button id="add-New-Item_btn" class="btn btn-success stretch"><span
+            class="icon icon-plus margin-right-ten"></span>Add
+          Item</button>
+      </div>
+    </div>
+
+    <div id="printOutTable">
+
+    </div>
+
+  </div>
 </body>
+
+<div id="formPage" class="sub-page">
+  <div class="container slide-in padding-bottom-twenty">
+      <h4 class="font-weight-bold margin-bottom-twenty">Item Images</h4>
+
+    <div class="row">
+      <div id="image" class="margin-bottom-twenty image-picker aspect-1-1 thumbnail-picker"></div>
+      <div id="imageCover" class="margin-bottom-twenty image-picker aspect-1-1 thumbnail-picker"></div>
+    </div>
+
+
+     <h4 class="font-weight-bold margin-bottom-twenty">Item Details</h4>
+    <div class="stretch row margin-bottom-twenty">
+      <div class="col-md-3">
+        <p>Title *</p>
+      </div>
+      <div class="col-md-9">
+        <input class="inputItemTitle" required id="title" name="title">
+      </div>
+    </div>
+
+    <div class="stretch row margin-bottom-twenty">
+      <div class="col-md-3">
+        <p>Subtitle</p>
+      </div>
+      <div class="col-md-9">
+        <input class="inputItemTitle" id="subTitle" name="subTitle">
+      </div>
+    </div>
+
+    <div class="margin-top-twenty"></div>
+    <textarea id="wysiwygContent" name="content"></textarea>
+    <div class="margin-top-twenty"></div>
+
+
+    <!-- Bottom actions require adding the .sub-page class on the <body> tag for correct scrolling  -->
+
+  </div>
+  <div class="bottom-actions">
+    <button id="cancel-Adding-Process" class="btn btn-default">Cancel</button>
+    <buttom id="add-New-Item-To-DataStore" class="btn btn-success">Save</button>
+  </div>
+</div>
+<script type="module" src="content.js"></script>
 
 </html>

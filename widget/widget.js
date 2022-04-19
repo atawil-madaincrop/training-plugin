@@ -1,26 +1,30 @@
-const initComponents = () => {
-    document.getElementById("my_container_div").innerHTML = '<p><span style="background-color: #bfedd2; font-size: 24px;"><strong><em>Hello this is Abed &amp; Alaa!</em></strong></span></p>';
 
-    let viewer = new buildfire.components.carousel.view(".carousel", [
-        {
-            title: "build fire",
-            url: "https://www.facebook.com/buildfireapps",
-            action: "linkToWeb",
-            openIn: "_blank",
-            iconUrl: "https://placekitten.com/800/400",
-        },
-        {
-            title: "build fire",
-            url: "https://www.facebook.com/buildfireapps",
-            action: "linkToWeb",
-            openIn: "_blank",
-            iconUrl: "https://placekitten.com/600/300",
-        }
-    ]);
+import {introductionManagement} from "./js/introductionManagement.js";
+import Introduction from "./common/entities/Introduction.js"
+
+let viewer;
+let myIntroduction = new Introduction();
+let my_container_div = document.getElementById("my_container_div");
+
+
+const appendUpdatedData = async () => {
+    myIntroduction = await introductionManagement.load();
+    viewer.loadItems(myIntroduction.imageCarousel);
+
+    my_container_div.innerHTML = myIntroduction.description
+
+}
+
+const initComponents = async () => {
+    viewer = new buildfire.components.carousel.view(".carousel");
+
+    appendUpdatedData();
 }
 
 const init = async () => {
     initComponents();
+
+    buildfire.datastore.onUpdate(appendUpdatedData);
 }
 
 init();

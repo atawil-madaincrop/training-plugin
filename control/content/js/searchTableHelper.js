@@ -144,13 +144,7 @@ class SearchTableHelper {
 				try {
 					///needed for the eval statement next
 					var data = obj.data;
-					output = eval("`" + colConfig.data + "`");
-					if (output !== 'null') {
-						output = `<img src="${output}">`;
-					} else {
-						output = `<img src="https://via.placeholder.com/150">`;
-					}
-
+					output = eval("`<img src='" + colConfig.data + "'>`");
 				} catch (error) {
 					console.log(error);
 				}

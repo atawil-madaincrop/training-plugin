@@ -7,7 +7,7 @@ const searchTableConfig = {
 	columns: [
 		{ header: "", data: "${data.image}", type: "image", width: "50px" },
 		{ header: "Title", data: "${data.title}", type: "string", width: "100px", sortBy: 'title' },
-		{ header: "Subtitle", data: "${data.subtitle}", type: "string", width: "100px", sortBy: 'subtitle' },
-		{ header: "Date Of Creation", data: "${ new Date(data.createdOn).toLocaleDateString('en-US', dateOptions)  }", type: "date", width: "100px", sortBy: 'createdOn' },
+		{ header: "Subtitle", data: "${data.subtitle}", type: "string", width: "100px" },
+		{ header: "Date Of Creation", data: "${ new Date(data.createdOn).toLocaleDateString('en-US', dateOptions)  }", type: "date", width: "100px" },
 	],
 };

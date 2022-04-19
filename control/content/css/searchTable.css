@@ -1,9 +1,18 @@
+table {
+    border: none !important;
+}
+
 thead,
 tbody tr {
     display: table;
     width: 100%;
     table-layout: fixed;
     /* even columns width , fix width of table too*/
+}
+
+tbody tr {
+    border-right: 1px solid #d8d8d8;
+    border-left: 1px solid #d8d8d8;
 }
 
 th {
@@ -39,7 +48,7 @@ table tbody tr td {
 
 .editColumn,
 .deleteColumn {
-    width: 40px;
+    width: 35px;
     text-align: center;
     padding-right: 0 !important;
     padding-left: 0 !important;

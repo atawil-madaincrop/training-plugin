@@ -181,7 +181,7 @@ class SearchTableHelper {
 		}
 
 		if (this.config.options.showDeleteButton) {
-			let td = this._create('td', tr, '<button class="btn btn--icon btn-hover-danger"><span class="icon icon-cross2"></span></button>', ["editColumn"]);
+			let td = this._create('td', tr, '<button class="btn btn--icon btn-hover-danger"><span class="icon icon-cross2"></span></button>', ["deleteColumn"]);
 			td.onclick = () => {
 				buildfire.dialog.confirm(
 					{

@@ -1,9 +1,0 @@
-.info-note {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    padding: 7px 16px;
-    height: 34px;
-    background: #F2F2F2;
-    border-radius: 4px;
-}

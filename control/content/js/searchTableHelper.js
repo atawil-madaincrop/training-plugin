@@ -174,14 +174,14 @@ class SearchTableHelper {
 
 		let t = this;
 		if (this.config.options.showEditButton) {
-			let td = this._create('td', tr, '<button class="btn btn--icon"><span class="icon icon-pencil"></span></button>', ["editColumn"]);
+			let td = this._create('td', tr, '<button class="btn btn--icon btn-hover-primary"><span class="icon icon-pencil"></span></button>', ["editColumn"]);
 			td.onclick = () => {
 				t.onEditRow(obj, tr);
 			};
 		}
 
 		if (this.config.options.showDeleteButton) {
-			let td = this._create('td', tr, '<button class="btn btn--icon"><span class="icon icon-cross2"></span></button>', ["editColumn"]);
+			let td = this._create('td', tr, '<button class="btn btn--icon btn-hover-danger"><span class="icon icon-cross2"></span></button>', ["editColumn"]);
 			td.onclick = () => {
 				buildfire.dialog.confirm(
 					{

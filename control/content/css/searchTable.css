@@ -41,10 +41,29 @@ table tbody tr td {
 .deleteColumn {
     width: 40px;
     text-align: center;
+    padding-right: 0 !important;
+    padding-left: 0 !important;
 }
 
 .btn-primary {
     margin-bottom: 16px;
+}
+
+.btn--icon {
+    font-size: 24px;
+    background: transparent !important;
+}
+
+.btn--icon:hover {
+    background-color: var(--c-gray1) !important;
+}
+
+.btn-hover-primary:hover {
+    color: var(--c-primary) !important;
+}
+
+.btn-hover-danger:hover {
+    color: var(--c-danger) !important;
 }
 
 .form-group {

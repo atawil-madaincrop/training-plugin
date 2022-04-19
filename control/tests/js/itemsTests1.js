@@ -157,7 +157,7 @@ export const itemsTests1 = (expect) => {
         describe('#delete()', () => {
             it('delete a valid item', async () => {
                 let item = new Item({ id: "62597faa08c3a90378bc8a17" });
-                let res = await Items.delete(item.id, item);
+                let res = await Items.delete(item.id);
                 expect(res?.data).to.be.an('object');
             });
 
@@ -165,7 +165,7 @@ export const itemsTests1 = (expect) => {
                 let res;
 
                 try {
-                    res = await Items.delete("123123123123", {});
+                    res = await Items.delete("123123123123");
                 } catch (err) {
 
                 }
@@ -175,7 +175,7 @@ export const itemsTests1 = (expect) => {
 
             it('deleted item has a null deletedOn property', async () => {
                 let item = new Item({ id: "62597c1bd633a0037f9dac1a" });
-                let res = await Items.delete(item.id, item);
+                let res = await Items.delete(item.id);
                 expect(res?.data).to.be.have.property('deletedOn');
                 expect(res?.data.deletedOn).to.be.an('string');
             });
@@ -185,7 +185,7 @@ export const itemsTests1 = (expect) => {
     describe('#forceDelete()', () => {
         it('force delete a valid item if found', async () => {
             let res;
-            let item = new Item({ id: "62597e32d633a0037f9dac28" });
+            let item = new Item({ id: "625ef20b985c3e0376eed254" });
 
             try {
                 res = await Items.forceDelete(item.id);

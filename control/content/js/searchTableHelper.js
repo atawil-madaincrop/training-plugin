@@ -1,5 +1,5 @@
 class SearchTableHelper {
-	constructor(tableId, tag, config) {
+	constructor(tableId, tag, config, filter, deleteCallback) {
 		if (!config) throw "No config provided";
 		if (!tableId) throw "No tableId provided";
 		this.table = document.getElementById(tableId);
@@ -8,6 +8,8 @@ class SearchTableHelper {
 		this.tag = tag;
 		this.sort = {};
 		this.commands = {};
+		this.filterFixed = filter || {};
+		this.deleteCallback = deleteCallback;
 		this.init();
 	}
 
@@ -89,12 +91,11 @@ class SearchTableHelper {
 	}
 
 	_fetchPageOfData(filter, pageIndex, callback) {
-
 		if (pageIndex > 0 && this.endReached) return;
 		let pageSize = 50;
 		this.pageIndex = pageIndex;
 		let options = {
-			filter: filter,
+			filter: { ...this.filterFixed, ...filter },
 			sort: this.sort,
 			page: pageIndex,
 			pageSize: pageSize
@@ -204,8 +205,12 @@ class SearchTableHelper {
 		console.log("Edit row", obj);
 	}
 
-	onRowDeleted(obj, tr) {
-		console.log("Record Delete", obj);
+	onRowDeleted = (obj, tr) => {
+		if (!this.deleteCallback) {
+			return;
+		}
+
+		this.deleteCallback(obj, tr);
 	}
 
 	onCommand(command, cb) {

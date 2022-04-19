@@ -89,3 +89,11 @@ table tbody tr td {
 .input-group-btn>.btn:active {
     z-index: 1;
 }
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.text-primary {
+    color: var(--c-primary);
+}

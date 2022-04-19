@@ -126,12 +126,12 @@ class SearchTableHelper {
 			tr = this._create('tr', this.tbody);
 		tr.setAttribute("objId", obj.id);
 		this.config.columns.forEach(colConfig => {
-			let classes = [];
+			let classes = colConfig.classes || [];
 			if (colConfig.type == "date")
-				classes = ["text-center"];
+				classes = [...classes, "text-center"];
 			else if (colConfig.type == "number" || colConfig.type == "image")
-				classes = ["text-right"];
-			else classes = ["text-left"];
+				classes = [...classes, "text-right"];
+			else classes = [...classes, "text-left"];
 			var td;
 			if (colConfig.type == "command") {
 				td = this._create('td', tr, '<button class="btn btn-link">' + colConfig.text + '</button>', ["editColumn"]);

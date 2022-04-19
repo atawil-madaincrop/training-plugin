@@ -4,6 +4,11 @@ import IntroductionController from '../introduction/introduction.controller.js';
 var introduction = new Introduction();
 
 const initTiny = async (selector) => {
+    const onEditorUpdate = tinymce.util.Delay.debounce((e) => {
+        introduction.description = editor.getContent();
+        IntroductionController.saveIntroduction(introduction);
+    }, 500);
+
     let editor;
 
     await tinymce.init({
@@ -12,11 +17,8 @@ const initTiny = async (selector) => {
     });
 
     editor.setContent(introduction.description);
-
-    editor.on('keyup', tinymce.util.Delay.debounce((e) => {
-        introduction.description = editor.getContent();
-        IntroductionController.saveIntroduction(introduction);
-    }, 500));
+    editor.on('keyup', onEditorUpdate);
+    editor.on('change', onEditorUpdate);
 }
 
 const initCarousel = (selector) => {

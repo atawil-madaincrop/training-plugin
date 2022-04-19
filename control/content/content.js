@@ -4,6 +4,7 @@ import ContentController from "./content.controller.js";
 let search;
 const searchInput = document.getElementById("search");
 const searchButton = document.getElementById("search-button");
+const introductionTabLink = document.getElementById("introduction-tab-link");
 
 const initItemsTable = async () => {
     const filterFixed = {
@@ -28,8 +29,24 @@ const initItemsTable = async () => {
     searchTableHelper.search();
 }
 
+const initIntroductionTabLinkListener = () => {
+    introductionTabLink.onclick = () => navigateToTab("Introduction");
+}
+
+const navigateToTab = (tab) => {
+    buildfire.navigation.navigateToTab(
+        {
+            tabTitle: tab,
+        },
+        (err) => {
+            if (err) return console.error(err);
+        }
+    );
+}
+
 const init = async () => {
     initItemsTable();
+    initIntroductionTabLinkListener();
 }
 
 init();

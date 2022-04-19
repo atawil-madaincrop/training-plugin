@@ -1,1 +1,30 @@
 
+
+.cardBtn{
+    padding: 0;
+}
+.cardBtnSpan{
+    font-size: 1.75rem;
+    margin: -0.8rem;
+}
+
+.cardBtn:hover{
+    color:rgb(46, 85, 185);
+    background-color:rgb(213, 218, 228);
+}
+
+h4::before{
+    display: block;
+    content: '';
+    height: 0.25rem;
+    width: 3.5rem;
+    margin-bottom: 0.875rem;
+    background-color: var(--c-info);
+}
+
+.inputItemTitle{
+    width: 100%;
+    border-radius: 0.4rem;
+    border: 1px solid var(--c-gray3);
+    margin-top: 0.4rem;
+}

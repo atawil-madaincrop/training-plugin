@@ -1,4 +1,3 @@
-import Introduction from "../../widget/common/entities/Introduction.js";
 import Introductions from "../../widget/common/repository/Introductions.js";
 
 export default {

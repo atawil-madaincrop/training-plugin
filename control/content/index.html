@@ -12,6 +12,8 @@
   <script src="../../../../scripts/sortable.min.js"></script>
   <script src="../../../../scripts/buildfire/components/carousel/carousel.js"></script>
   <script src="../../../../scripts/buildfire/components/images/thumbnail.js"></script>
+  <script src="./js/searchTableConfig.js"></script>
+  <script src="./js/searchTableHelper.js"></script>
   <script type="module" src="content.js"></script>
 
   <link href="../../../../styles/helper.css" rel="stylesheet" />
@@ -20,14 +22,16 @@
   <link href="../../../../styles/bootstrap.css" rel="stylesheet" />
   <link href="../../../../styles/control/siteIcons-control.css" rel="stylesheet">
   <link href="../../../../styles/control/bf-base.css" rel="stylesheet">
+  <link rel="stylesheet" href="./css/searchTable.css" />
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
   <p class="info-note margin-bottom-twenty">You can create a list of items with images, actions and other details. Add an introduction section on the <a href="javascript:;" class="link">Introduction</a> tab.</p>
+
   <div class="row">
     <div class="col-md-9">
-      <div class="input-group margin-bottom-twenty">
+      <div class="input-group margin-bottom-twenty margin-left-zero">
         <input type="text" class="form-control" placeholder="Search">
         <span class="input-group-btn">
           <button class="btn btn-info stretch margin-left-zero">
@@ -40,10 +44,13 @@
       <button class="btn btn-success stretch"><span class="icon icon-plus margin-right-ten"></span>Add Item</button>
     </div>
   </div>
-  <div class="well empty-state-lg">
+
+  <div class="well empty-state-lg hidden">
     <h5 class="text-center margin-bottom-twenty empty-state-description">You haven’t added anything yet.<br>Add sample data to preview this feature.</h5>
     <button class="btn btn-success"><span class="icon icon-plus margin-right-ten"></span>Add Sample Data</button>
   </div>
+
+  <table id="itemsTable" class="table table-striped"></table>
 </body>
 
 </html>

@@ -139,6 +139,22 @@ class SearchTableHelper {
 					event.preventDefault();
 					this._onCommand(obj, tr, colConfig.command);
 				};
+			} else if (colConfig.type == "image") {
+				var output = ""
+				try {
+					///needed for the eval statement next
+					var data = obj.data;
+					output = eval("`" + colConfig.data + "`");
+					if (output !== 'null') {
+						output = `<img src="${output}">`;
+					} else {
+						output = `<img src="https://via.placeholder.com/150">`;
+					}
+
+				} catch (error) {
+					console.log(error);
+				}
+				td = this._create('td', tr, output, classes);
 			} else {
 				var output = ""
 				try {

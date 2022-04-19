@@ -15,6 +15,7 @@ const initItemsTable = () => {
                 { "$json.title": { "$regex": search, "$options": "i" } },
                 { "$json.subtitle": { "$regex": search, "$options": "i" } },
             ],
+            "$json.deletedOn": { "$eq": null },
         });
     }
 }

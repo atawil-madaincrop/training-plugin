@@ -166,26 +166,30 @@ class SearchTableHelper {
 		if (this.config.options.showDeleteButton) {
 			let td = this._create('td', tr, '<button class="btn btn--icon"><span class="icon icon-cross2"></span></button>', ["editColumn"]);
 			td.onclick = () => {
-				buildfire.notifications.confirm({
-					title: "Are you sure?"
-					, message: "Are you sure to delete this record?"
-					, confirmButton: { text: 'Yes', key: 'yes', type: 'danger' }
-					, cancelButton: { text: 'No', key: 'no', type: 'default' }
-				}, function (e, data) {
-					if (e) console.error(e);
+				buildfire.dialog.confirm(
+					{
+						message: "Are you sure you want to delete this item.",
+						confirmButton: {
+							text: "Yes",
+							type: "danger",
+						},
+					},
+					(err, isConfirmed) => {
+						if (err) console.error(err);
 
-					if (data.selectedButton.key == "yes") {
-						tr.classList.add("hidden");
-						buildfire.datastore.update(obj.id, { $set: { deletedOn: new Date() } }, this.tag, e => {
-							if (e)
-								tr.classList.remove("hidden");
-							else
-								t.onRowDeleted(obj, tr);
-						});
-
-					}
-				});
-
+						if (isConfirmed) {
+							tr.classList.add("hidden");
+							buildfire.datastore.update(obj.id, { $set: { deletedOn: new Date() } }, this.tag, e => {
+								if (e)
+									tr.classList.remove("hidden");
+								else
+									t.onRowDeleted(obj, tr);
+							});
+						} else {
+							//Prevent action
+						}
+					},
+				);
 			};
 		}
 		this.onRowAdded(obj, tr);

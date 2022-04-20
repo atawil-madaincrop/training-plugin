@@ -13,6 +13,8 @@ const itemsPage = document.getElementById("items-page");
 const itemDetailsSubPage = document.getElementById("item-details-sub-page");
 const itemDetailsBottomActions = document.getElementById("item-details-bottom-actions");
 const itemDetailsCancleButton = document.getElementById("item-details-cancel-button");
+const itemDetailsTitleInput = document.getElementById("item-details-title-input");
+const itemDetailsSubtitleInput = document.getElementById("item-details-subtitle-input");
 
 const initItemsTable = async () => {
     const filterFixed = {
@@ -20,7 +22,7 @@ const initItemsTable = async () => {
     }
 
     const onRowEdit = (obj, tr) => {
-        gotToItemDetailsSubPage(obj);
+        gotToItemDetailsSubPage(obj.data);
     }
 
     const onRowDelete = async (obj, tr) => {
@@ -44,8 +46,8 @@ const initListeners = () => {
 const initThumbnailPickers = () => {
     imageThumbnail = new buildfire.components.images.thumbnail("#image-thumbnail", {
         imageUrl: '',
-        title: "Icon",
-        dimensionsLabel: "400x400",
+        title: "List Image & Cover image*",
+        dimensionsLabel: "Recommended: 600 x 600px",
         multiSelection: false
     });
 
@@ -58,16 +60,14 @@ const initItemDetailsDescriptionEditor = async () => {
         // IntroductionController.saveIntroduction(introduction);
     }, 500);
 
-    let editor;
-
     await tinymce.init({
         selector: "#item-details-description",
-        setup: (e) => editor = e,
+        setup: (editor) => {
+            itemDetailsDescriptionEditor = editor;
+            itemDetailsDescriptionEditor.on('keyup', onEditorUpdate);
+            itemDetailsDescriptionEditor.on('change', onEditorUpdate);
+        },
     });
-
-    // editor.setContent(introduction.description);
-    editor.on('keyup', onEditorUpdate);
-    editor.on('change', onEditorUpdate);
 }
 
 const onItemsSearch = () => {
@@ -130,6 +130,10 @@ const goToItemsPage = () => {
 
 const gotToItemDetailsSubPage = (item) => {
     selectedItem = item;
+
+    itemDetailsTitleInput.value = item.title || '';
+    itemDetailsSubtitleInput.value = item.subtitle || '';
+    if (itemDetailsDescriptionEditor) itemDetailsDescriptionEditor.setContent(item.description || '');
 
     itemsPage.classList.add("hidden");
     itemDetailsSubPage.classList.remove("hidden");

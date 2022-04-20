@@ -1,7 +1,7 @@
 
 import Item from "../../../widget/common/entities/Item.js";
 import {ShowControler} from "./showControler.js";
-import { contentHandlers } from "./contentHandlers.js";
+import { ContentHandlers } from "./contentHandlers.js";
 
 let itemsPageDiv = document.getElementById("list-Of-Items-From-DataStore");
 let formPage = document.getElementById("formPage");
@@ -64,7 +64,7 @@ export class EventHandlers {
 
     static loadItems = async () => {
         formPage.style.display = "none";
-        let itemsData = await contentHandlers.loadItems(0, 10);
+        let itemsData = await ContentHandlers.loadItems(0, 10);
         ShowControler.mySateArr = itemsData;
     }
 
@@ -100,7 +100,7 @@ export class EventHandlers {
 
     static submitNewItem = async () => {
         if (EventHandlers.newItem.image && EventHandlers.newItem.coverImage) {
-            let addedData = await contentHandlers.addItem(EventHandlers.newItem)
+            let addedData = await ContentHandlers.addItem(EventHandlers.newItem)
             // ShowControler.mySateArr.push(addedData);
             console.log("item from adding process", addedData);
             ShowControler.mySateArr.splice(0, 0, addedData)
@@ -117,7 +117,7 @@ export class EventHandlers {
     static getSearchItems = async () => {
         if (getSearchInput.value.length > 0) {
             ShowControler.loading();
-            let res = await contentHandlers.searchItems(getSearchInput.value);
+            let res = await ContentHandlers.searchItems(getSearchInput.value);
             ShowControler.mySateArr = res;
             iconPlcae.style.display = "none";
             iconPlcaeCancelSearch.style.display = "inline-block";

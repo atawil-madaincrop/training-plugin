@@ -1,5 +1,5 @@
 
-import {contentHandlers} from "./contentHandlers.js";
+import {ContentHandlers} from "./contentHandlers.js";
 let printOutTableContainer = document.getElementById("printOutTable");
 
 
@@ -67,7 +67,7 @@ export class ShowControler {
                 // our Code ==>
                 itemRow.style.display = "none";
                 ShowControler.mySateArr.splice(idx,1);
-                contentHandlers.deactiveItem(item.id, item);
+                ContentHandlers.deactiveItem(item.id, item);
                 if(ShowControler.mySateArr.length ==0){
                     ShowControler.printItems(ShowControler.mySateArr);
                 }

@@ -55,11 +55,33 @@
 
   <div id="item-details-sub-page" class="sub-page slide-in hidden">
     <h1>Item Images</h1>
+    <div class="margin-bottom-twenty image-picker aspect-1-1" id="image-thumbnail"></div>
 
-    <div class="bottom-actions">
-      <button class="btn btn-default" id="item-details-cancel-button">Cancel</button>
-      <button class="btn btn-success">Save</button>
+    <h1>Item Details</h1>
+    <div class="row margin-bottom-fifteen">
+      <div class="col-md-3">
+        <label for="text1">Title <span class="text-danger">*</span> </label>
+      </div>
+      <div class="col-md-9">
+        <input id="text1" type="text" class="form-control">
+      </div>
     </div>
+    <div class="row margin-bottom-fifteen">
+      <div class="col-md-3">
+        <label for="text2">Subtitle</label>
+      </div>
+      <div class="col-md-9">
+        <input id="text2" type="text" class="form-control">
+      </div>
+    </div>
+
+    <div class="margin-bottom-twenty"></div>
+    <div id="item-details-description"></div>
+  </div>
+
+  <div class="bottom-actions hidden" id="item-details-bottom-actions">
+    <button class="btn btn-default" id="item-details-cancel-button">Cancel</button>
+    <button class="btn btn-success">Save</button>
   </div>
 
 </body>

@@ -2,7 +2,7 @@ import Item from "../../widget/common/entities/Item.js";
 import Items from "../../widget/common/repository/Items.js";
 import ContentController from "./content.controller.js";
 
-let searchTableHelper, search, itemsCount, selectedItem;
+let searchTableHelper, search, itemsCount, selectedItem, imageThumbnail, coverImageThumbnail, itemDetailsDescriptionEditor;
 const searchInput = document.getElementById("search");
 const searchButton = document.getElementById("search-button");
 const introductionTabLink = document.getElementById("introduction-tab-link");
@@ -11,6 +11,7 @@ const itemsTable = document.getElementById("items-table");
 const addSampleDataButton = document.getElementById("add-sample-data");
 const itemsPage = document.getElementById("items-page");
 const itemDetailsSubPage = document.getElementById("item-details-sub-page");
+const itemDetailsBottomActions = document.getElementById("item-details-bottom-actions");
 const itemDetailsCancleButton = document.getElementById("item-details-cancel-button");
 
 const initItemsTable = async () => {
@@ -38,6 +39,35 @@ const initListeners = () => {
     addSampleDataButton.onclick = () => addDummyItemsData();
     searchButton.onclick = () => onItemsSearch();
     itemDetailsCancleButton.onclick = () => goToItemsPage();
+}
+
+const initThumbnailPickers = () => {
+    imageThumbnail = new buildfire.components.images.thumbnail("#image-thumbnail", {
+        imageUrl: '',
+        title: "Icon",
+        dimensionsLabel: "400x400",
+        multiSelection: false
+    });
+
+    imageThumbnail.init("#image-thumbnail");
+}
+
+const initItemDetailsDescriptionEditor = async () => {
+    const onEditorUpdate = tinymce.util.Delay.debounce((e) => {
+        // introduction.description = editor.getContent();
+        // IntroductionController.saveIntroduction(introduction);
+    }, 500);
+
+    let editor;
+
+    await tinymce.init({
+        selector: "#item-details-description",
+        setup: (e) => editor = e,
+    });
+
+    // editor.setContent(introduction.description);
+    editor.on('keyup', onEditorUpdate);
+    editor.on('change', onEditorUpdate);
 }
 
 const onItemsSearch = () => {
@@ -95,6 +125,7 @@ const goToItemsPage = () => {
     itemsPage.classList.add("slide-in");
     itemsPage.classList.remove("hidden");
     itemDetailsSubPage.classList.add("hidden");
+    itemDetailsBottomActions.classList.add("hidden");
 }
 
 const gotToItemDetailsSubPage = (item) => {
@@ -102,11 +133,14 @@ const gotToItemDetailsSubPage = (item) => {
 
     itemsPage.classList.add("hidden");
     itemDetailsSubPage.classList.remove("hidden");
+    itemDetailsBottomActions.classList.remove("hidden");
 }
 
 const init = async () => {
     initItemsTable();
+    initThumbnailPickers();
     initListeners();
+    initItemDetailsDescriptionEditor();
 }
 
 init();

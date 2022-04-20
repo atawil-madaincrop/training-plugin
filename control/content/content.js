@@ -44,8 +44,6 @@ const initThumbnailPickers = () => {
         dimensionsLabel: "Recommended: 600 x 600px",
         multiSelection: false
     });
-
-    imageThumbnail.init("#image-thumbnail");
 }
 
 const initListeners = () => {

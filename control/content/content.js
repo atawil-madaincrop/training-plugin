@@ -8,7 +8,6 @@ let addItemContainer = document.getElementById("add-New-Item-To-DataStore");
 let title = document.getElementById("title");
 let subTitle = document.getElementById("subTitle");
 let getSearch = document.getElementById("getSearch");
-let getSearchInput = document.getElementById("getSearchInput");
 let iconPlcaeCancelSearch = document.getElementById("iconPlcaeCancelSearch");
 iconPlcaeCancelSearch.style.display = "none";
 
@@ -19,7 +18,6 @@ addItemContainer.addEventListener('click', EventHandlers.submitNewItem);
 title.addEventListener('input', EventHandlers.handelTitle);
 subTitle.addEventListener('input', EventHandlers.handelSubTitle);
 getSearch.addEventListener('click', EventHandlers.getSearchItems)
-getSearchInput.addEventListener('input', EventHandlers.changeIcon)
 iconPlcaeCancelSearch.addEventListener('click', EventHandlers.resetSearch)
 
 // Init WYSIWYG

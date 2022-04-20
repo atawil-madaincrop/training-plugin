@@ -28,6 +28,9 @@ h4::before{
     border: 1px solid var(--c-gray3);
     margin-top: 0.4rem;
 }
+.inputItemTitle-RowContainer{
+    padding-right: 0rem !important;
+}
 
 .images_in_List{
     width: 100%;
@@ -55,4 +58,23 @@ td{
 
 #sortSpan{
     transition:0.2s;
+}
+
+.redStar{
+    color:red;
+}
+.labels{
+    display:none;
+}
+.screen{
+    width:100% !important;
+}
+#image .item .main .screens .screen, #image .item .main .screens .screen .change-background{
+    max-width:10rem !important;
+}
+#imageCover .item .main .screens .screen, #imageCover .item .main .screens .screen .change-background{
+    max-width:14rem !important;
+}
+.p-Label{
+    font-size:1.3rem;
 }

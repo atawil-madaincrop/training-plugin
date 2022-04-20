@@ -1,10 +1,28 @@
+import { ContentHandlers } from "./contentHandlers.js";
+import Item from "../../../widget/common/entities/Item.js";
 
-import {ContentHandlers} from "./contentHandlers.js";
 let printOutTableContainer = document.getElementById("printOutTable");
-
+let itemsPageDiv = document.getElementById("list-Of-Items-From-DataStore");
+let formPage = document.getElementById("formPage");
 
 export class ShowControler {
+
+    static newItem;
+    static image;
+    static coverImage;
     static mySateArr = [];
+
+    static showAddModal(type) {
+        if (type) {
+            ShowControler.newItem = new Item();
+            itemsPageDiv.style.display = "none";
+            formPage.style.display = "block";
+        } else {
+            ShowControler.newItem = null;
+            itemsPageDiv.style.display = "block";
+            formPage.style.display = "none";
+        }
+    }
     static loading() {
         printOutTableContainer.innerHTML = `
         <div class="well empty-state-lg">
@@ -45,16 +63,16 @@ export class ShowControler {
         let deleteBtn = document.getElementById(`deleteItemBtn-${index}`);
         deleteBtn.addEventListener("click", () => ShowControler.deleteRow(index, itemRow, itemElement))
     }
-    static deleteRow(idx, itemRow, item){
+    static deleteRow(idx, itemRow, item) {
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
-              confirmButton: 'btn btn-success',
-              cancelButton: 'btn btn-danger'
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
             },
             buttonsStyling: false
-          })
-          
-          swalWithBootstrapButtons.fire({
+        })
+
+        swalWithBootstrapButtons.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
             icon: 'warning',
@@ -62,31 +80,31 @@ export class ShowControler {
             confirmButtonText: 'Yes, delete it!',
             cancelButtonText: 'No, cancel!',
             reverseButtons: true
-          }).then((result) => {
+        }).then((result) => {
             if (result.isConfirmed) {
                 // our Code ==>
                 itemRow.style.display = "none";
-                ShowControler.mySateArr.splice(idx,1);
+                ShowControler.mySateArr.splice(idx, 1);
                 ContentHandlers.deactiveItem(item.id, item);
-                if(ShowControler.mySateArr.length ==0){
+                if (ShowControler.mySateArr.length == 0) {
                     ShowControler.printItems(ShowControler.mySateArr);
                 }
-              swalWithBootstrapButtons.fire(
-                'Deleted!',
-                'Your file has been deleted.',
-                'success'
-              )
+                swalWithBootstrapButtons.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                )
             } else if (
-              /* Read more about handling dismissals below */
-              result.dismiss === Swal.DismissReason.cancel
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
             ) {
-              swalWithBootstrapButtons.fire(
-                'Cancelled',
-                'Your imaginary file is safe :)',
-                'error'
-              )
+                swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'Your imaginary file is safe :)',
+                    'error'
+                )
             }
-          })
+        })
     }
     static printItems() {
         if (ShowControler.mySateArr.length > 0) {
@@ -124,7 +142,10 @@ export class ShowControler {
         </div>
       </div>
         `
-            
+            let newAdd = document.getElementById("add-New-Item_btn2");
+            if (newAdd) {
+                newAdd.addEventListener("click", () => ShowControler.showAddModal(true))
+            }
         }
     }
 }

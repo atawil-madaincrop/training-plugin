@@ -1,9 +1,6 @@
-
-import Item from "../../../widget/common/entities/Item.js";
 import {ShowControler} from "./showControler.js";
 import { ContentHandlers } from "./contentHandlers.js";
 
-let itemsPageDiv = document.getElementById("list-Of-Items-From-DataStore");
 let formPage = document.getElementById("formPage");
 let title = document.getElementById("title");
 let subTitle = document.getElementById("subTitle");
@@ -16,63 +13,40 @@ iconPlcaeCancelSearch.style.display = "none";
 
 export class EventHandlers {
 
-    static newItem;
-    static image;
-    static coverImage;
-
     static changeIcon(e) {
         iconPlcae.className = "icon icon-magnifier";
         getSearch.addEventListener('click', EventHandlers.getSearchItems)
     }
-
-    static showAddModal(type) {
-        if (type) {
-            EventHandlers.newItem = new Item();
-            itemsPageDiv.style.display = "none";
-            formPage.style.display = "block";
-        } else {
-            EventHandlers.newItem = null;
-            itemsPageDiv.style.display = "block";
-            formPage.style.display = "none";
-        }
-    }
-
     static setAddBtn() {
         let newAdd = document.getElementById("add-New-Item_btn2");
         if (newAdd) {
-            newAdd.addEventListener("click", () => EventHandlers.showAddModal(true))
+            newAdd.addEventListener("click", () => ShowControler.showAddModal(true))
         }
     }
-
     static emptyData() {
         title.value = null;
         subTitle.value = null;
-        EventHandlers.image.clear();
-        EventHandlers.coverImage.clear();
+        ShowControler.image.clear();
+        ShowControler.coverImage.clear();
     }
-
     static handelTitle(e) {
-        EventHandlers.newItem.title = e.target.value;
+        ShowControler.newItem.title = e.target.value;
     }
     static handelSubTitle(e) {
-        EventHandlers.newItem.subtitle = e.target.value;
+        ShowControler.newItem.subtitle = e.target.value;
     }
     static handelTiny() {
-        EventHandlers.newItem.description = tinymce.activeEditor.getContent();
+        ShowControler.newItem.description = tinymce.activeEditor.getContent();
     }
-
-
     static loadItems = async () => {
         formPage.style.display = "none";
         let itemsData = await ContentHandlers.loadItems(0, 10);
         ShowControler.mySateArr = itemsData;
     }
-
     static pushNewRow(item) {
         if (ShowControler.mySateArr.length == 1) {
             ShowControler.printItems();
         } else {
-            console.log(">>>>>>>>>>>>>>>", item);
             let myDate = new Date(item.data.createdOn).toDateString().split(" ");
             let myDateToPrint = `${myDate[1]} ${myDate[2]}, ${myDate[3]}`
             let itemsListTable = document.getElementById("itemsListTable");
@@ -97,23 +71,19 @@ export class EventHandlers {
             deleteBtn.addEventListener("click", () => deleteRow(newRow, item))
         }
     }
-
     static submitNewItem = async () => {
-        if (EventHandlers.newItem.image && EventHandlers.newItem.coverImage) {
-            let addedData = await ContentHandlers.addItem(EventHandlers.newItem)
+        if (ShowControler.newItem.image && ShowControler.newItem.coverImage) {
+            let addedData = await ContentHandlers.addItem(ShowControler.newItem)
             // ShowControler.mySateArr.push(addedData);
-            console.log("item from adding process", addedData);
             ShowControler.mySateArr.splice(0, 0, addedData)
             EventHandlers.emptyData();
-            EventHandlers.showAddModal(false);
+            ShowControler.showAddModal(false);
             ShowControler.printItems(ShowControler.mySateArr);
             // pushNewRow(addedData);
-            console.log("my state", ShowControler.mySateArr);
         } else {
             console.log("----- Required Data missing -----");
         }
     }
-
     static getSearchItems = async () => {
         if (getSearchInput.value.length > 0) {
             ShowControler.loading();
@@ -127,7 +97,6 @@ export class EventHandlers {
         }
         ShowControler.printItems(ShowControler.mySateArr);
     }
-
     static resetSearch() {
         ShowControler.loading();
         getSearchInput.value = "";
@@ -137,6 +106,4 @@ export class EventHandlers {
         ShowControler.printItems(ShowControler.mySateArr);
         EventHandlers.setAddBtn();
     }
-
-
 }

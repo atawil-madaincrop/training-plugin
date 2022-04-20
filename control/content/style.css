@@ -12,6 +12,58 @@
     align-items: center;
     text-align: center;
 
-    color: #808080;
+    color: var(--c-gray5);
+}
 
+.image-picker .labels {
+    display: none;
+}
+
+.image-picker .col-md-9 {
+    width: 100% !important;
+}
+
+.image-picker.aspect-1-1 .screens .screen {
+    width: 96px;
+    max-width: 96px;
+    height: 96px;
+}
+
+.image-picker.aspect-16-9 .screens .screen {
+    width: 171px;
+    max-width: 171px;
+    height: 96px;
+}
+
+.image-picker.aspect-16-9 .screens .screen a span.add-icon {
+    top: -10px;
+}
+
+.image-picker.aspect-16-9 .screens .screen label.secondary {
+    line-height: 22px;
+}
+
+.image-picker.aspect-1-1 .screens .screen a,
+.image-picker.aspect-16-9 .screens .screen a {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+}
+
+.image-picker.aspect-1-1 .screens .screen a img,
+.image-picker.aspect-16-9 .screens .screen a img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    vertical-align: baseline;
+}
+
+.image-picker.aspect-1-1 .screens .screen a {
+    width: 96px;
+    max-width: 96px;
+    height: 96px;
+    object-fit: cover;
+    object-position: center;
+    vertical-align: baseline;
 }

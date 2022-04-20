@@ -2,7 +2,6 @@ import {ShowControler} from "./showControler.js";
 import { ContentHandlers } from "./contentHandlers.js";
 
 let formPage = document.getElementById("formPage");
-let getSearch = document.getElementById("getSearch");
 let getSearchInput = document.getElementById("getSearchInput");
 let iconPlcae = document.getElementById("iconPlcaeSearch");
 let iconPlcaeCancelSearch = document.getElementById("iconPlcaeCancelSearch");
@@ -30,20 +29,16 @@ export class EventHandlers {
         }
         ShowControler.printItems(ShowControler.mySateArr);
     }
-    static resetSearch() {
-        ShowControler.loading();
+    static resetSearch = async() => {
         getSearchInput.value = "";
+        ShowControler.loading();
         iconPlcaeCancelSearch.style.display = "none";
         iconPlcae.style.display = "inline-block";
-        EventHandlers.loadItems();
-        ShowControler.printItems(ShowControler.mySateArr);
+        await EventHandlers.loadItems();
+        ShowControler.printItems();
         EventHandlers.setAddBtn();
     }
     // handel input data
-    static changeIcon(e) {
-        iconPlcae.className = "icon icon-magnifier";
-        getSearch.addEventListener('click', EventHandlers.getSearchItems)
-    }
     static handelTitle(e) {
         ShowControler.newItem.title = e.target.value;
     }

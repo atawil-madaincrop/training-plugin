@@ -3,7 +3,7 @@ import IntroductionController from '../introduction/introduction.controller.js';
 
 var introduction = new Introduction();
 
-const initTiny = async (selector) => {
+const initDescriptionEditor = async () => {
     const onEditorUpdate = tinymce.util.Delay.debounce((e) => {
         introduction.description = editor.getContent();
         IntroductionController.saveIntroduction(introduction);
@@ -12,7 +12,7 @@ const initTiny = async (selector) => {
     let editor;
 
     await tinymce.init({
-        selector: selector,
+        selector: "#description",
         setup: (e) => editor = e,
     });
 
@@ -21,8 +21,8 @@ const initTiny = async (selector) => {
     editor.on('change', onEditorUpdate);
 }
 
-const initCarousel = (selector) => {
-    let editor = new buildfire.components.carousel.editor(selector, introduction.imageCarousel);
+const initCarousel = () => {
+    let editor = new buildfire.components.carousel.editor("#carousel", introduction.imageCarousel);
 
     editor.onItemChange = (item, index) => {
         introduction.imageCarousel[index] = item;
@@ -59,8 +59,8 @@ const load = async () => {
 const init = async () => {
     await load();
 
-    initTiny("#description");
-    initCarousel("#carousel");
+    initDescriptionEditor();
+    initCarousel();
 }
 
 init();

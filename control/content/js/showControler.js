@@ -1,11 +1,7 @@
 import { ContentHandlers } from "./contentHandlers.js";
 import Item from "../../../widget/common/entities/Item.js";
+import { pointers } from "./pointers.js"
 
-let printOutTableContainer = document.getElementById("printOutTable");
-let itemsPageDiv = document.getElementById("list-Of-Items-From-DataStore");
-let formPage = document.getElementById("formPage");
-let title = document.getElementById("title");
-let subTitle = document.getElementById("subTitle");
 
 
 export class ShowControler {
@@ -16,25 +12,29 @@ export class ShowControler {
     static coverImage;
     static mySateArr = [];
     static typeOfHandelForm = "add";
+    static sortType = "icon-chevron-down";
 
     // manage data to be shown in the CP-Page
     static printItems() {
         if (ShowControler.mySateArr.length > 0) {
-            printOutTableContainer.innerHTML = `
+            pointers.printOutTableContainer.innerHTML = `
         <table class="table table-bf">
             <thead>
                 <td></td>
-                <th><h5>Title <span class="icon icon-chevron-down"></span></h5></th>
-                <th><h5>Subtitle</h5></th>
+                <th><h5>Title <span id="sortSpan" class="icon ${ShowControler.sortType}"></span></h5></th>
+                <th><h5>subTitle</h5></th>
                 <th><h5 class="text-center">Date of Creation</h5></th>
             </thead>
             <tbody id="itemsListTable">
             </tbody>
         </table>
         `;
-            ShowControler.mySateArr.forEach(ShowControler.printAllItemsInTable)
+            ShowControler.mySateArr.forEach(ShowControler.printAllItemsInTable);
+            let sortSpan = document.getElementById("sortSpan")
+            sortSpan.addEventListener('click', () => ShowControler.sortData());
+
         } else {
-            printOutTableContainer.innerHTML = `
+            pointers.printOutTableContainer.innerHTML = `
         <div class="well empty-state-lg">
         <div class="container">
           <div class="row">
@@ -67,18 +67,18 @@ export class ShowControler {
         let itemRow = document.createElement('tr');
         itemRow.innerHTML = `
             <td>
-                <div class="img-holder aspect-1-1"><img src=${itemElement.data.image} alt=""></div>
+                <div class="img-holder aspect-1-1"><img class="images_in_List" src=${itemElement.data.image} alt=""></div>
             </td>
             <td class="text-primary"><a class="link">${itemElement.data.title}</a></td>
             <td>${itemElement.data.subtitle}</td>
             <td class="text-center">${myDateToPrint}<td>
             <td>
                 <span class="input-group-btn col-md-12">
-                    <button id="editItemBtn-${index}" class="btn btn-info stretch margin-left-zero">
-                        <span class="cardBtnSpan icon icon-pencil3 link" ></span>
+                    <button id="editItemBtn-${index}" class="btn stretch margin-left-zero btn_in_list">
+                        <span class="cardBtnSpan icon icon-pencil3" ></span>
                     </button>
-                    <button id="deleteItemBtn-${index}"  class="btn btn-info stretch margin-left-zero">
-                        <span class="cardBtnSpan icon icon-cross2 link" ></span>
+                    <button id="deleteItemBtn-${index}" class="btn stretch margin-left-zero btn_in_list">
+                        <span class="cardBtnSpan icon icon-cross2" ></span>
                     </button>
                 </span>
             </td>
@@ -93,7 +93,7 @@ export class ShowControler {
         editBtn.addEventListener("click", () => ShowControler.editRow(itemElement, index))
     }
     static loading() {
-        printOutTableContainer.innerHTML = `
+        pointers.printOutTableContainer.innerHTML = `
         <div class="well empty-state-lg">
         <div class="container">
           <div class="row">
@@ -103,17 +103,42 @@ export class ShowControler {
       </div>
         `
     }
+    static sortData() {
+        let sortSpan = document.getElementById("sortSpan");
+        if (ShowControler.sortType == "icon-chevron-down") {
+            ShowControler.sortType = "icon-chevron-up";
+            ShowControler.mySateArr.sort(function (a, b) {
+                if (a.data.title.toLowerCase() < b.data.title.toLowerCase()) {
+                    return 1;
+                }
+                if (a.data.title.toLowerCase() > b.data.title.toLowerCase()) {
+                    return -1;
+                }
+            });
+        } else if (ShowControler.sortType == "icon-chevron-up") {
+            ShowControler.sortType = "icon-chevron-down";
+            ShowControler.mySateArr.sort(function (a, b) {
+                if (a.data.title.toLowerCase() < b.data.title.toLowerCase()) {
+                    return -1;
+                }
+                if (a.data.title.toLowerCase() > b.data.title.toLowerCase()) {
+                    return 1;
+                }
+            });
+        }
+        ShowControler.printItems();
+    }
     // Modal to add and edit data
     static showAddModal(type) {
         if (type) {
             ShowControler.newItem = new Item();
-            itemsPageDiv.style.display = "none";
+            pointers.itemsPageDiv.style.display = "none";
             formPage.style.display = "block";
         } else {
             ShowControler.emptyData();
 
             ShowControler.newItem = null;
-            itemsPageDiv.style.display = "block";
+            pointers.itemsPageDiv.style.display = "block";
             formPage.style.display = "none";
             ShowControler.typeOfHandelForm = "add";
             ShowControler.itemForEdit = {};
@@ -162,22 +187,22 @@ export class ShowControler {
             }
         })
     }
-    static editRow(itemElement, index){
+    static editRow(itemElement, index) {
         ShowControler.typeOfHandelForm = "edit";
-        ShowControler.itemForEdit = {itemElement, index};
+        ShowControler.itemForEdit = { itemElement, index };
         ShowControler.showAddModal(true);
         ShowControler.addDataToEdit();
     }
     static emptyData() {
-        title.value = null;
-        subTitle.value = null;
+        pointers.title.value = null;
+        pointers.subTitle.value = null;
         ShowControler.image.clear();
         ShowControler.coverImage.clear();
         tinymce.activeEditor.setContent('');
     }
-    static addDataToEdit(){
-        title.value = ShowControler.itemForEdit.itemElement.data.title;
-        subTitle.value = ShowControler.itemForEdit.itemElement.data.subtitle;
+    static addDataToEdit() {
+        pointers.title.value = ShowControler.itemForEdit.itemElement.data.title;
+        pointers.subTitle.value = ShowControler.itemForEdit.itemElement.data.subtitle;
         ShowControler.image.loadbackground(ShowControler.itemForEdit.itemElement.data.image);
         ShowControler.coverImage.loadbackground(ShowControler.itemForEdit.itemElement.data.coverImage);
         ShowControler.newItem = ShowControler.itemForEdit.itemElement.data;

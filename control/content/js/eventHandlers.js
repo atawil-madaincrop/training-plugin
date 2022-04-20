@@ -1,28 +1,23 @@
 import {ShowControler} from "./showControler.js";
 import { ContentHandlers } from "./contentHandlers.js";
-
-let formPage = document.getElementById("formPage");
-let getSearchInput = document.getElementById("getSearchInput");
-let iconPlcae = document.getElementById("iconPlcaeSearch");
-let iconPlcaeCancelSearch = document.getElementById("iconPlcaeCancelSearch");
-iconPlcaeCancelSearch.style.display = "none";
+import {pointers} from "./pointers.js";
 
 
 export class EventHandlers {
 
     // get and print Items in the list
     static loadItems = async () => {
-        formPage.style.display = "none";
+        pointers.formPage.style.display = "none";
         let itemsData = await ContentHandlers.loadItems(0, 10);
         ShowControler.mySateArr = itemsData;
     }
     static getSearchItems = async () => {
-        if (getSearchInput.value.length > 0) {
+        if (pointers.getSearchInput.value.length > 0) {
             ShowControler.loading();
-            let res = await ContentHandlers.searchItems(getSearchInput.value);
+            let res = await ContentHandlers.searchItems(pointers.getSearchInput.value);
             ShowControler.mySateArr = res;
-            iconPlcae.style.display = "none";
-            iconPlcaeCancelSearch.style.display = "inline-block";
+            pointers.iconPlcae.style.display = "none";
+            pointers.iconPlcaeCancelSearch.style.display = "inline-block";
         } else {
             EventHandlers.loadItems();
             EventHandlers.setAddBtn()
@@ -30,10 +25,10 @@ export class EventHandlers {
         ShowControler.printItems(ShowControler.mySateArr);
     }
     static resetSearch = async() => {
-        getSearchInput.value = "";
+        pointers.getSearchInput.value = "";
         ShowControler.loading();
-        iconPlcaeCancelSearch.style.display = "none";
-        iconPlcae.style.display = "inline-block";
+        pointers.iconPlcaeCancelSearch.style.display = "none";
+        pointers.iconPlcae.style.display = "inline-block";
         await EventHandlers.loadItems();
         ShowControler.printItems();
         EventHandlers.setAddBtn();

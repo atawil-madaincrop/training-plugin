@@ -64,7 +64,7 @@ const initThumbnail = () => {
 // Init all functionality ...
 const init = async () => {
     await EventHandlers.loadItems();
-    ShowControler.printItems(ShowControler.mySateArr);
+    ShowControler.printItems();
     EventHandlers.setAddBtn();
 
     initTiny("#wysiwygContent");

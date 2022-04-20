@@ -71,11 +71,11 @@ class SearchTableHelper {
 		};
 	}
 
-	search(filter) {
+	search(filter, callback) {
 		this.tbody.innerHTML = '';
 		this._create('tr', this.tbody, '<td colspan="99"> searching...</td>', ["loadingRow"]);
 		this.filter = filter;
-		this._fetchPageOfData(this.filter, 0);
+		this._fetchPageOfData(this.filter, 0, callback);
 	}
 
 	_fetchNextPage() {
@@ -104,7 +104,7 @@ class SearchTableHelper {
 			this.tbody.innerHTML = '';
 			results.forEach(r => this.renderRow(r));
 			this.endReached = results.length < pageSize;
-			if (callback) callback();
+			if (callback) callback(results);
 		});
 	}
 

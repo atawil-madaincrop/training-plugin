@@ -28,3 +28,31 @@ h4::before{
     border: 1px solid var(--c-gray3);
     margin-top: 0.4rem;
 }
+
+.images_in_List{
+    width: 100%;
+    height: 100%;
+    border-radius:0.25rem;
+}
+
+.btn_in_list{
+    background-color:white;
+}
+.btn_in_list:hover{
+    background-color:rgb(227, 227, 227);
+}
+
+.btn_in_list:hover .icon-cross2{
+    color:red;
+}
+.btn_in_list:hover .icon-pencil3{
+    color:blue;
+}
+
+td{
+    max-width:204px;
+}
+
+#sortSpan{
+    transition:0.2s;
+}

@@ -38,12 +38,35 @@ const initItemsTable = async () => {
 }
 
 const initThumbnailPickers = () => {
+    const onChangeImage = (key, imageUrl) => {
+        if (!selectedItem) return;
+        selectedItem[key] = imageUrl;
+    }
+
+    const onDeleteImage = (key, imageUrl) => {
+        if (!selectedItem) return;
+        selectedItem[key] = null;
+    }
+
     imageThumbnail = new buildfire.components.images.thumbnail("#image-thumbnail", {
         imageUrl: '',
-        title: "List Image & Cover image*",
+        title: "List Image *",
         dimensionsLabel: "Recommended: 600 x 600px",
         multiSelection: false
     });
+
+    coverImageThumbnail = new buildfire.components.images.thumbnail("#cover-image-thumbnail", {
+        imageUrl: '',
+        title: "Cover image *",
+        dimensionsLabel: "Recommended: 1200x675px",
+        multiSelection: false
+    });
+
+    imageThumbnail.onChange = (imageUrl) => onChangeImage('image', imageUrl);
+    imageThumbnail.onDelete = (imageUrl) => onDeleteImage('image', imageUrl);
+
+    coverImageThumbnail.onChange = (imageUrl) => onChangeImage('coverImage', imageUrl);
+    coverImageThumbnail.onDelete = (imageUrl) => onDeleteImage('coverImage', imageUrl);
 }
 
 const initListeners = () => {
@@ -135,6 +158,9 @@ const goToItemsPage = () => {
         searchTableHelper.search(null, (res) => {
             checkItemsEmptyState(res && res.length);
         });
+
+    if (imageThumbnail) imageThumbnail.clear();
+    if (coverImageThumbnail) coverImageThumbnail.clear();
 }
 
 const gotToItemDetailsSubPage = (id, item) => {
@@ -144,6 +170,8 @@ const gotToItemDetailsSubPage = (id, item) => {
     itemDetailsTitleInput.value = item.title || '';
     itemDetailsSubtitleInput.value = item.subtitle || '';
     if (itemDetailsDescriptionEditor) itemDetailsDescriptionEditor.setContent(item.description || '');
+    if (imageThumbnail) imageThumbnail.loadbackground(selectedItem.image || '');
+    if (coverImageThumbnail) coverImageThumbnail.loadbackground(selectedItem.coverImage || '');
 
     itemsPage.classList.add("hidden");
     itemDetailsSubPage.classList.remove("hidden");

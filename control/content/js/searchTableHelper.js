@@ -58,11 +58,8 @@ class SearchTableHelper {
 				th.style.width = colConfig.width;
 		});
 
-		if (this.config.options.showEditButton)
-			this._create('th', this.thead, "", ["editColumn"]);
-
-		if (this.config.options.showDeleteButton)
-			this._create('th', this.thead, "", ["deleteColumn"]);
+		if (this.config.options.showEditButton || this.config.options.showDeleteButton)
+			this._create('th', this.thead, "", ["action-column"]);
 	}
 
 	renderBody() {
@@ -134,7 +131,7 @@ class SearchTableHelper {
 			else classes = [...classes, "text-left"];
 			var td;
 			if (colConfig.type == "command") {
-				td = this._create('td', tr, '<button class="btn btn-link">' + colConfig.text + '</button>', ["editColumn"]);
+				td = this._create('td', tr, '<button class="btn btn-link">' + colConfig.text + '</button>', ["action-column"]);
 				td.onclick = (event) => {
 					event.preventDefault();
 					this._onCommand(obj, tr, colConfig.command);
@@ -167,41 +164,46 @@ class SearchTableHelper {
 		});
 
 		let t = this;
-		if (this.config.options.showEditButton) {
-			let td = this._create('td', tr, '<button class="btn btn--icon btn-hover-primary"><span class="icon icon-pencil"></span></button>', ["editColumn"]);
-			td.onclick = () => {
-				t.onEditRow(obj, tr);
-			};
-		}
+		if (this.config.options.showEditButton || this.config.options.showDeleteButton) {
+			let td = this._create('td', tr, null, ["action-column"]);
 
-		if (this.config.options.showDeleteButton) {
-			let td = this._create('td', tr, '<button class="btn btn--icon btn-hover-danger"><span class="icon icon-cross2"></span></button>', ["deleteColumn"]);
-			td.onclick = () => {
-				buildfire.dialog.confirm(
-					{
-						message: "Are you sure you want to delete this item.",
-						confirmButton: {
-							text: "Yes",
-							type: "danger",
+			if (this.config.options.showEditButton) {
+				let editButton = this._create('button', td, '<span class="icon icon-pencil"></span>', ["btn", "btn--icon", "btn-hover-primary"]);
+				editButton.onclick = () => {
+					t.onEditRow(obj, tr);
+				};
+			}
+
+			if (this.config.options.showDeleteButton) {
+				let deleteButton = this._create('button', td, '<span class="icon icon-cross2"></span>', ["btn", "btn--icon", "btn-hover-danger"]);
+				deleteButton.onclick = () => {
+					buildfire.dialog.confirm(
+						{
+							message: "Are you sure you want to delete this item.",
+							confirmButton: {
+								text: "Yes",
+								type: "danger",
+							},
 						},
-					},
-					(err, isConfirmed) => {
-						if (err) console.error(err);
+						(err, isConfirmed) => {
+							if (err) console.error(err);
 
-						if (isConfirmed) {
-							tr.classList.add("hidden");
-							try {
-								t.onRowDeleted(obj, tr);
-							} catch (e) {
-								tr.classList.remove("hidden");
+							if (isConfirmed) {
+								tr.classList.add("hidden");
+								try {
+									t.onRowDeleted(obj, tr);
+								} catch (e) {
+									tr.classList.remove("hidden");
+								}
+							} else {
+								//Prevent action
 							}
-						} else {
-							//Prevent action
-						}
-					},
-				);
-			};
+						},
+					);
+				};
+			}
 		}
+
 		this.onRowAdded(obj, tr);
 	}
 

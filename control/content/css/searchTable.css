@@ -46,9 +46,8 @@ table tbody tr td {
     border-bottom: 1px solid #d8d8d8;
 }
 
-.editColumn,
-.deleteColumn {
-    width: 35px;
+.action-column {
+    width: 65px;
     text-align: center;
     padding-right: 0 !important;
     padding-left: 0 !important;
@@ -59,7 +58,7 @@ table tbody tr td {
 }
 
 .btn--icon {
-    font-size: 24px;
+    font-size: 1.25rem;
     background: transparent !important;
 }
 

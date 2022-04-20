@@ -1,24 +1,19 @@
 import { ShowControler } from "./js/showControler.js";
 import { EventHandlers } from "./js/eventHandlers.js";
 
+
 // Get elements from HTML
-let addItemBtn = document.getElementById("add-New-Item_btn");
-let cancelAdding = document.getElementById("cancel-Adding-Process");
-let addItemContainer = document.getElementById("add-New-Item-To-DataStore");
-let title = document.getElementById("title");
-let subTitle = document.getElementById("subTitle");
-let getSearch = document.getElementById("getSearch");
-let iconPlcaeCancelSearch = document.getElementById("iconPlcaeCancelSearch");
-iconPlcaeCancelSearch.style.display = "none";
+import { pointers } from "./js/pointers.js";
+pointers.iconPlcaeCancelSearch.style.display = "none";
 
 // Add Events Listener to manage data
-addItemBtn.addEventListener('click', () => ShowControler.showAddModal(true));
-cancelAdding.addEventListener('click', () => ShowControler.showAddModal(false));
-addItemContainer.addEventListener('click', EventHandlers.submitNewItem);
-title.addEventListener('input', EventHandlers.handelTitle);
-subTitle.addEventListener('input', EventHandlers.handelSubTitle);
-getSearch.addEventListener('click', EventHandlers.getSearchItems)
-iconPlcaeCancelSearch.addEventListener('click', EventHandlers.resetSearch)
+pointers.addItemBtn.addEventListener('click', () => ShowControler.showAddModal(true));
+pointers.cancelAdding.addEventListener('click', () => ShowControler.showAddModal(false));
+pointers.addItemContainer.addEventListener('click', EventHandlers.submitNewItem);
+pointers.title.addEventListener('input', EventHandlers.handelTitle);
+pointers.subTitle.addEventListener('input', EventHandlers.handelSubTitle);
+pointers.getSearch.addEventListener('click', EventHandlers.getSearchItems);
+pointers.iconPlcaeCancelSearch.addEventListener('click', EventHandlers.resetSearch);
 
 // Init WYSIWYG
 const initTiny = (selector) => {

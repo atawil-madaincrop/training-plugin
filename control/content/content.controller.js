@@ -4,6 +4,9 @@ export default {
     addItem: async (item) => {
         return await Items.insert(item);
     },
+    updateItem: async (id, item) => {
+        return await Items.update(id, item);
+    },
     deleteItem: async (id, item) => {
         return await Items.delete(id, item);
     },

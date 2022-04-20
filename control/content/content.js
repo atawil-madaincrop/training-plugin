@@ -2,7 +2,7 @@ import Item from "../../widget/common/entities/Item.js";
 import Items from "../../widget/common/repository/Items.js";
 import ContentController from "./content.controller.js";
 
-let searchTableHelper, search, itemsCount, selectedItem, imageThumbnail, coverImageThumbnail, itemDetailsDescriptionEditor;
+let searchTableHelper, search, itemsCount, selectedItemId, selectedItem, imageThumbnail, coverImageThumbnail, itemDetailsDescriptionEditor;
 const searchInput = document.getElementById("search");
 const searchButton = document.getElementById("search-button");
 const introductionTabLink = document.getElementById("introduction-tab-link");
@@ -13,6 +13,7 @@ const itemsPage = document.getElementById("items-page");
 const itemDetailsSubPage = document.getElementById("item-details-sub-page");
 const itemDetailsBottomActions = document.getElementById("item-details-bottom-actions");
 const itemDetailsCancleButton = document.getElementById("item-details-cancel-button");
+const itemDetailsSaveButton = document.getElementById("item-details-save-button");
 const itemDetailsTitleInput = document.getElementById("item-details-title-input");
 const itemDetailsSubtitleInput = document.getElementById("item-details-subtitle-input");
 
@@ -22,7 +23,7 @@ const initItemsTable = async () => {
     }
 
     const onRowEdit = (obj, tr) => {
-        gotToItemDetailsSubPage(obj.data);
+        gotToItemDetailsSubPage(obj.id, obj.data);
     }
 
     const onRowDelete = async (obj, tr) => {
@@ -36,13 +37,6 @@ const initItemsTable = async () => {
     });
 }
 
-const initListeners = () => {
-    introductionTabLink.onclick = () => navigateToTab("Introduction");
-    addSampleDataButton.onclick = () => addDummyItemsData();
-    searchButton.onclick = () => onItemsSearch();
-    itemDetailsCancleButton.onclick = () => goToItemsPage();
-}
-
 const initThumbnailPickers = () => {
     imageThumbnail = new buildfire.components.images.thumbnail("#image-thumbnail", {
         imageUrl: '',
@@ -54,18 +48,29 @@ const initThumbnailPickers = () => {
     imageThumbnail.init("#image-thumbnail");
 }
 
-const initItemDetailsDescriptionEditor = async () => {
-    const onEditorUpdate = tinymce.util.Delay.debounce((e) => {
-        // introduction.description = editor.getContent();
-        // IntroductionController.saveIntroduction(introduction);
-    }, 500);
+const initListeners = () => {
+    introductionTabLink.onclick = () => navigateToTab("Introduction");
+    addSampleDataButton.onclick = () => addDummyItemsData();
+    searchButton.onclick = () => onItemsSearch();
+    itemDetailsSaveButton.onclick = () => onItemDetailsSave();
+    itemDetailsCancleButton.onclick = () => goToItemsPage();
+}
 
+const onItemDetailsSave = async () => {
+    selectedItem.title = itemDetailsTitleInput.value;
+    selectedItem.subtitle = itemDetailsSubtitleInput.value;
+    if (itemDetailsDescriptionEditor) selectedItem.description = itemDetailsDescriptionEditor.getContent();
+
+    await ContentController.updateItem(selectedItemId, selectedItem);
+
+    goToItemsPage();
+}
+
+const initItemDetailsDescriptionEditor = async () => {
     await tinymce.init({
         selector: "#item-details-description",
         setup: (editor) => {
             itemDetailsDescriptionEditor = editor;
-            itemDetailsDescriptionEditor.on('keyup', onEditorUpdate);
-            itemDetailsDescriptionEditor.on('change', onEditorUpdate);
         },
     });
 }
@@ -120,15 +125,22 @@ const navigateToTab = (tab) => {
 }
 
 const goToItemsPage = () => {
+    selectedItemId = null;
     selectedItem = null;
 
     itemsPage.classList.add("slide-in");
     itemsPage.classList.remove("hidden");
     itemDetailsSubPage.classList.add("hidden");
     itemDetailsBottomActions.classList.add("hidden");
+
+    if (searchTableHelper)
+        searchTableHelper.search(null, (res) => {
+            checkItemsEmptyState(res && res.length);
+        });
 }
 
-const gotToItemDetailsSubPage = (item) => {
+const gotToItemDetailsSubPage = (id, item) => {
+    selectedItemId = id;
     selectedItem = item;
 
     itemDetailsTitleInput.value = item.title || '';

@@ -173,6 +173,7 @@ export class ShowControler {
         subTitle.value = null;
         ShowControler.image.clear();
         ShowControler.coverImage.clear();
+        tinymce.activeEditor.setContent('');
     }
     static addDataToEdit(){
         title.value = ShowControler.itemForEdit.itemElement.data.title;
@@ -180,5 +181,6 @@ export class ShowControler {
         ShowControler.image.loadbackground(ShowControler.itemForEdit.itemElement.data.image);
         ShowControler.coverImage.loadbackground(ShowControler.itemForEdit.itemElement.data.coverImage);
         ShowControler.newItem = ShowControler.itemForEdit.itemElement.data;
+        tinymce.activeEditor.setContent(ShowControler.itemForEdit.itemElement.data.description || '');
     }
 }

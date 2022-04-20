@@ -1,8 +1,8 @@
 
-import {ShowControler} from "./js/showControler.js";
+import { ShowControler } from "./js/showControler.js";
 import { EventHandlers } from "./js/eventHandlers.js";
 
-
+// Get elements from HTML
 let addItemBtn = document.getElementById("add-New-Item_btn");
 let cancelAdding = document.getElementById("cancel-Adding-Process");
 let addItemContainer = document.getElementById("add-New-Item-To-DataStore");
@@ -11,9 +11,9 @@ let subTitle = document.getElementById("subTitle");
 let getSearch = document.getElementById("getSearch");
 let getSearchInput = document.getElementById("getSearchInput");
 let iconPlcaeCancelSearch = document.getElementById("iconPlcaeCancelSearch");
-iconPlcaeCancelSearch.style.display="none";
+iconPlcaeCancelSearch.style.display = "none";
 
-
+// Add Events Listener to manage data
 addItemBtn.addEventListener('click', () => EventHandlers.showAddModal(true));
 cancelAdding.addEventListener('click', () => EventHandlers.showAddModal(false));
 addItemContainer.addEventListener('click', EventHandlers.submitNewItem);
@@ -23,7 +23,7 @@ getSearch.addEventListener('click', EventHandlers.getSearchItems)
 getSearchInput.addEventListener('input', EventHandlers.changeIcon)
 iconPlcaeCancelSearch.addEventListener('click', EventHandlers.resetSearch)
 
-
+// Init WYSIWYG
 const initTiny = (selector) => {
     tinymce.init({
         selector: selector,
@@ -33,7 +33,7 @@ const initTiny = (selector) => {
         }
     });
 }
-
+// Init Thumbnail
 const initThumbnail = () => {
     EventHandlers.image = new buildfire.components.images.thumbnail("#image", {
         imageUrl: '',
@@ -62,7 +62,7 @@ const initThumbnail = () => {
         EventHandlers.newItem.coverImage = imageUrl;
     };
 }
-
+// Init all functionality ...
 const init = async () => {
     await EventHandlers.loadItems();
     ShowControler.printItems(ShowControler.mySateArr);

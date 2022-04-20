@@ -125,9 +125,9 @@ class SearchTableHelper {
 		tr.setAttribute("objId", obj.id);
 		this.config.columns.forEach(colConfig => {
 			let classes = colConfig.classes || [];
-			if (colConfig.type == "date")
+			if (colConfig.type == "date" || colConfig.type == "image")
 				classes = [...classes, "text-center"];
-			else if (colConfig.type == "number" || colConfig.type == "image")
+			else if (colConfig.type == "number")
 				classes = [...classes, "text-right"];
 			else classes = [...classes, "text-left"];
 			var td;

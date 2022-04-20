@@ -46,6 +46,13 @@ table tbody tr td {
     border-bottom: 1px solid #d8d8d8;
 }
 
+.image-column img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
 .action-column {
     width: 65px;
     text-align: center;

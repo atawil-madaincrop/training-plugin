@@ -33,8 +33,13 @@ const initItemsTable = async () => {
     }
 
     searchTableHelper = new SearchTableHelper("items-table", Items.TAG, searchTableConfig, filterFixed, onRowEdit, onRowDelete);
+
     searchTableHelper.search(null, (res) => {
         checkItemsEmptyState(res && res.length);
+    });
+
+    searchTableHelper.onCommand('open-item-detials', (obj, tr) => {
+        goToItemDetailsSubPage(obj.id, obj.data, "edit");
     });
 }
 

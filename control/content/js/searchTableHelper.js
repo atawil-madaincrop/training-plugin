@@ -132,7 +132,10 @@ class SearchTableHelper {
 			else classes = [...classes, "text-left"];
 			var td;
 			if (colConfig.type == "command") {
-				td = this._create('td', tr, '<button class="btn btn-link">' + colConfig.text + '</button>', ["action-column"]);
+				var data = obj.data;
+				var output = eval("`" + colConfig.data + "`");
+
+				td = this._create('td', tr, '<button class="btn btn-link">' + output + '</button>');
 				td.onclick = (event) => {
 					event.preventDefault();
 					this._onCommand(obj, tr, colConfig.command);

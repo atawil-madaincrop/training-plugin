@@ -1,5 +1,5 @@
 class SearchTableHelper {
-	constructor(tableId, tag, config, filter, deleteCallback) {
+	constructor(tableId, tag, config, filter, editCallback, deleteCallback) {
 		if (!config) throw "No config provided";
 		if (!tableId) throw "No tableId provided";
 		this.table = document.getElementById(tableId);
@@ -9,6 +9,7 @@ class SearchTableHelper {
 		this.sort = {};
 		this.commands = {};
 		this.filterFixed = filter || {};
+		this.editCallback = editCallback;
 		this.deleteCallback = deleteCallback;
 		this.init();
 	}
@@ -213,7 +214,11 @@ class SearchTableHelper {
 	onRowAdded(obj, tr) { }
 
 	onEditRow(obj, tr) {
-		console.log("Edit row", obj);
+		if (!this.editCallback) {
+			return;
+		}
+
+		this.editCallback(obj, tr);
 	}
 
 	onRowDeleted = (obj, tr) => {

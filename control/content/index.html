@@ -25,31 +25,43 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 
-<body>
-  <p class="info-note margin-bottom-twenty">You can create a list of items with images, actions and other details. Add an introduction section on the <a href="javascript:;" id="introduction-tab-link" class="link">Introduction</a> tab.</p>
+<body class="sub-page">
+  <div id="items-page">
+    <p class="info-note margin-bottom-twenty">You can create a list of items with images, actions and other details. Add an introduction section on the <a href="javascript:;" id="introduction-tab-link" class="link">Introduction</a> tab.</p>
 
-  <div class="row">
-    <div class="col-md-9">
-      <div class="input-group margin-bottom-twenty margin-left-zero">
-        <input type="text" id="search" class="form-control" placeholder="Search">
-        <span class="input-group-btn">
-          <button class="btn btn-info stretch margin-left-zero" id="search-button">
-            <span class="icon icon-magnifier"></span>
-          </button>
-        </span>
+    <div class="row">
+      <div class="col-md-9">
+        <div class="input-group margin-bottom-twenty margin-left-zero">
+          <input type="text" id="search" class="form-control" placeholder="Search">
+          <span class="input-group-btn">
+            <button class="btn btn-info stretch margin-left-zero" id="search-button">
+              <span class="icon icon-magnifier"></span>
+            </button>
+          </span>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <button class="btn btn-success stretch"><span class="icon icon-plus margin-right-ten"></span>Add Item</button>
       </div>
     </div>
-    <div class="col-md-3">
-      <button class="btn btn-success stretch"><span class="icon icon-plus margin-right-ten"></span>Add Item</button>
+
+    <div class="well empty-state-lg hidden" id="empty-state">
+      <h5 class="text-center margin-bottom-twenty empty-state-description">You haven’t added anything yet.<br>Add sample data to preview this feature.</h5>
+      <button class="btn btn-success" id="add-sample-data"><span class="icon icon-plus margin-right-ten"></span>Add Sample Data</button>
+    </div>
+
+    <table id="items-table" class="table"></table>
+  </div>
+
+  <div id="item-details-sub-page" class="sub-page slide-in hidden">
+    <h1>Item Images</h1>
+
+    <div class="bottom-actions">
+      <button class="btn btn-default" id="item-details-cancel-button">Cancel</button>
+      <button class="btn btn-success">Save</button>
     </div>
   </div>
 
-  <div class="well empty-state-lg hidden" id="empty-state">
-    <h5 class="text-center margin-bottom-twenty empty-state-description">You haven’t added anything yet.<br>Add sample data to preview this feature.</h5>
-    <button class="btn btn-success" id="add-sample-data"><span class="icon icon-plus margin-right-ten"></span>Add Sample Data</button>
-  </div>
-
-  <table id="items-table" class="table"></table>
 </body>
 
 </html>

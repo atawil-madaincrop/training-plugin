@@ -2,17 +2,24 @@ import Item from "../../widget/common/entities/Item.js";
 import Items from "../../widget/common/repository/Items.js";
 import ContentController from "./content.controller.js";
 
-let searchTableHelper, search, itemsCount;
+let searchTableHelper, search, itemsCount, selectedItem;
 const searchInput = document.getElementById("search");
 const searchButton = document.getElementById("search-button");
 const introductionTabLink = document.getElementById("introduction-tab-link");
 const emptyState = document.getElementById("empty-state");
 const itemsTable = document.getElementById("items-table");
 const addSampleDataButton = document.getElementById("add-sample-data");
+const itemsPage = document.getElementById("items-page");
+const itemDetailsSubPage = document.getElementById("item-details-sub-page");
+const itemDetailsCancleButton = document.getElementById("item-details-cancel-button");
 
 const initItemsTable = async () => {
     const filterFixed = {
         "$json.deletedOn": { "$eq": null },
+    }
+
+    const onRowEdit = (obj, tr) => {
+        gotToItemDetailsSubPage(obj);
     }
 
     const onRowDelete = async (obj, tr) => {
@@ -20,17 +27,7 @@ const initItemsTable = async () => {
         checkItemsEmptyState(itemsCount - 1);
     }
 
-    searchButton.onclick = () => {
-        search = searchInput.value;
-        searchTableHelper.search({
-            $or: [
-                { "$json.title": { "$regex": search, "$options": "i" } },
-                { "$json.subtitle": { "$regex": search, "$options": "i" } },
-            ],
-        });
-    }
-
-    searchTableHelper = new SearchTableHelper("items-table", Items.TAG, searchTableConfig, filterFixed, onRowDelete);
+    searchTableHelper = new SearchTableHelper("items-table", Items.TAG, searchTableConfig, filterFixed, onRowEdit, onRowDelete);
     searchTableHelper.search(null, (res) => {
         checkItemsEmptyState(res && res.length);
     });
@@ -39,6 +36,20 @@ const initItemsTable = async () => {
 const initListeners = () => {
     introductionTabLink.onclick = () => navigateToTab("Introduction");
     addSampleDataButton.onclick = () => addDummyItemsData();
+    searchButton.onclick = () => onItemsSearch();
+    itemDetailsCancleButton.onclick = () => goToItemsPage();
+}
+
+const onItemsSearch = () => {
+    search = searchInput.value;
+
+    if (searchTableHelper)
+        searchTableHelper.search({
+            $or: [
+                { "$json.title": { "$regex": search, "$options": "i" } },
+                { "$json.subtitle": { "$regex": search, "$options": "i" } },
+            ],
+        });
 }
 
 const checkItemsEmptyState = (count) => {
@@ -76,6 +87,21 @@ const navigateToTab = (tab) => {
             if (err) return console.error(err);
         }
     );
+}
+
+const goToItemsPage = () => {
+    selectedItem = null;
+
+    itemsPage.classList.add("slide-in");
+    itemsPage.classList.remove("hidden");
+    itemDetailsSubPage.classList.add("hidden");
+}
+
+const gotToItemDetailsSubPage = (item) => {
+    selectedItem = item;
+
+    itemsPage.classList.add("hidden");
+    itemDetailsSubPage.classList.remove("hidden");
 }
 
 const init = async () => {

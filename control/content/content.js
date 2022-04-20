@@ -2,12 +2,13 @@ import Item from "../../widget/common/entities/Item.js";
 import Items from "../../widget/common/repository/Items.js";
 import ContentController from "./content.controller.js";
 
-let searchTableHelper, search, itemsCount, selectedItemId, selectedItem, imageThumbnail, coverImageThumbnail, itemDetailsDescriptionEditor;
+let searchTableHelper, search, itemsCount, selectedItemId, selectedItem, state, imageThumbnail, coverImageThumbnail, itemDetailsDescriptionEditor;
 const searchInput = document.getElementById("search");
 const searchButton = document.getElementById("search-button");
 const introductionTabLink = document.getElementById("introduction-tab-link");
 const emptyState = document.getElementById("empty-state");
 const itemsTable = document.getElementById("items-table");
+const addItemButton = document.getElementById("add-item-button");
 const addSampleDataButton = document.getElementById("add-sample-data");
 const itemsPage = document.getElementById("items-page");
 const itemDetailsSubPage = document.getElementById("item-details-sub-page");
@@ -23,7 +24,7 @@ const initItemsTable = async () => {
     }
 
     const onRowEdit = (obj, tr) => {
-        gotToItemDetailsSubPage(obj.id, obj.data);
+        goToItemDetailsSubPage(obj.id, obj.data, "edit");
     }
 
     const onRowDelete = async (obj, tr) => {
@@ -71,10 +72,15 @@ const initThumbnailPickers = () => {
 
 const initListeners = () => {
     introductionTabLink.onclick = () => navigateToTab("Introduction");
+    addItemButton.onclick = () => onAddItemClick();
     addSampleDataButton.onclick = () => addDummyItemsData();
     searchButton.onclick = () => onItemsSearch();
     itemDetailsSaveButton.onclick = () => onItemDetailsSave();
     itemDetailsCancleButton.onclick = () => goToItemsPage();
+}
+
+const onAddItemClick = () => {
+    goToItemDetailsSubPage(null, new Item(), "create");
 }
 
 const onItemDetailsSave = async () => {
@@ -82,7 +88,14 @@ const onItemDetailsSave = async () => {
     selectedItem.subtitle = itemDetailsSubtitleInput.value;
     if (itemDetailsDescriptionEditor) selectedItem.description = itemDetailsDescriptionEditor.getContent();
 
-    await ContentController.updateItem(selectedItemId, selectedItem);
+    switch (state) {
+        case "edit":
+            await ContentController.updateItem(selectedItemId, selectedItem);
+            break;
+        case "create":
+            await ContentController.addItem(selectedItem);
+            break;
+    }
 
     goToItemsPage();
 }
@@ -163,15 +176,16 @@ const goToItemsPage = () => {
     if (coverImageThumbnail) coverImageThumbnail.clear();
 }
 
-const gotToItemDetailsSubPage = (id, item) => {
+const goToItemDetailsSubPage = (id, item, newState) => {
     selectedItemId = id;
     selectedItem = item;
+    state = newState;
 
-    itemDetailsTitleInput.value = item.title || '';
-    itemDetailsSubtitleInput.value = item.subtitle || '';
-    if (itemDetailsDescriptionEditor) itemDetailsDescriptionEditor.setContent(item.description || '');
-    if (imageThumbnail) imageThumbnail.loadbackground(selectedItem.image || '');
-    if (coverImageThumbnail) coverImageThumbnail.loadbackground(selectedItem.coverImage || '');
+    itemDetailsTitleInput.value = item?.title || '';
+    itemDetailsSubtitleInput.value = item?.subtitle || '';
+    if (itemDetailsDescriptionEditor) itemDetailsDescriptionEditor.setContent(item?.description || '');
+    if (imageThumbnail) imageThumbnail.loadbackground(selectedItem?.image || '');
+    if (coverImageThumbnail) coverImageThumbnail.loadbackground(selectedItem?.coverImage || '');
 
     itemsPage.classList.add("hidden");
     itemDetailsSubPage.classList.remove("hidden");

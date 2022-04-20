@@ -25,6 +25,7 @@
   <!-- Sweet Alert -->
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
+
 <body class="sub-page">
   <div id="list-Of-Items-From-DataStore" class="container slide-in padding-bottom-twenty">
     <p class="info-note margin-bottom-twenty">You can create a list of items with images, actions and other details. Add
@@ -55,23 +56,32 @@
   <div class="container slide-in padding-bottom-twenty">
     <h4 class="font-weight-bold margin-bottom-twenty">Item Images</h4>
     <div class="row">
-      <div id="image" class="margin-bottom-twenty image-picker aspect-1-1 thumbnail-picker"></div>
-      <div id="imageCover" class="margin-bottom-twenty image-picker aspect-1-1 thumbnail-picker"></div>
+      <div class="col-md-3">
+        <p class="p-Label">
+          List Image & Cover Image <span class="redStar">*</span>
+        </p>
+      </div>
+      <div class="col-md-9">
+        <div class="row">
+          <div id="image" class="col-md-4 margin-bottom-twenty image-picker aspect-1-1 thumbnail-picker"></div>
+          <div id="imageCover" class="col-md-7 margin-bottom-twenty image-picker aspect-1-1 thumbnail-picker"></div>
+        </div>
+      </div>
     </div>
     <h4 class="font-weight-bold margin-bottom-twenty">Item Details</h4>
     <div class="stretch row margin-bottom-twenty">
       <div class="col-md-3">
-        <p>Title *</p>
+        <p class="p-Label">Title <span class="redStar">*</span></p>
       </div>
-      <div class="col-md-9">
+      <div class="col-md-9 inputItemTitle-RowContainer">
         <input class="inputItemTitle" required id="title" name="title">
       </div>
     </div>
     <div class="stretch row margin-bottom-twenty">
       <div class="col-md-3">
-        <p>Subtitle</p>
+        <p class="p-Label">Subtitle</p>
       </div>
-      <div class="col-md-9">
+      <div class="col-md-9 inputItemTitle-RowContainer">
         <input class="inputItemTitle" id="subTitle" name="subTitle">
       </div>
     </div>

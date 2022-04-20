@@ -1,4 +1,3 @@
-import Item from "../../../widget/common/entities/Item.js";
 import Items from "../../../widget/common/repository/Items.js";
 
 export class ContentHandlers {
@@ -20,7 +19,6 @@ export class ContentHandlers {
     }
     static addItem = async(item)=>{
         let res = await Items.insert(item)
-        console.log("added item result -=>", res);
         return res
     }
     static deactiveItem = async(idx, item)=>{

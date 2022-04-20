@@ -1,4 +1,3 @@
-
 import { ShowControler } from "./js/showControler.js";
 import { EventHandlers } from "./js/eventHandlers.js";
 
@@ -14,8 +13,8 @@ let iconPlcaeCancelSearch = document.getElementById("iconPlcaeCancelSearch");
 iconPlcaeCancelSearch.style.display = "none";
 
 // Add Events Listener to manage data
-addItemBtn.addEventListener('click', () => EventHandlers.showAddModal(true));
-cancelAdding.addEventListener('click', () => EventHandlers.showAddModal(false));
+addItemBtn.addEventListener('click', () => ShowControler.showAddModal(true));
+cancelAdding.addEventListener('click', () => ShowControler.showAddModal(false));
 addItemContainer.addEventListener('click', EventHandlers.submitNewItem);
 title.addEventListener('input', EventHandlers.handelTitle);
 subTitle.addEventListener('input', EventHandlers.handelSubTitle);
@@ -35,31 +34,31 @@ const initTiny = (selector) => {
 }
 // Init Thumbnail
 const initThumbnail = () => {
-    EventHandlers.image = new buildfire.components.images.thumbnail("#image", {
+    ShowControler.image = new buildfire.components.images.thumbnail("#image", {
         imageUrl: '',
         title: "List Image & Cover Image *",
         dimensionsLabel: "Recommended: 600x600",
         multiSelection: false
     });
-    EventHandlers.coverImage = new buildfire.components.images.thumbnail("#imageCover", {
+    ShowControler.coverImage = new buildfire.components.images.thumbnail("#imageCover", {
         imageUrl: '',
         title: "cover",
         dimensionsLabel: "Recommended: 1200x675",
         multiSelection: false
     });
 
-    EventHandlers.image.onDelete = (imageUrl) => {
-        EventHandlers.newItem.image = null;
+    ShowControler.image.onDelete = (imageUrl) => {
+        ShowControler.newItem.image = null;
     };
-    EventHandlers.coverImage.onDelete = (imageUrl) => {
-        EventHandlers.newItem.coverImage = null;
+    ShowControler.coverImage.onDelete = (imageUrl) => {
+        ShowControler.newItem.coverImage = null;
     };
 
-    EventHandlers.image.onChange = (imageUrl) => {
-        EventHandlers.newItem.image = imageUrl;
+    ShowControler.image.onChange = (imageUrl) => {
+        ShowControler.newItem.image = imageUrl;
     };
-    EventHandlers.coverImage.onChange = (imageUrl) => {
-        EventHandlers.newItem.coverImage = imageUrl;
+    ShowControler.coverImage.onChange = (imageUrl) => {
+        ShowControler.newItem.coverImage = imageUrl;
     };
 }
 // Init all functionality ...
@@ -71,5 +70,4 @@ const init = async () => {
     initTiny("#wysiwygContent");
     initThumbnail();
 }
-
 init();

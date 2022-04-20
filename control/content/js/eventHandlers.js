@@ -51,7 +51,7 @@ export class EventHandlers {
         }
     }
     static submitNewItem = async () => {
-        if (ShowControler.newItem.image && ShowControler.newItem.coverImage) {
+        if (ShowControler.newItem.image && ShowControler.newItem.coverImage && ShowControler.newItem.title) {
             await EventHandlers.handelSubmitForm();
         } else {
             console.log("----- Required Data missing -----");

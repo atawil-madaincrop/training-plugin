@@ -19,8 +19,8 @@ export class EventHandlers {
             pointers.iconPlcae.style.display = "none";
             pointers.iconPlcaeCancelSearch.style.display = "inline-block";
         } else {
-            EventHandlers.loadItems();
-            EventHandlers.setAddBtn()
+            this.loadItems();
+            this.setAddBtn()
         }
         ShowControler.printItems(ShowControler.mySateArr);
     }
@@ -38,9 +38,9 @@ export class EventHandlers {
         ShowControler.loading();
         pointers.iconPlcaeCancelSearch.style.display = "none";
         pointers.iconPlcae.style.display = "inline-block";
-        await EventHandlers.loadItems();
+        await this.loadItems();
         ShowControler.printItems();
-        EventHandlers.setAddBtn();
+        this.setAddBtn();
     }
     // handel input data
     static handelTitle(e) {
@@ -61,7 +61,7 @@ export class EventHandlers {
     }
     static submitNewItem = async () => {
         if (ShowControler.newItem.image && ShowControler.newItem.coverImage && ShowControler.newItem.title) {
-            await EventHandlers.handelSubmitForm();
+            await this.handelSubmitForm();
         } else {
             buildfire.dialog.alert({
                 message: "Some Needed Data in Missing!",

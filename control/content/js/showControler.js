@@ -15,7 +15,12 @@ export class ShowControler {
     static sortType = "icon-chevron-up";
 
     // manage data to be shown in the CP-Page
-    static printItems() {
+    static loading = () => {
+        pointers.printTable.style.display = "none";
+        pointers.printWhenEmpty.style.display = "none";
+        pointers.printLoading.style.display = "flex";
+    }
+    static printItems = () => {
         ShowControler.loading();
         if (ShowControler.mySateArr.length > 0) {
             pointers.itemsListTable.innerHTML = "";
@@ -66,11 +71,6 @@ export class ShowControler {
         editTitle.addEventListener("click", () => ShowControler.editRow(itemElement, index));
         let editBtn = document.getElementById(`editItemBtn-${index}`);
         editBtn.addEventListener("click", () => ShowControler.editRow(itemElement, index));
-    }
-    static loading() {
-        pointers.printTable.style.display = "none";
-        pointers.printWhenEmpty.style.display = "none";
-        pointers.printLoading.style.display = "flex";
     }
     static sortData() {
         pointers.sortSpan.className = `icon ${ShowControler.sortType}`

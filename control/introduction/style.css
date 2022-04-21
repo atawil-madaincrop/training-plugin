@@ -1,0 +1,4 @@
+#carousel .main {
+    display: flex;
+    justify-content: flex-end;
+}

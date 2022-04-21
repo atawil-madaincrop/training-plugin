@@ -11,7 +11,7 @@
   <link href="../../../../styles/control/bf-base.css" rel="stylesheet">
 
   <link href="../../../../styles/siteIcons.css" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="./style/style.css" />
 
   <!-- JS -->
   <script src="../../../../scripts/buildfire.js"></script>
@@ -49,6 +49,51 @@
       </div>
     </div>
     <div id="printOutTable">
+
+      <div id="printLoading" class="well empty-state-lg">
+        <div class="container">
+          <div class="row">
+            <h5 class="text-center">Loading ...</h5>
+          </div>
+        </div>
+      </div>
+
+      <table id="printTable" class="table table-bf">
+        <thead>
+          <td></td>
+          <th>
+            <h5>Title <span id="sortSpan" class="icon ${ShowControler.sortType}"></span></h5>
+          </th>
+          <th>
+            <h5>subTitle</h5>
+          </th>
+          <th>
+            <h5 class="text-center">Date of Creation</h5>
+          </th>
+        </thead>
+        <tbody id="itemsListTable">
+        </tbody>
+      </table>
+
+      <div id="printWhenEmpty" class="well empty-state-lg">
+        <div class="container">
+          <div class="row">
+            <h5 class="text-center">You haven't added anything yet.</h5>
+          </div>
+          <div class="row">
+            <h5 class="text-center">Add sample data to preview this feature.</h5>
+          </div>
+          <div class="row">
+            <div class="container">
+              <div class="col-md-10">
+                <button id="add-New-Item_btn2" class="btn btn-success stretch"><span class="icon icon-plus margin-right-ten"></span>Add
+                  Sample Data</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </body>

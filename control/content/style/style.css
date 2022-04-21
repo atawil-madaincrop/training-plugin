@@ -39,16 +39,18 @@ h4::before{
 }
 
 .btn_in_list{
+    border-radius: 0.25rem;
     background-color:var(--bf-theme-background);
 }
 .btn_in_list:hover{
     background-color:var(--c-gray2);
+    border-radius: 0.25rem !important;
 }
 
 .btn_in_list:hover .icon-cross2{
     color:var(--bf-theme-danger);
 }
-.btn_in_list:hover .icon-pencil3{
+.btn_in_list:hover .icon-pencil5{
     color:var(--bf-theme-icons);
 }
 
@@ -75,6 +77,44 @@ td{
 #imageCover .item .main .screens .screen, #imageCover .item .main .screens .screen .change-background{
     max-width:14rem !important;
 }
+#imageCover .item .main{
+    padding-left: 3rem;
+    float: left !important;
+}
+#image .item .main{
+    float: left !important;
+    padding: 0;
+    width: 12rem;
+    padding-left: 1rem;
+}
+.secondary{
+    text-align: start;
+}
 .p-Label{
     font-size:1.3rem;
+}
+.titleSubtitleRow{
+    width: 64.5rem !important;
+}
+
+#printWhenEmpty{
+    display:none;
+    height:20rem !important;
+}
+#printTable{
+    display:none;
+}
+
+#sortSpan:hover{
+    cursor: pointer;
+}
+
+.emptyRow:nth-child(1) h5{
+    margin-bottom: 0;
+}
+.emptyRow:nth-child(2){
+    margin-bottom: 1rem;
+}
+.emptyRow:nth-child(3){
+    padding-left: 2rem;
 }

@@ -17,47 +17,16 @@ export class ShowControler {
     // manage data to be shown in the CP-Page
     static printItems() {
         if (ShowControler.mySateArr.length > 0) {
-            pointers.printOutTableContainer.innerHTML = `
-        <table class="table table-bf">
-            <thead>
-                <td></td>
-                <th><h5>Title <span id="sortSpan" class="icon ${ShowControler.sortType}"></span></h5></th>
-                <th><h5>subTitle</h5></th>
-                <th><h5 class="text-center">Date of Creation</h5></th>
-            </thead>
-            <tbody id="itemsListTable">
-            </tbody>
-        </table>
-        `;
-            ShowControler.mySateArr.forEach(ShowControler.printAllItemsInTable);
-            let sortSpan = document.getElementById("sortSpan")
-            sortSpan.addEventListener('click', () => ShowControler.sortData());
+            pointers.itemsListTable.innerHTML = "";
+            pointers.printTable.style.display = "table";
+            pointers.printWhenEmpty.style.display = "none";
+            pointers.printLoading.style.display = "none";
 
+            ShowControler.mySateArr.forEach(ShowControler.printAllItemsInTable);
         } else {
-            pointers.printOutTableContainer.innerHTML = `
-        <div class="well empty-state-lg">
-        <div class="container">
-          <div class="row">
-            <h5 class="text-center">You haven't added anything yet.</h5>
-          </div>
-          <div class="row">
-            <h5 class="text-center">Add sample data to preview this feature.</h5>
-          </div>
-          <div class="row">
-            <div class="container">
-              <div class="col-md-10">
-                <button id="add-New-Item_btn2" class="btn btn-success stretch"><span class="icon icon-plus margin-right-ten"></span>Add
-                  Sample Data</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-        `
-            let newAdd = document.getElementById("add-New-Item_btn2");
-            if (newAdd) {
-                newAdd.addEventListener("click", () => ShowControler.showAddModal(true))
-            }
+            pointers.printTable.style.display = "none";
+            pointers.printWhenEmpty.style.display = "flex";
+            pointers.printLoading.style.display = "none";
         }
     }
     static printAllItemsInTable(itemElement, index) {
@@ -83,8 +52,8 @@ export class ShowControler {
                 </span>
             </td>
         `
-        let itemsListTable = document.getElementById("itemsListTable");
-        itemsListTable.appendChild(itemRow);
+        
+        pointers.itemsListTable.appendChild(itemRow);
 
         let deleteBtn = document.getElementById(`deleteItemBtn-${index}`);
         deleteBtn.addEventListener("click", () => ShowControler.deleteRow(index, itemRow, itemElement))
@@ -93,18 +62,12 @@ export class ShowControler {
         editBtn.addEventListener("click", () => ShowControler.editRow(itemElement, index))
     }
     static loading() {
-        pointers.printOutTableContainer.innerHTML = `
-        <div class="well empty-state-lg">
-        <div class="container">
-          <div class="row">
-            <h5 class="text-center">Loading ...</h5>
-          </div>
-        </div>
-      </div>
-        `
+        pointers.printTable.style.display = "none";
+        pointers.printWhenEmpty.style.display = "none";
+        pointers.printLoading.style.display = "flex";
     }
     static sortData() {
-        let sortSpan = document.getElementById("sortSpan");
+        pointers.sortSpan.className = `icon ${ShowControler.sortType}`
         if (ShowControler.sortType == "icon-chevron-down") {
             ShowControler.sortType = "icon-chevron-up";
             ShowControler.mySateArr.sort(function (a, b) {

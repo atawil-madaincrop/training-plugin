@@ -56,14 +56,14 @@ const initThumbnailPickers = () => {
 
     imageThumbnail = new buildfire.components.images.thumbnail("#image-thumbnail", {
         imageUrl: '',
-        title: "List Image *",
+        title: " ",
         dimensionsLabel: "Recommended: 600 x 600px",
         multiSelection: false
     });
 
     coverImageThumbnail = new buildfire.components.images.thumbnail("#cover-image-thumbnail", {
         imageUrl: '',
-        title: "Cover image *",
+        title: " ",
         dimensionsLabel: "Recommended: 1200x675px",
         multiSelection: false
     });

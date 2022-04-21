@@ -1,5 +1,5 @@
 const languageConfig = {
-    Main: {
+    main: {
         title: null,
         labels: {
             search: {

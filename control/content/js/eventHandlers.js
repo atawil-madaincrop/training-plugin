@@ -1,6 +1,6 @@
-import {ShowControler} from "./showControler.js";
+import { ShowControler } from "./showControler.js";
 import { ContentHandlers } from "./contentHandlers.js";
-import {pointers} from "./pointers.js";
+import { pointers } from "./pointers.js";
 
 
 export class EventHandlers {
@@ -24,7 +24,16 @@ export class EventHandlers {
         }
         ShowControler.printItems(ShowControler.mySateArr);
     }
-    static resetSearch = async() => {
+    static setSearchTyping(e) {
+        if(e.target.value.length > 0){
+            pointers.iconPlcae.style.display = "inline-block";
+            pointers.iconPlcaeCancelSearch.style.display = "none";
+        }else{
+            pointers.iconPlcae.style.display = "none";
+            pointers.iconPlcaeCancelSearch.style.display = "inline-block";
+        }
+    }
+    static resetSearch = async () => {
         pointers.getSearchInput.value = "";
         ShowControler.loading();
         pointers.iconPlcaeCancelSearch.style.display = "none";
@@ -54,22 +63,20 @@ export class EventHandlers {
         if (ShowControler.newItem.image && ShowControler.newItem.coverImage && ShowControler.newItem.title) {
             await EventHandlers.handelSubmitForm();
         } else {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Some Needed Data in Missing!',
-              })
+            buildfire.dialog.alert({
+                message: "Some Needed Data in Missing!",
+              });
         }
     }
-    static handelSubmitForm = async() => {
-        if(ShowControler.typeOfHandelForm == "add"){
+    static handelSubmitForm = async () => {
+        if (ShowControler.typeOfHandelForm == "add") {
             let addedData = await ContentHandlers.addItem(ShowControler.newItem)
             ShowControler.mySateArr.splice(0, 0, addedData)
             ShowControler.emptyData();
             ShowControler.showAddModal(false);
             ShowControler.printItems(ShowControler.mySateArr);
-        }else if(ShowControler.typeOfHandelForm == "edit"){
-            let editedData = await ContentHandlers.editItem(ShowControler.itemForEdit.itemElement.id,ShowControler.newItem);
+        } else if (ShowControler.typeOfHandelForm == "edit") {
+            let editedData = await ContentHandlers.editItem(ShowControler.itemForEdit.itemElement.id, ShowControler.newItem);
             ShowControler.mySateArr.splice(ShowControler.itemForEdit.index, 1, editedData);
             ShowControler.emptyData();
             ShowControler.showAddModal(false);

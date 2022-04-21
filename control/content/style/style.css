@@ -9,8 +9,8 @@
 }
 
 .cardBtn:hover{
-    color:rgb(46, 85, 185);
-    background-color:rgb(213, 218, 228);
+    color:var(--bf-theme-icons);
+    background-color:var(--c-gray2);
 }
 
 h4::before{
@@ -39,17 +39,17 @@ h4::before{
 }
 
 .btn_in_list{
-    background-color:white;
+    background-color:var(--bf-theme-background);
 }
 .btn_in_list:hover{
-    background-color:rgb(227, 227, 227);
+    background-color:var(--c-gray2);
 }
 
 .btn_in_list:hover .icon-cross2{
-    color:red;
+    color:var(--bf-theme-danger);
 }
 .btn_in_list:hover .icon-pencil3{
-    color:blue;
+    color:var(--bf-theme-icons);
 }
 
 td{
@@ -61,7 +61,7 @@ td{
 }
 
 .redStar{
-    color:red;
+    color:var(--bf-theme-danger);
 }
 .labels{
     display:none;

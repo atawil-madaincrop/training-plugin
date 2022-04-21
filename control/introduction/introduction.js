@@ -52,13 +52,11 @@ const load = async () => {
 
     await Promise.all(promises).then((values) => {
         introduction = new Introduction(values[0]?.data);
-        console.log({ introduction });
     });
 }
 
 const init = async () => {
     await load();
-
     initDescriptionEditor();
     initCarousel();
 }

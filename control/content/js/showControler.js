@@ -127,9 +127,8 @@ export class ShowControler {
                 //Go back
                 itemRow.style.display = "none";
                 ShowControler.mySateArr.splice(idx, 1);
-                await ContentHandlers.deactiveItem(item.id, item);
-
                 ShowControler.printItems();
+                await ContentHandlers.deactiveItem(item.id, item);
               } else {
                 //Prevent action
               }

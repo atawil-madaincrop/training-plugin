@@ -54,7 +54,11 @@ export class EventHandlers {
         if (ShowControler.newItem.image && ShowControler.newItem.coverImage && ShowControler.newItem.title) {
             await EventHandlers.handelSubmitForm();
         } else {
-            console.log("----- Required Data missing -----");
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Some Needed Data in Missing!',
+              })
         }
     }
     static handelSubmitForm = async() => {

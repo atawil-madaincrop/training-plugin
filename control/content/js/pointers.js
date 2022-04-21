@@ -14,6 +14,12 @@ export const pointers = {
     printOutTableContainer: document.getElementById("printOutTable"),
     itemsPageDiv: document.getElementById("list-Of-Items-From-DataStore"),
     sortSpan: document.getElementById("sortSpan"),
+    printTable: document.getElementById("printTable"),
+    printWhenEmpty: document.getElementById("printWhenEmpty"),
+    printLoading: document.getElementById("printLoading"),
+    sortSpan: document.getElementById("sortSpan"),
+    itemsListTable: document.getElementById("itemsListTable")
+
 }
 
 

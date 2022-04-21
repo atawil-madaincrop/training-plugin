@@ -1,5 +1,4 @@
 import Item from "../../widget/common/entities/Item.js";
-import Items from "../../widget/common/repository/Items.js";
 import ContentController from "./content.controller.js";
 
 let searchTableHelper, search, itemsCount, selectedItemId, selectedItem, state, imageThumbnail, coverImageThumbnail, itemDetailsDescriptionEditor;
@@ -32,7 +31,7 @@ const initItemsTable = async () => {
         checkItemsEmptyState(itemsCount - 1);
     }
 
-    searchTableHelper = new SearchTableHelper("items-table", Items.TAG, searchTableConfig, filterFixed, onRowEdit, onRowDelete);
+    searchTableHelper = new SearchTableHelper("items-table", ContentController.itemsTag(), searchTableConfig, filterFixed, onRowEdit, onRowDelete);
 
     searchTableHelper.search(null, (res) => {
         checkItemsEmptyState(res && res.length);

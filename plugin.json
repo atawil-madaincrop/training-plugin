@@ -19,6 +19,10 @@
         "url": "/introduction/index.html"
       },
       {
+        "title": "Language",
+        "url": "/language/index.html"
+      },
+      {
         "title": "Tests",
         "url": "/tests/index.html"
       }

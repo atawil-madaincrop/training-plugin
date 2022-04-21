@@ -1,5 +1,5 @@
 class LanguageHelper {
-    constructor(selector, config, data) {
+    constructor(selector, config, data, updateCallback) {
         if (!selector) throw "No selector is provided";
         if (!config) throw "No config is provided";
         this.element = document.querySelector(selector);
@@ -8,6 +8,8 @@ class LanguageHelper {
         this.selector = selector;
         this.config = config;
         this.data = data || {};
+        this.updateCallback = updateCallback;
+        this._debouncers = {};
     }
 
     init = () => {
@@ -58,6 +60,21 @@ class LanguageHelper {
 
         if (!inputElement.value && label.defaultValue)
             inputElement.value = label.defaultValue
+
+        inputElement.onkeyup = (e) => this._onInputKeyUp(e, key);
+    }
+
+    _onInputKeyUp = (e, key) => {
+        if (!this.updateCallback) return;
+
+        this._debounce(key, () => {
+            this.updateCallback(key, e.target.value);
+        });
+    }
+
+    _debounce(key, callback) {
+        if (this._debouncers[key]) clearTimeout(this._debouncers[key]);
+        this._debouncers[key] = setTimeout(callback, 500);
     }
 
     _create(elementType, appendTo, innerHTML, classNameArray) {

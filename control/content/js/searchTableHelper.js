@@ -135,7 +135,7 @@ class SearchTableHelper {
 				var data = obj.data;
 				var output = eval("`" + colConfig.data + "`");
 
-				td = this._create('td', tr, '<button class="btn btn-link">' + output + '</button>');
+				td = this._create('td', tr, '<button class="btn btn-link">' + output + '</button>', classes);
 				td.onclick = (event) => {
 					event.preventDefault();
 					this._onCommand(obj, tr, colConfig.command);

@@ -6,7 +6,7 @@ const searchTableConfig = {
 	},
 	columns: [
 		{ header: "", data: "${data.image || './media/image-placeholder.png'}", type: "image", width: "40px", classes: ["image-column"] },
-		{ header: "Title", data: "${data.title || '-'}", type: "command", command: "open-item-detials", width: "100px", sortBy: "title" },
+		{ header: "Title", data: "${data.title || '-'}", type: "command", command: "open-item-detials", width: "100px", sortBy: "title", classes: ["command-column"] },
 		{ header: "Subtitle", data: "${data.subtitle || '-'}", type: "string", width: "100px" },
 		{ header: "Date Of Creation", data: "${ new Date(data.createdOn).toLocaleDateString('en-US', dateOptions)  }", type: "date", width: "100px" },
 	],

@@ -60,6 +60,14 @@ table tbody tr td {
     padding-left: 0 !important;
 }
 
+.command-column .btn-link {
+    padding: 0;
+}
+
+.command-column .btn-link:hover {
+    text-decoration: none;
+}
+
 .btn-primary {
     margin-bottom: 16px;
 }

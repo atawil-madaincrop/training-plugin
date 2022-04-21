@@ -12,9 +12,9 @@ export default class Languages {
         });
     }
 
-    static save = (introduction) => {
+    static save = (language) => {
         return new Promise((resolve, reject) => {
-            buildfire.datastore.save(introduction, Languages.TAG, (err, res) => {
+            buildfire.datastore.save(language, Languages.TAG, (err, res) => {
                 if (err) return reject(err);
                 resolve(res);
             });

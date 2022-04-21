@@ -16,6 +16,9 @@ const itemDetailsCancleButton = document.getElementById("item-details-cancel-but
 const itemDetailsSaveButton = document.getElementById("item-details-save-button");
 const itemDetailsTitleInput = document.getElementById("item-details-title-input");
 const itemDetailsSubtitleInput = document.getElementById("item-details-subtitle-input");
+const itemDetailsTitleInputError = document.getElementById("item-details-title-input-error");
+const itemDetailsSubtitleInputError = document.getElementById("item-details-subtitle-input-error");
+const itemDetailsImagesError = document.getElementById("item-details-images-error");
 
 const initItemsTable = async () => {
     const filterFixed = {
@@ -88,9 +91,40 @@ const onAddItemClick = () => {
 }
 
 const onItemDetailsSave = async () => {
+    let hasError = false;
     selectedItem.title = itemDetailsTitleInput.value;
     selectedItem.subtitle = itemDetailsSubtitleInput.value;
     if (itemDetailsDescriptionEditor) selectedItem.description = itemDetailsDescriptionEditor.getContent();
+
+    if (!itemDetailsTitleInput.checkValidity()) {
+        showError(itemDetailsTitleInputError, 'Please insert the title.');
+        hasError = true;
+    } else {
+        hideError(itemDetailsTitleInputError);
+    }
+
+    if (!itemDetailsSubtitleInput.checkValidity()) {
+        showError(itemDetailsSubtitleInputError, 'Please insert the subtitle.');
+        hasError = true;
+    } else {
+        hideError(itemDetailsSubtitleInputError);
+    }
+
+    if (!selectedItem.image) {
+        showError(itemDetailsImagesError, 'Please insert the images.');
+        hasError = true;
+    } else {
+        hideError(itemDetailsImagesError);
+    }
+
+    if (!selectedItem.coverImage) {
+        showError(itemDetailsImagesError, 'Please insert the images.');
+        hasError = true;
+    } else {
+        hideError(itemDetailsImagesError);
+    }
+
+    if (hasError) return;
 
     switch (state) {
         case "edit":
@@ -194,6 +228,20 @@ const goToItemDetailsSubPage = (id, item, newState) => {
     itemsPage.classList.add("hidden");
     itemDetailsSubPage.classList.remove("hidden");
     itemDetailsBottomActions.classList.remove("hidden");
+
+    hideError(itemDetailsTitleInputError);
+    hideError(itemDetailsSubtitleInputError);
+    hideError(itemDetailsImagesError);
+}
+
+const showError = (element, text) => {
+    element.innerHTML = text;
+    element.classList.remove('invisible');
+}
+
+const hideError = (element) => {
+    element.innerHTML = '';
+    element.classList.add('invisible');
 }
 
 const init = async () => {

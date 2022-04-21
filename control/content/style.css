@@ -63,3 +63,9 @@
     object-position: center;
     vertical-align: baseline;
 }
+
+.text-error {
+    font-size: 0.75rem;
+    margin-bottom: 0;
+    height: 1.25rem;
+}

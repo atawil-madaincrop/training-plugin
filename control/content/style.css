@@ -23,6 +23,11 @@
     width: 100% !important;
 }
 
+.image-picker .screens .screen label.secondary,
+.screen label.secondary {
+    text-align: left;
+}
+
 .image-picker.aspect-1-1 .screens .screen {
     width: 96px;
     max-width: 96px;
@@ -54,15 +59,6 @@
 .image-picker.aspect-16-9 .screens .screen a img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    object-position: center;
-    vertical-align: baseline;
-}
-
-.image-picker.aspect-1-1 .screens .screen a {
-    width: 96px;
-    max-width: 96px;
-    height: 96px;
     object-fit: cover;
     object-position: center;
     vertical-align: baseline;

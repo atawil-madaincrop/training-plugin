@@ -53,7 +53,10 @@ class LanguageHelper {
         if (label.maxLength)
             inputElement.maxLength = label.maxLength;
 
-        if ((!this.data || !this.data[key]) && label.defaultValue)
+        if (this.data && this.data[key])
+            inputElement.value = this.data[key];
+
+        if (!inputElement.value && label.defaultValue)
             inputElement.value = label.defaultValue
     }
 

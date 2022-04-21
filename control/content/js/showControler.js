@@ -12,10 +12,11 @@ export class ShowControler {
     static coverImage;
     static mySateArr = [];
     static typeOfHandelForm = "add";
-    static sortType = "icon-chevron-down";
+    static sortType = "icon-chevron-up";
 
     // manage data to be shown in the CP-Page
     static printItems() {
+        ShowControler.loading();
         if (ShowControler.mySateArr.length > 0) {
             pointers.itemsListTable.innerHTML = "";
             pointers.printTable.style.display = "table";
@@ -34,17 +35,20 @@ export class ShowControler {
         let myDateToPrint = `${myDate[1]} ${myDate[2]}, ${myDate[3]}`
 
         let itemRow = document.createElement('tr');
+        let imageToPrint = itemElement.data.image || "./media/imagePlaceHolder.png"
         itemRow.innerHTML = `
             <td>
-                <div class="img-holder aspect-1-1"><img class="images_in_List" src=${itemElement.data.image} alt=""></div>
+                <div class="img-holder aspect-1-1">
+                    <img class="images_in_List" src=${imageToPrint} alt="">
+                </div>
             </td>
-            <td class="text-primary"><a class="link">${itemElement.data.title}</a></td>
+            <td class="text-primary"><a id="titleToChange-${index}" class="link">${itemElement.data.title}</a></td>
             <td>${itemElement.data.subtitle}</td>
             <td class="text-center">${myDateToPrint}<td>
             <td>
                 <span class="input-group-btn col-md-12">
                     <button id="editItemBtn-${index}" class="btn stretch margin-left-zero btn_in_list">
-                        <span class="cardBtnSpan icon icon-pencil3" ></span>
+                        <span class="cardBtnSpan icon icon-pencil5"></span>
                     </button>
                     <button id="deleteItemBtn-${index}" class="btn stretch margin-left-zero btn_in_list">
                         <span class="cardBtnSpan icon icon-cross2" ></span>
@@ -58,8 +62,10 @@ export class ShowControler {
         let deleteBtn = document.getElementById(`deleteItemBtn-${index}`);
         deleteBtn.addEventListener("click", () => ShowControler.deleteRow(index, itemRow, itemElement))
 
+        let editTitle = document.getElementById(`titleToChange-${index}`);
+        editTitle.addEventListener("click", () => ShowControler.editRow(itemElement, index));
         let editBtn = document.getElementById(`editItemBtn-${index}`);
-        editBtn.addEventListener("click", () => ShowControler.editRow(itemElement, index))
+        editBtn.addEventListener("click", () => ShowControler.editRow(itemElement, index));
     }
     static loading() {
         pointers.printTable.style.display = "none";
@@ -71,21 +77,21 @@ export class ShowControler {
         if (ShowControler.sortType == "icon-chevron-down") {
             ShowControler.sortType = "icon-chevron-up";
             ShowControler.mySateArr.sort(function (a, b) {
-                if (a.data.title.toLowerCase() < b.data.title.toLowerCase()) {
-                    return 1;
-                }
-                if (a.data.title.toLowerCase() > b.data.title.toLowerCase()) {
+                if (a.data.title?.toLowerCase() < b.data.title?.toLowerCase()) {
                     return -1;
+                }
+                if (a.data.title?.toLowerCase() > b.data.title?.toLowerCase()) {
+                    return 1;
                 }
             });
         } else if (ShowControler.sortType == "icon-chevron-up") {
             ShowControler.sortType = "icon-chevron-down";
             ShowControler.mySateArr.sort(function (a, b) {
-                if (a.data.title.toLowerCase() < b.data.title.toLowerCase()) {
-                    return -1;
-                }
-                if (a.data.title.toLowerCase() > b.data.title.toLowerCase()) {
+                if (a.data.title?.toLowerCase() < b.data.title?.toLowerCase()) {
                     return 1;
+                }
+                if (a.data.title?.toLowerCase() > b.data.title?.toLowerCase()) {
+                    return -1;
                 }
             });
         }
@@ -108,47 +114,27 @@ export class ShowControler {
         }
     }
     static deleteRow(idx, itemRow, item) {
-        const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-                confirmButton: 'btn btn-success',
-                cancelButton: 'btn btn-danger'
+        
+        buildfire.dialog.confirm(
+            {
+                title: "Delete Item",
+                message: `Are you sure you want to Delete ${item.data.title} tem`,
             },
-            buttonsStyling: false
-        })
-
-        swalWithBootstrapButtons.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, delete it!',
-            cancelButtonText: 'No, cancel!',
-            reverseButtons: true
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // our Code ==>
+            async (err, isConfirmed) => {
+              if (err) console.error(err);
+          
+              if (isConfirmed) {
+                //Go back
                 itemRow.style.display = "none";
                 ShowControler.mySateArr.splice(idx, 1);
-                ContentHandlers.deactiveItem(item.id, item);
-                if (ShowControler.mySateArr.length == 0) {
-                    ShowControler.printItems(ShowControler.mySateArr);
-                }
-                swalWithBootstrapButtons.fire(
-                    'Deleted!',
-                    'Your file has been deleted.',
-                    'success'
-                )
-            } else if (
-                /* Read more about handling dismissals below */
-                result.dismiss === Swal.DismissReason.cancel
-            ) {
-                swalWithBootstrapButtons.fire(
-                    'Cancelled',
-                    'Your imaginary file is safe :)',
-                    'error'
-                )
+                await ContentHandlers.deactiveItem(item.id, item);
+
+                ShowControler.printItems();
+              } else {
+                //Prevent action
+              }
             }
-        })
+          );
     }
     static editRow(itemElement, index) {
         ShowControler.typeOfHandelForm = "edit";

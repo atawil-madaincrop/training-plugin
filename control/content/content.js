@@ -15,6 +15,7 @@ pointers.subTitle.addEventListener('input', EventHandlers.handelSubTitle);
 pointers.getSearch.addEventListener('click', EventHandlers.getSearchItems);
 pointers.iconPlcaeCancelSearch.addEventListener('click', EventHandlers.resetSearch);
 pointers.sortSpan.addEventListener('click', ShowControler.sortData);
+pointers.getSearchInput.addEventListener('input', EventHandlers.setSearchTyping)
 
 // Init WYSIWYG
 const initTiny = (selector) => {

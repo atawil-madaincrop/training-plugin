@@ -1,31 +1,28 @@
 const languageConfig = {
-    screenOne: {
-        title: "Screen One",
+    Main: {
+        title: null,
         labels: {
-            loading: {
-                title: "loading",
-                placeholder: "loading...",
-                defaultValue: "loading...",
-                maxLength: 60,
+            search: {
+                title: "Search",
+                placeholder: "Search",
+                defaultValue: null,
+                maxLength: null,
+                required: false,
             },
-            sort: {
-                title: "A to Z",
-                placeholder: "enter message here",
-                defaultValue: "Welcome to your app",
-                maxLength: 500,
-                required: true,
+            sortAscending: {
+                title: "Sort A - Z",
+                placeholder: "Sort A - Z",
+                defaultValue: null,
+                maxLength: null,
+                required: false,
+            },
+            sortDescending: {
+                title: "Sort Z - A",
+                placeholder: "Sort Z - A",
+                defaultValue: null,
+                maxLength: null,
+                required: false,
             },
         }
     },
-    screenTwo: {
-        title: "Screen Two",
-        labels: {
-            noMatches: {
-                title: "Message to show when no matches found.",
-                placeholder: "enter message here",
-                defaultValue: "Sorry no matches found. Please try again latter",
-                maxLength: 600,
-            },
-        },
-    }
 };

@@ -17,7 +17,6 @@ export const pointers = {
     printTable: document.getElementById("printTable"),
     printWhenEmpty: document.getElementById("printWhenEmpty"),
     printLoading: document.getElementById("printLoading"),
-    sortSpan: document.getElementById("sortSpan"),
     itemsListTable: document.getElementById("itemsListTable")
 
 }

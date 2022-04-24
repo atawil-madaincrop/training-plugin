@@ -2,7 +2,7 @@
 import { pointers } from "./pointers.js";
 import { LanguageManagement } from "./languageManagement.js";
 import Language from "../../../widget/common/entities/Language.js";
-
+import { language } from "../../../widget/common/config/defaultLanguage.js";
 
 
 export class Handlers {
@@ -22,6 +22,10 @@ export class Handlers {
         if (res) {
             this.languageState = res;
             this.setDefaultInput();
+        } else {
+            this.languageState.search = language.search
+            this.languageState.sortAscending = language.sortAscending
+            this.languageState.sortDescending = language.sortDescending
         }
     }
 

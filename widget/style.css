@@ -1,11 +1,41 @@
+:root {
+    --iconsTheme: #FF9500;
+    --backgroundColorTheme: #F9FCFC;
+}
+
+.color-icons-theme {
+    color: var(--iconsTheme) !important;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    margin: 1.6rem;
+    padding: 1.2rem 1.6rem;
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.16);
+    border-radius: 0.4rem;
+}
+
+.search-input {
+    width: 100%;
+    margin: 0 1.2rem;
+    border: none;
+    color: var(--bf-theme-body-text);
+}
+
+.search-input::placeholder {
+    color: var(--bf-theme-body-text);
+}
+
 #widget {
     overflow-y: auto;
     max-height: 100vh;
+    background-color: var(--backgroundColorTheme);
 }
 
 #description {
     padding: 0.6rem 1.6rem;
-    min-height: 12rem;
+    min-height: 18rem;
 }
 
 #items-list-view.listViewContainer {

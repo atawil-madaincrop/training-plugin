@@ -1,4 +1,4 @@
-import { ShowController } from "./js/ShowController.js";
+import { ShowController } from "./js/showController.js";
 import { EventHandlers } from "./js/eventHandlers.js";
 
 

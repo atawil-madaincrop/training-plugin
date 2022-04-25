@@ -1,4 +1,4 @@
-import { ShowController } from "./ShowController.js";
+import { ShowController } from "./showController.js";
 import { ContentHandlers } from "./contentHandlers.js";
 import { pointers } from "./pointers.js";
 

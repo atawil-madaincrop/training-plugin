@@ -1,7 +1,7 @@
 import WidgetController from "./widget.controller.js";
 import { pointers } from './js/pointers.js';
 
-let introduction, imageCarousel, itemsListView;
+let introduction, language, imageCarousel, itemsListView;
 
 const initCarousel = () => {
     imageCarousel = new buildfire.components.carousel.view(pointers.carousel, introduction.imageCarousel);
@@ -20,14 +20,21 @@ const initItemsListView = async () => {
     itemsListView.init();
 }
 
-const load = () => {
-    WidgetController.getIntroduction().then((res) => {
-        introduction = res.data;
-        initCarousel();
-        initDescription();
+const load = async () => {
+    const promises = [
+        WidgetController.getIntroduction(),
+        WidgetController.getLanguage(),
+    ];
 
-        console.log({ introduction });
+    await Promise.all(promises).then((values) => {
+        introduction = values[0].data;
+        language = values[1].data;
+
+        console.log({ introduction, language });
     });
+
+    initCarousel();
+    initDescription();
 }
 
 const init = async () => {

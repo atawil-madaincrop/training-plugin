@@ -1,12 +1,12 @@
 class SearchTableHelper {
-	constructor(tableId, tag, config, filter, editCallback, deleteCallback) {
+	constructor(tableId, tag, config, filter, sort, editCallback, deleteCallback) {
 		if (!config) throw "No config provided";
 		if (!tableId) throw "No tableId provided";
 		this.table = document.getElementById(tableId);
 		if (!this.table) throw "Cant find table with ID that was provided";
 		this.config = config;
 		this.tag = tag;
-		this.sort = {};
+		this.sort = sort || {};
 		this.commands = {};
 		this.filterFixed = filter || {};
 		this.editCallback = editCallback;
@@ -32,27 +32,34 @@ class SearchTableHelper {
 			else classes = ["text-left"];
 			let th = this._create('th', this.thead, colConfig.header, classes);
 			if (colConfig.sortBy) {
-				const icon = this._create('span', th, "", ['icon', 'icon-chevron-down']);
-				const _t = this;
-				th.addEventListener('click', function () {
-					if (_t.sort[colConfig.sortBy] && _t.sort[colConfig.sortBy] > 0) {
-						_t.sort = { [colConfig.sortBy]: -1 };
+				let classes = ['icon'];
+				if (this.sort[colConfig.sortBy] && this.sort[colConfig.sortBy] > 0) {
+					classes.push('icon-chevron-up');
+				} else {
+					classes.push('icon-chevron-down');
+				}
+
+				const icon = this._create('span', th, "", classes);
+
+				th.addEventListener('click', () => {
+					if (this.sort[colConfig.sortBy] && this.sort[colConfig.sortBy] > 0) {
+						this.sort = { [colConfig.sortBy]: -1 };
 						icon.classList.remove('icon-chevron-up');
 						icon.classList.add('icon-chevron-down');
 					}
 					else {
 						//revert icon if previously sorted
-						for (let i = 0; i < _t.thead.children.length; i++) {
-							if (_t.thead.children[i].children[0]) {
-								_t.thead.children[i].children[0].classList.remove('icon-chevron-up');
-								_t.thead.children[i].children[0].classList.add('icon-chevron-down');
+						for (let i = 0; i < this.thead.children.length; i++) {
+							if (this.thead.children[i].children[0]) {
+								this.thead.children[i].children[0].classList.remove('icon-chevron-up');
+								this.thead.children[i].children[0].classList.add('icon-chevron-down');
 							}
 						};
-						_t.sort = { [colConfig.sortBy]: 1 };
+						this.sort = { [colConfig.sortBy]: 1 };
 						icon.classList.remove('icon-chevron-down');
 						icon.classList.add('icon-chevron-up');
 					}
-					_t._fetchPageOfData();
+					this._fetchPageOfData();
 				});
 			}
 			if (colConfig.width)

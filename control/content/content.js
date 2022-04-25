@@ -25,6 +25,10 @@ const initItemsTable = async () => {
         "$json.deletedOn": { "$eq": null },
     }
 
+    const sort = {
+        title: 1,
+    }
+
     const onRowEdit = (obj, tr) => {
         goToItemDetailsSubPage(obj.id, obj.data, "edit");
     }
@@ -34,7 +38,7 @@ const initItemsTable = async () => {
         checkItemsEmptyState(itemsCount - 1);
     }
 
-    searchTableHelper = new SearchTableHelper("items-table", ContentController.itemsTag(), searchTableConfig, filterFixed, onRowEdit, onRowDelete);
+    searchTableHelper = new SearchTableHelper("items-table", ContentController.itemsTag(), searchTableConfig, filterFixed, sort, onRowEdit, onRowDelete);
 
     searchTableHelper.search(null, (res) => {
         checkItemsEmptyState(res && res.length);

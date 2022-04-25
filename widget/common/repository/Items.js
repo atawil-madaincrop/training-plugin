@@ -8,6 +8,7 @@ export default class Items {
             page: options.page || 0,
             pageSize: options.pageSize || 10,
             filter: {
+                ...options.filter,
                 "$json.deletedOn": { "$eq": null },
             },
         };

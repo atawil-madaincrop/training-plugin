@@ -1,7 +1,7 @@
 import WidgetController from "./widget.controller.js";
 import { pointers } from './js/pointers.js';
 
-let introduction, items, imageCarousel, itemsListView;
+let introduction, imageCarousel, itemsListView;
 
 const initCarousel = () => {
     imageCarousel = new buildfire.components.carousel.view(pointers.carousel, introduction.imageCarousel);
@@ -11,20 +11,13 @@ const initDescription = () => {
     pointers.description.innerHTML = introduction.description;
 }
 
-const initItemsListView = () => {
-    itemsListView = new ListViewHelper(pointers.itemsListView, itemsToListViewStructure(items));
-    itemsListView.init();
-}
+const initItemsListView = async () => {
+    const filterFixed = {
+        "$json.deletedOn": { "$eq": null },
+    }
 
-const itemsToListViewStructure = (items) => {
-    return items.map((item) => {
-        return {
-            id: item.id,
-            title: item.data.title,
-            subtitle: item.data.subtitle,
-            imageUrl: item.data.image,
-        }
-    });
+    itemsListView = new ListViewHelper(pointers.itemsListView, WidgetController.itemsTag, pointers.widget, filterFixed);
+    itemsListView.init();
 }
 
 const load = () => {
@@ -35,17 +28,11 @@ const load = () => {
 
         console.log({ introduction });
     });
-
-    WidgetController.getItems().then((res) => {
-        items = res;
-        initItemsListView();
-
-        console.log({ items });
-    });
 }
 
 const init = async () => {
     load();
+    initItemsListView();
 }
 
 init();

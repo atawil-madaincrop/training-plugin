@@ -1,5 +1,16 @@
+#widget {
+    overflow-y: auto;
+    max-height: 100vh;
+}
+
 #description {
     padding: 0.6rem 1.6rem;
+    min-height: 12rem;
+}
+
+#items-list-view.listViewContainer {
+    padding-top: 3rem;
+    max-height: unset;
 }
 
 #items-list-view .listViewItem {

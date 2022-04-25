@@ -1,0 +1,34 @@
+#description {
+    padding: 0.6rem 1.6rem;
+}
+
+#items-list-view .listViewItem {
+    padding: 0.6rem 1.6rem;
+}
+
+#items-list-view .listViewItem:first-child {
+    padding-top: 0;
+}
+
+#items-list-view .listViewItem:last-child {
+    padding-bottom: 0;
+}
+
+#items-list-view .listViewItemImg {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 0.4rem;
+}
+
+#items-list-view .listViewItemTitle {
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--bf-theme-header-text);
+}
+
+#items-list-view .listViewItemSubtitle {
+    margin: 0;
+    font-size: 1.4rem;
+    color: var(--bf-theme-body-text);
+}

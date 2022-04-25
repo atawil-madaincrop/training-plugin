@@ -41,7 +41,17 @@ const initListeners = () => {
     pointers.searchInput.onkeyup = (e) => onSearchInputChange(e);
 }
 
-const toggleSortCancelIcon = (on) => {
+const toggleCarouselAndDescription = (on) => {
+    if (on) {
+        pointers.carousel.classList.add('hidden');
+        pointers.description.classList.add('hidden');
+    } else {
+        pointers.carousel.classList.remove('hidden');
+        pointers.description.classList.remove('hidden');
+    }
+}
+
+const toggleSortAndCancelIcons = (on) => {
     if (on) {
         pointers.iconSort.classList.add('hidden');
         pointers.iconClear.classList.remove('hidden');
@@ -54,9 +64,11 @@ const toggleSortCancelIcon = (on) => {
 const onSearchInputChange = (e) => {
     let value = e.target.value;
     if (value) {
-        toggleSortCancelIcon(true);
+        toggleSortAndCancelIcons(true);
+        toggleCarouselAndDescription(true);
     } else {
-        toggleSortCancelIcon(false);
+        toggleSortAndCancelIcons(false);
+        toggleCarouselAndDescription(false);
     }
 }
 

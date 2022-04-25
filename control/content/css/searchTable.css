@@ -7,19 +7,20 @@ tbody tr {
     display: table;
     width: 100%;
     table-layout: fixed;
-    /* even columns width , fix width of table too*/
 }
 
 tbody tr {
-    border-right: 1px solid #d8d8d8;
-    border-left: 1px solid #d8d8d8;
+    border-right: 1px solid var(--c-gray3);
+    border-left: 1px solid var(--c-gray3);
 }
 
 th {
     padding: 15px 8px 13px;
     line-height: 26px;
     vertical-align: middle;
-    border-bottom: 1px solid #d8d8d8;
+    border-bottom: 1px solid var(--c-gray3);
+    color: var(--c-info);
+    font-weight: 700;
 }
 
 th>span {
@@ -43,7 +44,9 @@ tbody {
 
 table tbody tr td {
     border-top: none !important;
-    border-bottom: 1px solid #d8d8d8;
+    border-bottom: 1px solid var(--c-gray3);
+    color: var(--c-info);
+    font-size: 0.825rem;
 }
 
 .image-column img {

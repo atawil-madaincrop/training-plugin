@@ -1,4 +1,4 @@
-#carousel .main {
+#carousel .main.col-md-9 .clearfix {
     display: flex;
     justify-content: flex-end;
 }

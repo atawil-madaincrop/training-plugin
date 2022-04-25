@@ -1,4 +1,4 @@
-import { ShowControler } from "./showControler.js";
+import { ShowController } from "./ShowController.js";
 import { ContentHandlers } from "./contentHandlers.js";
 import { pointers } from "./pointers.js";
 
@@ -9,83 +9,83 @@ export class EventHandlers {
     static loadItems = async () => {
         pointers.formPage.style.display = "none";
         let itemsData = await ContentHandlers.loadItems(0, 10);
-        ShowControler.mySateArr = itemsData;
+        ShowController.mySateArr = itemsData;
     }
     static getSearchItems = async () => {
         if (pointers.getSearchInput.value.length > 0) {
-            ShowControler.loading();
+            ShowController.loading();
             let res = await ContentHandlers.searchItems(pointers.getSearchInput.value);
-            ShowControler.mySateArr = res;
+            ShowController.mySateArr = res;
             pointers.iconPlcae.style.display = "none";
             pointers.iconPlcaeCancelSearch.style.display = "inline-block";
         } else {
             this.loadItems();
             this.setAddBtn()
         }
-        ShowControler.printItems(ShowControler.mySateArr);
+        ShowController.printItems(ShowController.mySateArr);
     }
     static setSearchTyping(e) {
-        if(e.target.value.length > 0){
+        if (e.target.value.length > 0) {
             pointers.iconPlcae.style.display = "inline-block";
             pointers.iconPlcaeCancelSearch.style.display = "none";
-        }else{
+        } else {
             pointers.iconPlcae.style.display = "none";
             pointers.iconPlcaeCancelSearch.style.display = "inline-block";
         }
     }
     static resetSearch = async () => {
         pointers.getSearchInput.value = "";
-        ShowControler.loading();
+        ShowController.loading();
         pointers.iconPlcaeCancelSearch.style.display = "none";
         pointers.iconPlcae.style.display = "inline-block";
         await this.loadItems();
-        ShowControler.printItems();
+        ShowController.printItems();
         this.setAddBtn();
     }
     // handel input data
     static handelTitle(e) {
-        ShowControler.newItem.title = e.target.value;
+        ShowController.newItem.title = e.target.value;
     }
     static handelSubTitle(e) {
-        ShowControler.newItem.subtitle = e.target.value;
+        ShowController.newItem.subtitle = e.target.value;
     }
     static handelTiny() {
-        ShowControler.newItem.description = tinymce.activeEditor.getContent();
+        ShowController.newItem.description = tinymce.activeEditor.getContent();
     }
     // handel form to add and edit items 
     static setAddBtn() {
         let newAdd = document.getElementById("add-New-Item_btn2");
         if (newAdd) {
-            newAdd.addEventListener("click", () => ShowControler.showAddModal(true))
+            newAdd.addEventListener("click", () => ShowController.showAddModal(true))
         }
     }
     static submitNewItem = async () => {
-        if (ShowControler.newItem.image && ShowControler.newItem.coverImage && ShowControler.newItem.title) {
+        if (ShowController.newItem.image && ShowController.newItem.coverImage && ShowController.newItem.title) {
             await this.handelSubmitForm();
         } else {
             buildfire.dialog.alert({
                 message: "Some Needed Data in Missing!",
-              });
+            });
         }
     }
     static handelSubmitForm = async () => {
-        if (ShowControler.typeOfHandelForm == "add") {
-            let addedData = await ContentHandlers.addItem(ShowControler.newItem)
-            ShowControler.mySateArr.splice(0, 0, addedData)
-            ShowControler.emptyData();
-            ShowControler.showAddModal(false);
-            ShowControler.printItems(ShowControler.mySateArr);
-        } else if (ShowControler.typeOfHandelForm == "edit") {
-            let editedData = await ContentHandlers.editItem(ShowControler.itemForEdit.itemElement.id, ShowControler.newItem);
-            ShowControler.mySateArr.splice(ShowControler.itemForEdit.index, 1, editedData);
-            ShowControler.emptyData();
-            ShowControler.showAddModal(false);
-            ShowControler.printItems(ShowControler.mySateArr);
+        if (ShowController.typeOfHandelForm == "add") {
+            let addedData = await ContentHandlers.addItem(ShowController.newItem)
+            ShowController.mySateArr.splice(0, 0, addedData)
+            ShowController.emptyData();
+            ShowController.showAddModal(false);
+            ShowController.printItems(ShowController.mySateArr);
+        } else if (ShowController.typeOfHandelForm == "edit") {
+            let editedData = await ContentHandlers.editItem(ShowController.itemForEdit.itemElement.id, ShowController.newItem);
+            ShowController.mySateArr.splice(ShowController.itemForEdit.index, 1, editedData);
+            ShowController.emptyData();
+            ShowController.showAddModal(false);
+            ShowController.printItems(ShowController.mySateArr);
         }
     }
     static pushNewRow(item) {
-        if (ShowControler.mySateArr.length == 1) {
-            ShowControler.printItems();
+        if (ShowController.mySateArr.length == 1) {
+            ShowController.printItems();
         } else {
             let myDate = new Date(item.data.createdOn).toDateString().split(" ");
             let myDateToPrint = `${myDate[1]} ${myDate[2]}, ${myDate[3]}`
@@ -101,13 +101,13 @@ export class EventHandlers {
         <td>
             <div class="pull-right">
                 <button class="btn bf-btn-icon"><span class="icon icon-pencil3"></span></button>
-                <button id="deleteItemBtn-${ShowControler.mySateArr.length - 1}" class="btn bf-btn-icon"><span class="icon icon-cross2"></span></button>
+                <button id="deleteItemBtn-${ShowController.mySateArr.length - 1}" class="btn bf-btn-icon"><span class="icon icon-cross2"></span></button>
             </div>
         </td>
             </tr>
         `
             itemsListTable.appendChild(newRow)
-            let deleteBtn = document.getElementById(`deleteItemBtn-${ShowControler.mySateArr.length - 1}`);
+            let deleteBtn = document.getElementById(`deleteItemBtn-${ShowController.mySateArr.length - 1}`);
             deleteBtn.addEventListener("click", () => deleteRow(newRow, item))
         }
     }

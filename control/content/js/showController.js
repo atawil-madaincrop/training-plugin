@@ -4,7 +4,7 @@ import { pointers } from "./pointers.js"
 
 
 
-export class ShowControler {
+export class ShowController {
 
     static newItem;
     static itemForEdit = {};
@@ -53,7 +53,7 @@ export class ShowControler {
             <td>
                 <span class="input-group-btn col-md-12">
                     <button id="editItemBtn-${index}" class="btn stretch margin-left-zero btn_in_list">
-                        <span class="cardBtnSpan icon icon-pencil5"></span>
+                        <span class="cardBtnSpan icon icon-pencil3"></span>
                     </button>
                     <button id="deleteItemBtn-${index}" class="btn stretch margin-left-zero btn_in_list">
                         <span class="cardBtnSpan icon icon-cross2" ></span>

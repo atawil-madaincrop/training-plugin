@@ -21,7 +21,7 @@
 </head>
 
 <body class="sub-page">
-  <div id="list-Of-Items-From-DataStore" class="container slide-in padding-bottom-twenty">
+  <div id="list-Of-Items-From-DataStore" class="slide-in padding-bottom-twenty">
     <p class="info-note margin-bottom-twenty">You can create a list of items with images, actions and other details. Add
       an introduction section on the <a class="link" href="/introduction/index.html">introduction</a> tab </p>
     <div class="row">
@@ -44,10 +44,8 @@
     <div id="printOutTable">
 
       <div id="printLoading" class="well empty-state-lg">
-        <div class="container">
-          <div class="row">
-            <h5 class="text-center">Loading ...</h5>
-          </div>
+        <div class="row">
+          <h5 class="text-center">Loading ...</h5>
         </div>
       </div>
 
@@ -69,20 +67,16 @@
       </table>
 
       <div id="printWhenEmpty" class="well empty-state-lg">
-        <div class="container">
-          <div class="row emptyRow">
-            <h5 class="text-center">You haven't added anything yet.</h5>
-          </div>
-          <div class="row emptyRow">
-            <h5 class="text-center">Add sample data to preview this feature.</h5>
-          </div>
-          <div class="row emptyRow">
-            <div class="container">
-              <div class="col-md-11">
-                <button id="add-New-Item_btn2" class="btn btn-success stretch"><span class="icon icon-plus margin-right-ten"></span>Add
-                  Sample Data</button>
-              </div>
-            </div>
+        <div class="row emptyRow">
+          <h5 class="text-center">You haven't added anything yet.</h5>
+        </div>
+        <div class="row emptyRow">
+          <h5 class="text-center">Add sample data to preview this feature.</h5>
+        </div>
+        <div class="row emptyRow">
+          <div class="col-md-11">
+            <button id="add-New-Item_btn2" class="btn btn-success stretch"><span class="icon icon-plus margin-right-ten"></span>Add
+              Sample Data</button>
           </div>
         </div>
       </div>
@@ -91,7 +85,7 @@
   </div>
 </body>
 <div id="formPage" class="sub-page">
-  <div class="container slide-in padding-bottom-twenty">
+  <div class="slide-in padding-bottom-twenty">
     <h4 class="font-weight-bold margin-bottom-twenty">Item Images</h4>
     <div class="row">
       <div class="col-md-3">
@@ -107,19 +101,19 @@
       </div>
     </div>
     <h4 class="font-weight-bold margin-bottom-twenty">Item Details</h4>
-    <div class="titleSubtitleRow stretch row margin-bottom-twenty">
+    <div class="row margin-bottom-twenty">
       <div class="col-md-3">
         <label for="title" class="p-Label">Title <span class="redStar">*</span></label>
       </div>
-      <div class="col-md-9 inputItemTitle-RowContainer">
+      <div class="col-md-9">
         <input class="inputItemTitle form-control" required id="title" name="title">
       </div>
     </div>
-    <div class="titleSubtitleRow stretch row margin-bottom-twenty">
+    <div class="row margin-bottom-twenty">
       <div class="col-md-3">
         <label for="subTitle" class="p-Label">Subtitle</label>
       </div>
-      <div class="col-md-9 inputItemTitle-RowContainer">
+      <div class="col-md-9">
         <input class="inputItemTitle form-control" id="subTitle" name="subTitle">
       </div>
     </div>

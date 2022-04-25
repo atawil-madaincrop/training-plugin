@@ -28,9 +28,6 @@ h4::before{
     border: 1px solid var(--c-gray3);
     margin-top: 0.4rem;
 }
-.inputItemTitle-RowContainer{
-    padding-right: 0rem !important;
-}
 
 .images_in_List{
     object-fit: cover;

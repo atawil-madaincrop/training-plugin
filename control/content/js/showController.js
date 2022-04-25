@@ -53,7 +53,7 @@ export class ShowController {
             <td>
                 <span class="input-group-btn col-md-12">
                     <button id="editItemBtn-${index}" class="btn stretch margin-left-zero btn_in_list">
-                        <span class="cardBtnSpan icon icon-pencil3"></span>
+                        <span class="cardBtnSpan icon icon-pencil"></span>
                     </button>
                     <button id="deleteItemBtn-${index}" class="btn stretch margin-left-zero btn_in_list">
                         <span class="cardBtnSpan icon icon-cross2" ></span>

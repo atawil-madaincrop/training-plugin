@@ -51,7 +51,7 @@ h4::before{
 .btn_in_list:hover .icon-cross2{
     color:var(--bf-theme-danger);
 }
-.btn_in_list:hover .icon-pencil5{
+.btn_in_list:hover .icon-pencil{
     color:var(--bf-theme-icons);
 }
 

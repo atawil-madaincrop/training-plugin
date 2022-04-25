@@ -5,8 +5,8 @@
 .empty-state-description {
     font-style: normal;
     font-weight: 700;
-    font-size: 16px;
-    line-height: 24px;
+    font-size: 1rem;
+    line-height: 1.5rem;
 
     display: flex;
     align-items: center;
@@ -29,23 +29,24 @@
 }
 
 .image-picker.aspect-1-1 .screens .screen {
-    width: 96px;
-    max-width: 96px;
-    height: 96px;
+    aspect-ratio: 1;
+    width: 6rem;
+    max-width: 6rem;
+    height: 6rem;
 }
 
 .image-picker.aspect-16-9 .screens .screen {
-    width: 171px;
-    max-width: 171px;
-    height: 96px;
+    width: 10.625rem;
+    max-width: 10.625rem;
+    height: 6rem;
 }
 
 .image-picker.aspect-16-9 .screens .screen a span.add-icon {
-    top: -10px;
+    top: -0.625rem;
 }
 
 .image-picker.aspect-16-9 .screens .screen label.secondary {
-    line-height: 22px;
+    line-height: 1.375rem;
 }
 
 .image-picker.aspect-1-1 .screens .screen a,

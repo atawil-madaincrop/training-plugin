@@ -4,7 +4,7 @@
     padding: 0;
 }
 .cardBtnSpan{
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     margin: -0.8rem;
 }
 
@@ -28,11 +28,9 @@ h4::before{
     border: 1px solid var(--c-gray3);
     margin-top: 0.4rem;
 }
-.inputItemTitle-RowContainer{
-    padding-right: 0rem !important;
-}
 
 .images_in_List{
+    object-fit: cover;
     width: 100%;
     height: 100%;
     border-radius:0.25rem;
@@ -50,7 +48,7 @@ h4::before{
 .btn_in_list:hover .icon-cross2{
     color:var(--bf-theme-danger);
 }
-.btn_in_list:hover .icon-pencil5{
+.btn_in_list:hover .icon-pencil{
     color:var(--bf-theme-icons);
 }
 
@@ -72,13 +70,12 @@ td{
     width:100% !important;
 }
 #image .item .main .screens .screen, #image .item .main .screens .screen .change-background{
-    max-width:10rem !important;
+    max-width:6rem !important;
 }
 #imageCover .item .main .screens .screen, #imageCover .item .main .screens .screen .change-background{
-    max-width:14rem !important;
+    max-width:10rem !important;
 }
 #imageCover .item .main{
-    padding-left: 3rem;
     float: left !important;
 }
 #image .item .main{
@@ -91,7 +88,7 @@ td{
     text-align: start;
 }
 .p-Label{
-    font-size:1.3rem;
+    font-size:0.875rem;
 }
 .titleSubtitleRow{
     width: 64.5rem !important;

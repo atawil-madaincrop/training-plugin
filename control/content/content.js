@@ -1,4 +1,4 @@
-import { ShowControler } from "./js/showControler.js";
+import { ShowController } from "./js/ShowController.js";
 import { EventHandlers } from "./js/eventHandlers.js";
 
 
@@ -7,14 +7,14 @@ import { pointers } from "./js/pointers.js";
 pointers.iconPlcaeCancelSearch.style.display = "none";
 
 // Add Events Listener to manage data
-pointers.addItemBtn.addEventListener('click', () => ShowControler.showAddModal(true));
-pointers.cancelAdding.addEventListener('click', () => ShowControler.showAddModal(false));
+pointers.addItemBtn.addEventListener('click', () => ShowController.showAddModal(true));
+pointers.cancelAdding.addEventListener('click', () => ShowController.showAddModal(false));
 pointers.addItemContainer.addEventListener('click', EventHandlers.submitNewItem);
 pointers.title.addEventListener('input', EventHandlers.handelTitle);
 pointers.subTitle.addEventListener('input', EventHandlers.handelSubTitle);
 pointers.getSearch.addEventListener('click', EventHandlers.getSearchItems);
 pointers.iconPlcaeCancelSearch.addEventListener('click', EventHandlers.resetSearch);
-pointers.sortSpan.addEventListener('click', ShowControler.sortData);
+pointers.sortSpan.addEventListener('click', ShowController.sortData);
 pointers.getSearchInput.addEventListener('input', EventHandlers.setSearchTyping)
 
 // Init WYSIWYG
@@ -29,37 +29,37 @@ const initTiny = (selector) => {
 }
 // Init Thumbnail
 const initThumbnail = () => {
-    ShowControler.image = new buildfire.components.images.thumbnail("#image", {
+    ShowController.image = new buildfire.components.images.thumbnail("#image", {
         imageUrl: '',
         title: "List Image & Cover Image *",
         dimensionsLabel: "Recommended: 600x600",
         multiSelection: false
     });
-    ShowControler.coverImage = new buildfire.components.images.thumbnail("#imageCover", {
+    ShowController.coverImage = new buildfire.components.images.thumbnail("#imageCover", {
         imageUrl: '',
         title: "cover",
         dimensionsLabel: "Recommended: 1200x675",
         multiSelection: false
     });
 
-    ShowControler.image.onDelete = (imageUrl) => {
-        ShowControler.newItem.image = null;
+    ShowController.image.onDelete = (imageUrl) => {
+        ShowController.newItem.image = null;
     };
-    ShowControler.coverImage.onDelete = (imageUrl) => {
-        ShowControler.newItem.coverImage = null;
+    ShowController.coverImage.onDelete = (imageUrl) => {
+        ShowController.newItem.coverImage = null;
     };
 
-    ShowControler.image.onChange = (imageUrl) => {
-        ShowControler.newItem.image = imageUrl;
+    ShowController.image.onChange = (imageUrl) => {
+        ShowController.newItem.image = imageUrl;
     };
-    ShowControler.coverImage.onChange = (imageUrl) => {
-        ShowControler.newItem.coverImage = imageUrl;
+    ShowController.coverImage.onChange = (imageUrl) => {
+        ShowController.newItem.coverImage = imageUrl;
     };
 }
 // Init all functionality ...
 const init = async () => {
     await EventHandlers.loadItems();
-    ShowControler.printItems();
+    ShowController.printItems();
     EventHandlers.setAddBtn();
 
     initTiny("#wysiwygContent");

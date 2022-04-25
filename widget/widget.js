@@ -1,26 +1,34 @@
-const initComponents = () => {
-    document.getElementById("my_container_div").innerHTML = '<p><span style="background-color: #bfedd2; font-size: 24px;"><strong><em>Hello this is Abed &amp; Alaa!</em></strong></span></p>';
+import WidgetController from "./widget.controller.js";
+import { pointers } from './js/pointers.js';
 
-    let viewer = new buildfire.components.carousel.view(".carousel", [
-        {
-            title: "build fire",
-            url: "https://www.facebook.com/buildfireapps",
-            action: "linkToWeb",
-            openIn: "_blank",
-            iconUrl: "https://placekitten.com/800/400",
-        },
-        {
-            title: "build fire",
-            url: "https://www.facebook.com/buildfireapps",
-            action: "linkToWeb",
-            openIn: "_blank",
-            iconUrl: "https://placekitten.com/600/300",
-        }
-    ]);
+let introduction, items, imageCarousel;
+
+const initCarousel = () => {
+    imageCarousel = new buildfire.components.carousel.view(pointers.carousel, introduction.imageCarousel);
+}
+
+const initDescription = () => {
+    pointers.description.innerHTML = introduction.description;
+}
+
+const load = async () => {
+    const promises = [
+        WidgetController.getIntroduction(),
+        WidgetController.getItems(),
+    ];
+
+    await Promise.all(promises).then((values) => {
+        introduction = values[0].data;
+        items = values[1];
+    });
+
+    console.log({ introduction, items });
 }
 
 const init = async () => {
-    initComponents();
+    await load();
+    initDescription();
+    initCarousel();
 }
 
 init();

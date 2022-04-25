@@ -37,9 +37,33 @@ const load = async () => {
     initDescription();
 }
 
+const initListeners = () => {
+    pointers.searchInput.onkeyup = (e) => onSearchInputChange(e);
+}
+
+const toggleSortCancelIcon = (on) => {
+    if (on) {
+        pointers.iconSort.classList.add('hidden');
+        pointers.iconClear.classList.remove('hidden');
+    } else {
+        pointers.iconSort.classList.remove('hidden');
+        pointers.iconClear.classList.add('hidden');
+    }
+}
+
+const onSearchInputChange = (e) => {
+    let value = e.target.value;
+    if (value) {
+        toggleSortCancelIcon(true);
+    } else {
+        toggleSortCancelIcon(false);
+    }
+}
+
 const init = async () => {
     load();
     initItemsListView();
+    initListeners();
 }
 
 init();

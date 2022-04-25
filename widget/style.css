@@ -7,7 +7,13 @@
     color: var(--iconsTheme) !important;
 }
 
-.search-container {
+#widget {
+    overflow-y: auto;
+    max-height: 100vh;
+    background-color: var(--backgroundColorTheme);
+}
+
+#search-container {
     display: flex;
     align-items: center;
     margin: 1.6rem;
@@ -16,21 +22,15 @@
     border-radius: 0.4rem;
 }
 
-.search-input {
+#search-container .search-input {
     width: 100%;
     margin: 0 1.2rem;
     border: none;
     color: var(--bf-theme-body-text);
 }
 
-.search-input::placeholder {
+#search-container .search-input::placeholder {
     color: var(--bf-theme-body-text);
-}
-
-#widget {
-    overflow-y: auto;
-    max-height: 100vh;
-    background-color: var(--backgroundColorTheme);
 }
 
 #description {

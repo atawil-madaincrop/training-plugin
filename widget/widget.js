@@ -16,7 +16,7 @@ const initItemsListView = async () => {
         "$json.deletedOn": { "$eq": null },
     }
 
-    itemsListView = new ListViewHelper(pointers.itemsListView, WidgetController.itemsTag, pointers.widget, filterFixed);
+    itemsListView = new ListViewHelper(pointers.itemsListView, WidgetController.itemsTag(), pointers.widget, filterFixed);
     itemsListView.init();
 }
 

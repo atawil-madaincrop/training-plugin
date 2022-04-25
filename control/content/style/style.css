@@ -73,10 +73,10 @@ td{
     width:100% !important;
 }
 #image .item .main .screens .screen, #image .item .main .screens .screen .change-background{
-    max-width:10rem !important;
+    max-width:6rem !important;
 }
 #imageCover .item .main .screens .screen, #imageCover .item .main .screens .screen .change-background{
-    max-width:14rem !important;
+    max-width:10rem !important;
 }
 #imageCover .item .main{
     padding-left: 3rem;
@@ -92,7 +92,7 @@ td{
     text-align: start;
 }
 .p-Label{
-    font-size:1.3rem;
+    font-size:0.875rem;
 }
 .titleSubtitleRow{
     width: 64.5rem !important;

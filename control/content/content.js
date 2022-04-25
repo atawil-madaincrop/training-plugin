@@ -176,9 +176,9 @@ const checkItemsEmptyState = (count) => {
 
 const addDummyItemsData = () => {
     const promises = [
-        ContentController.addItem(new Item({ title: 'item 1', subtitle: 'item subtitle 1' })),
-        ContentController.addItem(new Item({ title: 'item 2', subtitle: 'item subtitle 2' })),
-        ContentController.addItem(new Item({ title: 'item 3', subtitle: 'item subtitle 3' })),
+        ContentController.addItem(new Item({ title: 'item 1', subtitle: 'item subtitle 1', image: "https://placekitten.com/400", coverImage: "https://placekitten.com/800/400" })),
+        ContentController.addItem(new Item({ title: 'item 2', subtitle: 'item subtitle 2', image: "https://placekitten.com/400", coverImage: "https://placekitten.com/800/400" })),
+        ContentController.addItem(new Item({ title: 'item 3', subtitle: 'item subtitle 3', image: "https://placekitten.com/400", coverImage: "https://placekitten.com/800/400" })),
     ];
 
     Promise.all(promises).then((values) => {

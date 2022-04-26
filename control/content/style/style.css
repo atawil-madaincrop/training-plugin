@@ -52,8 +52,14 @@ h4::before{
     color:var(--bf-theme-icons);
 }
 
+.text-primary{
+    max-width: 8.125rem !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 td{
-    max-width:204px;
+    max-width:6.875rem;
 }
 
 #sortSpan{

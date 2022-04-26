@@ -96,7 +96,7 @@ const onClearClick = () => {
     toggleSortAndCancelIcons(false);
 
     if (itemsListView)
-        itemsListView.search();
+        itemsListView.search(null, sort);
 }
 
 const toggleCarouselAndDescription = (on) => {
@@ -136,7 +136,7 @@ const onSearchInputChange = (e) => {
                     { "$json.title": { "$regex": value, "$options": "i" } },
                     { "$json.subtitle": { "$regex": value, "$options": "i" } },
                 ],
-            });
+            }, sort);
         }, 500);
 
 }

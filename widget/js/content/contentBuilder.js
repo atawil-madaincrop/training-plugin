@@ -30,7 +30,7 @@ export class ContentBuilder {
         row.setAttribute("id", `item-${index}`)
         row.innerHTML = `
             <section class="leftSection">
-                <img src="${item.data.image || "./js/media/imagePlaceHolder.png"}" alt="item image" >
+                <img src="${item.data.image || "./media/imagePlaceHolder.png"}" alt="item image" >
             </section>
             <section class="rightSection">
                 <span class="titleSpan">${item.data.title}</span>
@@ -103,5 +103,11 @@ export class ContentBuilder {
         sortedArr = this.allItemsSorted;
         this.allItemsSorted = [];
         this.printItems(sortedArr);
+    }
+
+
+    static init_Content = async()=>{
+        await this.loadItems();
+        buildfire.datastore.onUpdate(this.loadItems);
     }
 }

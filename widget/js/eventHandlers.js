@@ -10,6 +10,8 @@ let timer;
 export class EventHandlers {
 
     static resetSearchState = () => {
+        this.setLoading('none');
+
         pointers.introductionContainer.style.display = "block";
         pointers.clearIcon.style.display = "none";
         pointers.sortIcon.style.display = "block";
@@ -26,11 +28,13 @@ export class EventHandlers {
 
     static searchInputHandler = (e) => {
         clearTimeout(timer);
+        this.setLoading('block');
         pointers.contentItems.innerHTML = "";
         if (e.target.value.length > 0) {
             this.setSearchState();
             timer = setTimeout(async x => {
                 await ContentBuilder.getSearchData(e.target.value);
+                this.setLoading("none")
             }, delay, e)
         } else {
             this.resetSearchState();
@@ -63,6 +67,10 @@ export class EventHandlers {
             }
         );
 
+    }
+
+    static setLoading = (type) =>{
+        pointers.loadingWidget.style.display = `${type}`;
     }
 
     static init_Events = () => {

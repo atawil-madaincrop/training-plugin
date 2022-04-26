@@ -1,7 +1,7 @@
 import WidgetController from "./widget.controller.js";
 import { pointers } from './js/pointers.js';
 
-let introduction, language, imageCarousel, itemsListView, sort, selectedItem;
+let introduction, language, imageCarousel, itemsListView, sort, selectedItem, page;
 
 const initCarousel = () => {
     imageCarousel = new buildfire.components.carousel.view(pointers.carousel, introduction.imageCarousel);
@@ -46,12 +46,21 @@ const load = async () => {
 }
 
 const initListeners = () => {
+    buildfire.navigation.onBackButtonClick = () => onBackClick();
     pointers.searchInput.onkeyup = (e) => onSearchInputChange(e);
     pointers.iconClear.onclick = (e) => onClearClick(e);
-    pointers.iconSort.onclick = (e) => openDrawer(e);
+    pointers.iconSort.onclick = (e) => onSortClickr(e);
 }
 
-const openDrawer = () => {
+const onBackClick = () => {
+    switch (page) {
+        case 'details':
+            goToMainPage();
+            break;
+    }
+}
+
+const onSortClickr = () => {
     if (!language) return;
 
     let listItems = [
@@ -99,6 +108,7 @@ const openDrawer = () => {
 }
 
 const goToMainPage = () => {
+    page = 'main';
     selectedItem = null;
 
     pointers.mainPage.classList.add("slide-in");
@@ -107,6 +117,7 @@ const goToMainPage = () => {
 }
 
 const goToDetailsPage = (item) => {
+    page = 'details';
     selectedItem = item;
 
     pointers.itemImage.src = item.data.image;

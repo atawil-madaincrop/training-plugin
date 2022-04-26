@@ -1,7 +1,7 @@
 import WidgetController from "./widget.controller.js";
 import { pointers } from './js/pointers.js';
 
-let introduction, language, imageCarousel, itemsListView;
+let introduction, language, imageCarousel, itemsListView, sort;
 
 const initCarousel = () => {
     imageCarousel = new buildfire.components.carousel.view(pointers.carousel, introduction.imageCarousel);
@@ -16,7 +16,11 @@ const initItemsListView = async () => {
         "$json.deletedOn": { "$eq": null },
     }
 
-    itemsListView = new ListViewHelper(pointers.itemsListView, WidgetController.itemsTag(), pointers.widget, filterFixed);
+    sort = {
+        title: 1,
+    }
+
+    itemsListView = new ListViewHelper(pointers.itemsListView, WidgetController.itemsTag(), pointers.widget, filterFixed, sort);
     itemsListView.init();
 }
 
@@ -67,11 +71,17 @@ const openDrawer = () => {
 
             switch (res.id) {
                 case 'sortAscending':
-                    itemsListView.search(null, { title: 1 });
+                    if (sort.title < 0) {
+                        sort.title = 1;
+                        itemsListView.search(null, sort);
+                    }
                     break;
 
                 case 'sortDescending':
-                    itemsListView.search(null, { title: -1 });
+                    if (sort.title > 0) {
+                        sort.title = -1;
+                        itemsListView.search(null, sort);
+                    }
                     break;
             }
 

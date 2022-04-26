@@ -22,7 +22,7 @@ export class IntroductionBuilder {
         this.appendUpdatedData();
     }
 
-    static init = () => {
+    static init_Introduction = () => {
         this.initComponents();
         buildfire.datastore.onUpdate(this.appendUpdatedData);
     }

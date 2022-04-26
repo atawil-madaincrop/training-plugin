@@ -1,0 +1,126 @@
+
+*{
+    font-family: 'Roboto';
+}
+
+.search-Container {
+    margin: 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+    padding: 9px 8px 9px 12px;
+    border: 1px solid gray;
+    background: #F9FCFC;
+    box-shadow: 0px 0px 2px rgb(0 0 0 / 25%), 0px 1px 2px rgb(0 0 0 / 16%);
+    border-radius: 4px;
+}
+
+.search-Container input {
+    position: static;
+    width: 80%;
+    height: 20px;
+    left: 32px;
+    top: 2px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0.5px;
+    color: #838383;
+    flex: none;
+    border: none;
+    margin: 0px 5px;
+    margin-top: auto;
+    background-color: #0000;
+}
+
+.search-Container span {
+    width: 17.5px;
+    border-radius: 0px;
+    color: #FF9500;
+    font-weight: bold;
+    margin-top: 2px;
+    line-height: 20px;
+    height: 20px;
+    font-size: 17px !important;
+}
+.search-Container span:hover{
+    cursor: pointer;
+}
+.itemsContainer {
+    position: relative;
+}
+#introduction-Desc{
+    min-height: 181px;
+    padding: 16px;
+}
+.rowItem{
+    margin: 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: stretch;
+}
+.leftSection{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    /* padding: 8px; */
+    
+    position: static;
+    width: 40px;
+    height: 40px;
+    left: 16px;
+    top: 13px;
+    
+    /* transparent gray - hardcoded */
+    
+    background: rgba(150, 150, 150, 0.1);
+    border-radius: 4px;
+    
+    /* Inside auto layout */
+    
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    margin: 0px 12px 0px 0px;
+}
+.leftSection img{
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+}
+.rightSection{
+    width: auto;
+    display: flex;
+    flex-direction: column;
+}
+.titleSpan{
+    font-weight: bold;
+    color: black;
+    font-size:16px;
+    height: 20px;
+}
+.subTitleSpan{
+    height: 20px;
+    font-size:14px;
+}
+
+#clearIcon{
+    display: none;
+}
+
+#loading-Widget,
+#loading-Item {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+#loading-Widget img,
+#loading-Item img {
+    width: 100%;
+    z-index: 10;
+}

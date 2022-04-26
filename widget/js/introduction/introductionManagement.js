@@ -1,5 +1,5 @@
 
-import Introductions from "../common/repository/Introductions.js";
+import Introductions from "../../common/repository/Introductions.js";
 
 export const introductionManagement = {
     load: async () => {

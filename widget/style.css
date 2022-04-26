@@ -3,10 +3,6 @@
     --backgroundColorTheme: #F9FCFC;
 }
 
-.color-icons-theme {
-    color: var(--iconsTheme) !important;
-}
-
 #widget {
     overflow-y: auto;
     max-height: 100vh;
@@ -123,4 +119,25 @@
 #item-description {
     padding: 0 1.6rem;
     color: var(--bf-theme-header-text);
+}
+
+.color-icons-theme {
+    color: var(--iconsTheme) !important;
+}
+
+.slide-in {
+    opacity: 0;
+    animation: slide-in .3s ease-out .1s forwards;
+}
+
+@keyframes slide-in {
+    0% {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0%);
+    }
 }

@@ -41,6 +41,15 @@ class ListViewHelper {
         this._fetchPageOfData(this.filter, this.sort, this.pageIndex, callback);
     }
 
+    onItemClicked = (callback) => {
+        this._onItemClicked(callback);
+    }
+
+    _onItemClicked = (callback) => {
+        if (!this.listView) return;
+        this.listView.onItemClicked = (item) => callback(item);
+    }
+
     _initListView = () => {
         this.listView = new buildfire.components.listView(this.element.id);
     }
@@ -87,6 +96,7 @@ class ListViewHelper {
                 title: item.data.title,
                 subtitle: item.data.subtitle,
                 imageUrl: item.data.image,
+                data: item.data,
             }
         });
     }

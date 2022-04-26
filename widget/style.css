@@ -78,3 +78,22 @@
     font-size: 1.4rem;
     color: var(--bf-theme-body-text);
 }
+
+.images-container {
+    position: relative;
+}
+
+.images-container #item-cover-image {
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    height: 21.1rem;
+}
+
+.images-container #item-image {
+    aspect-ratio: 1;
+    object-fit: cover;
+    position: absolute;
+    left: 1.6rem;
+    bottom: -2.4rem;
+    width: 12rem;
+}

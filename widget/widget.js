@@ -52,7 +52,7 @@ const openDrawer = () => {
         if (!language[key]) return;
         let text = language[key];
         let selected = key == 'sortAscending';
-        listItems.push({ text, selected });
+        listItems.push({ id: key, text, selected });
     });
 
     buildfire.components.drawer.open(
@@ -62,9 +62,20 @@ const openDrawer = () => {
             listItems: listItems,
             height: '13.6rem',
         },
-        (err, result) => {
+        (err, res) => {
             if (err) return console.error(err);
-            console.log("Selected Contacts", result);
+
+            switch (res.id) {
+                case 'sortAscending':
+                    itemsListView.search(null, { title: 1 });
+                    break;
+
+                case 'sortDescending':
+                    itemsListView.search(null, { title: -1 });
+                    break;
+            }
+
+            buildfire.components.drawer.closeDrawer();
         }
     );
 }

@@ -28,15 +28,17 @@ class ListViewHelper {
     init = () => {
         this._initListView();
         this._addListeners();
-        this._fetchNextPage();
+        this._fetchPageOfData(this.filter, this.sort, this.pageIndex);
     }
 
-    search = (filter, callback) => {
+    search = (filter, sort, callback) => {
         this.filter = filter;
+        this.sort = sort;
         this.pageIndex = 0;
         this.endReached = false;
+        this.fetchingNextPage = false;
         this.listView.clear();
-        this._fetchPageOfData(this.filter, 0, callback);
+        this._fetchPageOfData(this.filter, this.sort, this.pageIndex, callback);
     }
 
     _initListView = () => {
@@ -53,23 +55,23 @@ class ListViewHelper {
     _fetchNextPage() {
         if (this.fetchingNextPage) return;
         this.fetchingNextPage = true;
-        this._fetchPageOfData(this.filter, this.pageIndex + 1, () => {
+        this._fetchPageOfData(this.filter, this.sort, this.pageIndex + 1, () => {
             this.fetchingNextPage = false;
         });
     }
 
-    _fetchPageOfData = (filter, pageIndex, callback) => {
+    _fetchPageOfData = (filter, sort, pageIndex, callback) => {
         if (pageIndex > 0 && this.endReached) return;
         this.pageIndex = pageIndex;
         let options = {
             filter: { ...this.filterFixed, ...filter },
-            sort: this.sort,
+            sort: sort,
             page: this.pageIndex,
             pageSize: this.pageSize
         };
 
         buildfire.datastore.search(options, this.tag, (e, res) => {
-            if (this.filter != filter) return;
+            if (this.filter != filter || this.sort != sort) return;
             if (e && callback) return callback(e);
             console.log({ res });
             this._dataToItems(res).forEach((item) => this.listView.addItem(item));

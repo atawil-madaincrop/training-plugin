@@ -19,7 +19,7 @@ class ListViewHelper {
         this.listView = null;
         this.pageIndex = 0;
         this.pageSize = 10;
-        this.endReach = false;
+        this.endReached = false;
         this.filter = {};
         this.filterFixed = filterFixed || {};
         this.sort = sort || {};
@@ -29,6 +29,14 @@ class ListViewHelper {
         this._initListView();
         this._addListeners();
         this._fetchNextPage();
+    }
+
+    search = (filter, callback) => {
+        this.filter = filter;
+        this.pageIndex = 0;
+        this.endReached = false;
+        this.listView.clear();
+        this._fetchPageOfData(this.filter, 0, callback);
     }
 
     _initListView = () => {
@@ -61,9 +69,10 @@ class ListViewHelper {
         };
 
         buildfire.datastore.search(options, this.tag, (e, res) => {
+            if (this.filter != filter) return;
             if (e && callback) return callback(e);
             console.log({ res });
-            this.listView.loadListViewItems(this._dataToItems(res));
+            this._dataToItems(res).forEach((item) => this.listView.addItem(item));
             this.endReached = res.length < this.pageSize;
             if (callback) callback(res);
         });

@@ -70,6 +70,22 @@ const onSearchInputChange = (e) => {
         toggleSortAndCancelIcons(false);
         toggleCarouselAndDescription(false);
     }
+
+    if (itemsListView)
+        debounce('search', () => {
+            itemsListView.search({
+                $or: [
+                    { "$json.title": { "$regex": value, "$options": "i" } },
+                    { "$json.subtitle": { "$regex": value, "$options": "i" } },
+                ],
+            });
+        }, 500);
+
+}
+
+const debounce = (key, callback, wait) => {
+    if (key) clearTimeout(key);
+    setTimeout(callback);
 }
 
 const init = async () => {

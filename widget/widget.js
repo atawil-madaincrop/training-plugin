@@ -40,6 +40,33 @@ const load = async () => {
 const initListeners = () => {
     pointers.searchInput.onkeyup = (e) => onSearchInputChange(e);
     pointers.iconClear.onclick = (e) => onClearClick(e);
+    pointers.iconSort.onclick = (e) => openDrawer(e);
+}
+
+const openDrawer = () => {
+    if (!language) return;
+
+    let keys = ['sortAscending', 'sortDescending'];
+    let listItems = [];
+    keys.forEach((key) => {
+        if (!language[key]) return;
+        let text = language[key];
+        let selected = key == 'sortAscending';
+        listItems.push({ text, selected });
+    });
+
+    buildfire.components.drawer.open(
+        {
+            allowSelectAll: false,
+            enableFilter: false,
+            listItems: listItems,
+            height: '13.6rem',
+        },
+        (err, result) => {
+            if (err) return console.error(err);
+            console.log("Selected Contacts", result);
+        }
+    );
 }
 
 const onClearClick = () => {

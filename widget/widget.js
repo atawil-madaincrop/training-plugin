@@ -105,6 +105,12 @@ const goToMainPage = () => {
 const goToDetailsPage = (item) => {
     selectedItem = item;
 
+    pointers.itemImage.src = item.data.image;
+    pointers.itemCoverImage.src = item.data.coverImage;
+    pointers.itemTitle.innerHTML = item.data.title;
+    pointers.itemSubtitle.innerHTML = item.data.subtitle;
+    pointers.itemDescription.innerHTML = item.data.description;
+
     pointers.mainPage.classList.add("hidden");
     pointers.detailsPage.classList.remove("hidden");
 }

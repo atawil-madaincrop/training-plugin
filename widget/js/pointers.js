@@ -9,4 +9,5 @@ export const pointers = {
     clearIcon:document.getElementById("clearIcon"),
     sortIcon:document.getElementById("sortIcon"),
     searchIcon:document.getElementById("searchIcon"),
+    searchInput:document.getElementById('searchInput'),
 }

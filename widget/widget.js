@@ -54,14 +54,18 @@ const initListeners = () => {
 const openDrawer = () => {
     if (!language) return;
 
-    let keys = ['sortAscending', 'sortDescending'];
-    let listItems = [];
-    keys.forEach((key) => {
-        if (!language[key]) return;
-        let text = language[key];
-        let selected = key == 'sortAscending';
-        listItems.push({ id: key, text, selected });
-    });
+    let listItems = [
+        {
+            id: 'sortAscending',
+            text: language['sortAscending'],
+            selected: sort['title'] > 0,
+        },
+        {
+            id: 'sortDescending',
+            text: language['sortDescending'],
+            selected: sort['title'] < 0,
+        },
+    ];
 
     buildfire.components.drawer.open(
         {

@@ -22,6 +22,11 @@
     border-radius: 0.4rem;
 }
 
+#search-container #icon-sort,
+#search-container #icon-clear {
+    cursor: pointer;
+}
+
 #search-container .search-input {
     width: 100%;
     margin: 0 1.2rem;

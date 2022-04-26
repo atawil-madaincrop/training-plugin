@@ -39,6 +39,16 @@ const load = async () => {
 
 const initListeners = () => {
     pointers.searchInput.onkeyup = (e) => onSearchInputChange(e);
+    pointers.iconClear.onclick = (e) => onClearClick(e);
+}
+
+const onClearClick = () => {
+    pointers.searchInput.value = '';
+    toggleCarouselAndDescription(false);
+    toggleSortAndCancelIcons(false);
+
+    if (itemsListView)
+        itemsListView.search();
 }
 
 const toggleCarouselAndDescription = (on) => {

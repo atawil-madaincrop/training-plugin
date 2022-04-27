@@ -2,6 +2,7 @@ export const pointers = {
     widget: document.querySelector('#widget'),
     mainPage: document.querySelector('#main'),
     detailsPage: document.querySelector('#details'),
+    mainEmptyState: document.querySelector('#main-empty-state'),
     carousel: document.querySelector('#carousel'),
     description: document.querySelector('#description'),
     itemsListView: document.querySelector('#items-list-view'),

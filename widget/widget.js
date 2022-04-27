@@ -25,11 +25,45 @@ const initItemsListView = async () => {
     }
 
     itemsListView = new ListViewHelper(pointers.itemsListView, WidgetController.itemsTag(), pointers.widget, filterFixed, sort);
-    itemsListView.init();
+    itemsListView.search(null, null, checkEmptyState);
 
     itemsListView.onItemClicked((item) => {
         goToDetailsPage(item);
     });
+}
+
+const checkEmptyState = () => {
+    if (introduction) {
+        if (!introduction.imageCarousel || introduction.imageCarousel.length <= 0) {
+            pointers.carousel.classList.add('hidden');
+        } else {
+            pointers.carousel.classList.remove('hidden');
+        }
+
+        if (!introduction.description) {
+            pointers.description.classList.add('hidden');
+        } else {
+            pointers.description.classList.remove('hidden');
+        }
+    }
+
+    if (itemsListView && itemsListView.itemsLoaded) {
+        if (itemsListView.listView.items.length <= 0) {
+            pointers.itemsListView.classList.add('hidden');
+        } else {
+            pointers.itemsListView.classList.remove('hidden');
+        }
+    }
+
+    if (
+        pointers.carousel.classList.contains('hidden') &&
+        pointers.description.classList.contains('hidden') &&
+        pointers.itemsListView.classList.contains('hidden')
+    ) {
+        pointers.mainEmptyState.classList.remove('hidden');
+    } else {
+        pointers.mainEmptyState.classList.add('hidden');
+    }
 }
 
 const load = async () => {
@@ -48,6 +82,7 @@ const load = async () => {
     initCarousel();
     initDescription();
     initLanguageValues();
+    checkEmptyState();
 }
 
 const initListeners = () => {

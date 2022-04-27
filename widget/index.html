@@ -27,16 +27,21 @@
   <div id="widget">
     <section id="main">
       <div id="search-container">
-        <span id="icon-search" class="material-icons color-icons-theme">search</span>
-        <input type="text" id="search-input" class="search-input">
-        <span id="icon-sort" class="material-icons color-icons-theme">sort</span>
-        <span id="icon-clear" class="material-icons color-icons-theme hidden">clear</span>
+        <div class="search-input-container">
+          <span id="icon-search" class="material-icons color-icons-theme">search</span>
+          <input type="text" id="search-input" class="search-input">
+          <span id="icon-sort" class="material-icons color-icons-theme">sort</span>
+          <span id="icon-clear" class="material-icons color-icons-theme hidden">clear</span>
+        </div>
+      </div>
+
+      <div class="hidden" id="main-empty-state">
+        <img src="./common/media/images/ic_bookmark_empty.svg" alt="">
       </div>
 
       <div id="carousel" class="padding-bottom-twenty"></div>
       <div id="description"></div>
-
-      <div id="items-list-view" class="padding-bottom-twenty"></div>
+      <div id="items-list-view"></div>
     </section>
 
     <section class="slide-in hidden" id="details">

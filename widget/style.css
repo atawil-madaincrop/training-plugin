@@ -1,11 +1,18 @@
-:root {
-    --iconsTheme: #FF9500;
-    --backgroundColorTheme: #F9FCFC;
+html {
+    font-size: 10px;
+}
+
+body {
+    margin: 0;
+}
+
+.hidden {
+    display: none !important;
 }
 
 #widget {
     height: 100vh;
-    background-color: var(--backgroundColorTheme);
+    background-color: var(--bf-theme-background);
 }
 
 section {
@@ -14,6 +21,10 @@ section {
 
 #search-container {
     padding: 1.6rem;
+}
+
+#search-container span {
+    color: var(--bf-theme-icons);
 }
 
 #search-container .search-input-container {
@@ -133,10 +144,6 @@ section {
 #item-description {
     padding: 0 1.6rem;
     color: var(--bf-theme-header-text);
-}
-
-.color-icons-theme {
-    color: var(--iconsTheme) !important;
 }
 
 .slide-in {

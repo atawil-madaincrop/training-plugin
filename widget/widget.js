@@ -1,18 +1,24 @@
-import {IntroductionBuilder} from "./js/introduction/introductionBuilder.js";
+import { IntroductionBuilder } from "./js/introduction/introductionBuilder.js";
 import { ContentBuilder } from "./js/content/contentBuilder.js";
 import { LanguageBuilder } from "./js/language/languageBuilder.js";
 import { EventHandlers } from "./js/eventHandlers.js";
 
 
-
-const init = async() => {
+const handlersCollection = async() => {
     EventHandlers.setLoading('block');
-    IntroductionBuilder.init_Introduction();
-    await ContentBuilder.init_Content();
-    EventHandlers.setLoading('none');
-
     EventHandlers.init_Events();
+
     LanguageBuilder.init_Language();
+    await ContentBuilder.init_Content();
+    
+    IntroductionBuilder.init_Introduction();
+    EventHandlers.setLoading('none');
+}
+
+const init = async () => {
+    handlersCollection();
+
+    buildfire.datastore.onUpdate(handlersCollection);
 }
 
 init();

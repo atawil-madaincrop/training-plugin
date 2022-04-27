@@ -6,8 +6,11 @@ export const pointers = {
     contentItems: document.getElementById("content-Part"),
     loadingWidget: document.getElementById("loading-Widget"),
     loadingItem: document.getElementById("loading-Item"),
+    loadingSearch: document.getElementById("loading-Search"),
     clearIcon:document.getElementById("clearIcon"),
     sortIcon:document.getElementById("sortIcon"),
     searchIcon:document.getElementById("searchIcon"),
     searchInput:document.getElementById('searchInput'),
+    itemsContainer: document.getElementById("itemsContainer"),
+    
 }

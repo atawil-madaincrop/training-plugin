@@ -3,6 +3,7 @@ export const pointers = {
     mainPage: document.querySelector('#main'),
     detailsPage: document.querySelector('#details'),
     mainEmptyState: document.querySelector('#main-empty-state'),
+    carouselLoadingState: document.querySelector('#carousel-loading-state'),
     carousel: document.querySelector('#carousel'),
     description: document.querySelector('#description'),
     itemsListView: document.querySelector('#items-list-view'),

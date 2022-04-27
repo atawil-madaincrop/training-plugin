@@ -63,6 +63,17 @@ section {
     min-height: 18rem;
 }
 
+#carousel-loading-state {
+    aspect-ratio: 16 / 9;
+    height: 21.1rem;
+    background-color: var(--bf-theme-body-text);
+}
+
+#carousel {
+    aspect-ratio: 16 / 9;
+    height: 21.1rem;
+}
+
 #items-list-view.listViewContainer {
     padding-top: 0;
     max-height: unset;

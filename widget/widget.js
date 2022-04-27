@@ -5,6 +5,7 @@ let introduction, language, imageCarousel, itemsListView, itemsLoaded, sort, sel
 
 const initCarousel = () => {
     imageCarousel = new buildfire.components.carousel.view(pointers.carousel, introduction.imageCarousel);
+    pointers.carouselLoadingState.classList.add('hidden');
 }
 
 const initDescription = () => {

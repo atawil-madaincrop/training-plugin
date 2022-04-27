@@ -53,7 +53,7 @@ h4::before{
 }
 
 .text-primary{
-    max-width: 8.125rem !important;
+    max-width: 7rem !important;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

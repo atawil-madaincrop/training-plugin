@@ -25,7 +25,7 @@ const initItemsListView = async () => {
     }
 
     itemsListView = new ListViewHelper(pointers.itemsListView, WidgetController.itemsTag(), pointers.widget, filterFixed, sort);
-    itemsListView.search(null, null, checkEmptyState);
+    itemsListView.search(null, sort, checkEmptyState);
 
     itemsListView.onItemClicked((item) => {
         goToDetailsPage(item);

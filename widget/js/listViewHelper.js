@@ -1,5 +1,5 @@
 class ListViewHelper {
-    constructor(selector, tag, scrollSelector, filterFixed, sort) {
+    constructor(selector, tag, scrollSelector, filterFixed) {
         if (!selector) throw "No selector is provided";
         if (!selector instanceof HTMLElement) {
             this.element = document.querySelector(selector);
@@ -23,7 +23,6 @@ class ListViewHelper {
         this.itemsLoaded = false;
         this.filter = {};
         this.filterFixed = filterFixed || {};
-        this.sort = sort || {};
         this._init();
     }
 

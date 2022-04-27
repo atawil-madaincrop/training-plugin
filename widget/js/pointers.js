@@ -12,5 +12,9 @@ export const pointers = {
     searchIcon:document.getElementById("searchIcon"),
     searchInput:document.getElementById('searchInput'),
     itemsContainer: document.getElementById("itemsContainer"),
-    
+    loadItemPage: document.getElementById("load-Item-Page"),
+    loadItemsList: document.getElementById("load-Items-List"),
+    backImage: document.getElementById("back-Image"),
+    mainImage: document.getElementById("main-Image"),
+    itemContent: document.getElementById("itemContent"),
 }

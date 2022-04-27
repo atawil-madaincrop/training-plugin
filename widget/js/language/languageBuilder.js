@@ -21,7 +21,5 @@ export class LanguageBuilder{
 
     static init_Language = () => {
         this.loadLanguage();
-
-        buildfire.datastore.onUpdate(this.loadLanguage);
     }
 }

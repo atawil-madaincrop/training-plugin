@@ -108,6 +108,7 @@ section {
     width: 12rem;
     border-radius: 0.4rem;
     box-shadow: 0 .125rem .5rem rgba(150, 150, 150, .2);
+    cursor: pointer;
 }
 
 .info-container {

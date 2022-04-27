@@ -45,35 +45,34 @@ export class ContentBuilder {
         loadMore.setAttribute("id", "loadMoreDiv");
         if (length >= this.pageSize) {
             loadMore.innerHTML = `
-            <button id="loadNewItems">
-                Load More Items ...
-            </button>
+            <img class="loadMoreGIF" src="https://raw.githubusercontent.com/Codelessly/FlutterLoadingGIFs/master/packages/cupertino_activity_indicator.gif" alt="Load More Items" >
             `;
-            pointers.contentItems.appendChild(loadMore)
-            let loadNewItems = document.getElementById("loadNewItems");
-            loadNewItems.addEventListener("click", this.loadMoreManager);
+            pointers.contentItems.appendChild(loadMore);
+            pointers.itemsContainer.addEventListener("scroll", this.loadMoreManager);
         } else {
             loadMore.innerHTML = `
             <span>
                 No More Items ...
             </span>
             `;
-            pointers.contentItems.appendChild(loadMore)
+            pointers.contentItems.appendChild(loadMore);
+            pointers.itemsContainer.removeEventListener("scroll", this.loadMoreManager);
         }
     }
 
     static loadMoreManager = async () => {
-        let loadMoreDiv = document.getElementById("loadMoreDiv");
-        loadMoreDiv.remove();
-
-        this.page += 1;
-        let res;
-        if (pointers.searchInput.value.length > 0) {
-            res = await ContentManagement.loadItems(this.page, this.pageSize, pointers.searchInput.value);
-        } else {
-            res = await ContentManagement.loadItems(this.page, this.pageSize, "");
+        if((pointers.itemsContainer.scrollTop / document.documentElement.clientHeight)*100 > 40){
+    
+            this.page += 1;
+            let res;
+            if (pointers.searchInput.value.length > 0) {
+                res = await ContentManagement.loadItems(this.page, this.pageSize, pointers.searchInput.value);
+            } else {
+                res = await ContentManagement.loadItems(this.page, this.pageSize, "");
+            }
+            document.getElementById("loadMoreDiv").remove()
+            this.printItems(res);   
         }
-        this.printItems(res);
     }
 
     static getSearchData = async (value) => {
@@ -108,6 +107,5 @@ export class ContentBuilder {
 
     static init_Content = async()=>{
         await this.loadItems();
-        buildfire.datastore.onUpdate(this.loadItems);
     }
 }

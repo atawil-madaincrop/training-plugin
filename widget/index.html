@@ -27,40 +27,56 @@
 </head>
 
 <body class="widgetContainer">
-  <!-- search part -->
-  <div class="search-Container">
-    <span id="searchIcon" class="icon icon-magnifier"></span>
-    <input type="text" id="searchInput" class="search-input" placeholder="Search">
-    <span id="sortIcon" class="material-icons color-icons-theme">sort</span>
-    <span id="clearIcon" class="icon icon-cross2"></span>
+  <div id="load-Items-List" >
+    <!-- search part -->
+      <div class="search-Container">
+        <span id="searchIcon" class="icon icon-magnifier"></span>
+        <input type="text" id="searchInput" class="search-input" placeholder="Search">
+        <span id="sortIcon" class="material-icons color-icons-theme">sort</span>
+        <span id="clearIcon" class="icon icon-cross2"></span>
+      </div>
+      <!-- container of all elements -->
+      <div class="itemsContainer" id="itemsContainer">
+        <!-- loading part -->
+        <div class="loadingDivs" id="loading-Widget">
+          <!-- loading inside widget and all items -->
+          <img src="./media/loading-List.gif">
+        </div>
+          <!-- loading inside widget on Search Process -->
+        <div class="loadingDivs" id="loading-Search">
+          <img src="./media/loading-Search.gif" >
+        </div>
+        <div class="loadingDivs" id="loading-Item">
+          <!-- loading when open a specific item -->
+          <img src="https://c.tenor.com/7EVJ9daaZ_cAAAAC/windows-xp-loading-screen.gif">
+        </div>
+        <!-- introduction container -->
+        <div id="introduction-Part">
+          <div class="carousel"></div>
+          <div class="margin-top-twenty"></div>
+          <div id="introduction-Desc"></div>
+        </div>
+        <!-- content container -->
+        <div id="content-Part">
+    
+        </div>
+      </div>
   </div>
-  <!-- container of all elements -->
-  <div class="itemsContainer" id="itemsContainer">
-    <!-- loading part -->
-    <div class="loadingDivs" id="loading-Widget">
-      <!-- loading inside widget and all items -->
-      <img src="./media/loading-List.gif">
-    </div>
-      <!-- loading inside widget on Search Process -->
-    <div class="loadingDivs" id="loading-Search">
-      <img src="./media/loading-Search.gif" >
-    </div>
-    <div class="loadingDivs" id="loading-Item">
-      <!-- loading when open a specific item -->
-      <img src="https://c.tenor.com/7EVJ9daaZ_cAAAAC/windows-xp-loading-screen.gif">
-    </div>
-    <!-- introduction container -->
-    <div id="introduction-Part">
-      <div class="carousel"></div>
-      <div class="margin-top-twenty"></div>
-      <div id="introduction-Desc"></div>
-    </div>
-    <!-- content container -->
-    <div id="content-Part">
 
+  <div id="load-Item-Page">
+    <div class="backgroundImage-Container">
+      <div class="backgroundImage">
+        <img src="" alt="background" id="back-Image" >
+      </div>
+
+    </div>
+    <div class="infosContainer">
+      <img src="" alt="image" id="main-Image" >
+
+      <div id="itemContent" class="itemContent">
+      </div>
+    
     </div>
   </div>
-
-</body>
-
+  </body>
 </html>

@@ -27,7 +27,7 @@ export class ContentBuilder {
     static print_Item_By_Item = (item, index) => {
         let row = document.createElement("div");
         row.className = "rowItem"
-        row.setAttribute("id", `item-${index}`)
+        row.setAttribute("id", `item-${item.id}-${index}`)
         row.innerHTML = `
             <section class="leftSection">
                 <img src="${item.data.image || "./media/imagePlaceHolder.png"}" alt="item image" >
@@ -38,6 +38,46 @@ export class ContentBuilder {
             </section>
         `
         pointers.contentItems.appendChild(row);
+        let myItem = document.getElementById(`item-${item.id}-${index}`);
+        console.log(`item-${item.id}-${index}`);
+        myItem.addEventListener("click", () => this.showItemPage(item))
+    }
+
+    static showItemPage = (item) => {
+        pointers.loadItemsList.style.display = "none";
+        pointers.loadItemPage.style.display = "block";
+        
+        let squareImage, coverImage; 
+        if(item.data.image){
+            squareImage = buildfire.imageLib.resizeImage(
+                item.data.image,
+                { size: "s", aspect: "1:1" }
+              );
+        }else{
+            squareImage = "./media/empty-image.jpg";
+        }
+        if(item.data.coverImage){
+            coverImage = buildfire.imageLib.resizeImage(
+                item.data.coverImage,
+                { size: "full_width", aspect: "9:16" }
+            );
+        }else{
+            coverImage = "./media/empty-cover.jpg";
+        }
+       
+
+        pointers.backImage.setAttribute("src", coverImage)
+        pointers.mainImage.setAttribute("src", squareImage)
+        pointers.itemContent.innerHTML = `
+        <section class="item-Title-Section">
+            <span >${item.data.title}</span>
+            <span >${item.data.subtitle}</span>
+        </section>
+        <div class="wysiwyg-Container"> 
+            
+            <span > ${item.data.description || "WYSIWYG Content"} </span>
+        </div>
+        `;
     }
 
     static createLoadMoreContainer = (length) => {
@@ -61,8 +101,8 @@ export class ContentBuilder {
     }
 
     static loadMoreManager = async () => {
-        if((pointers.itemsContainer.scrollTop / document.documentElement.clientHeight)*100 > 40){
-    
+        if ((pointers.itemsContainer.scrollTop / document.documentElement.clientHeight) * 100 > 40) {
+
             this.page += 1;
             let res;
             if (pointers.searchInput.value.length > 0) {
@@ -71,7 +111,7 @@ export class ContentBuilder {
                 res = await ContentManagement.loadItems(this.page, this.pageSize, "");
             }
             document.getElementById("loadMoreDiv").remove()
-            this.printItems(res);   
+            this.printItems(res);
         }
     }
 
@@ -105,7 +145,7 @@ export class ContentBuilder {
     }
 
 
-    static init_Content = async()=>{
+    static init_Content = async () => {
         await this.loadItems();
     }
 }

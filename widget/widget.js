@@ -11,6 +11,10 @@ const initDescription = () => {
     pointers.description.innerHTML = introduction.description;
 }
 
+const initLanguageValues = () => {
+    pointers.searchInput.placeholder = language.search;
+}
+
 const initItemsListView = async () => {
     const filterFixed = {
         "$json.deletedOn": { "$eq": null },
@@ -43,6 +47,7 @@ const load = async () => {
 
     initCarousel();
     initDescription();
+    initLanguageValues();
 }
 
 const initListeners = () => {

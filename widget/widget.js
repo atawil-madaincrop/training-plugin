@@ -50,6 +50,14 @@ const initListeners = () => {
     pointers.searchInput.onkeyup = (e) => onSearchInputChange(e);
     pointers.iconClear.onclick = (e) => onClearClick(e);
     pointers.iconSort.onclick = (e) => onSortClickr(e);
+    pointers.itemImage.onclick = (e) => onItemImageClick(e);
+}
+
+const onItemImageClick = () => {
+    if (!selectedItem || !selectedItem.data || !selectedItem.data.image) return;
+    buildfire.imagePreviewer.show({
+        images: [selectedItem.data.image],
+    });
 }
 
 const onBackClick = () => {

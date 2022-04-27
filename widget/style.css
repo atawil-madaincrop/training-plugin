@@ -1,13 +1,22 @@
 * {
     font-family: 'Roboto';
-}
-
-body{
-    height: 100%;
+    transition: 0.15s;
 }
 
 .widgetContainer {
     background: #F9FCFC;
+}
+
+#load-Item-Page {
+    display: none;
+    z-index: 10;
+    height: 100%;
+    background-color: #F9FCFC;
+    animation: showItem 0.3s;
+}
+
+#load-Items-List {
+    height: 100%;
 }
 
 .search-Container {
@@ -89,21 +98,13 @@ body{
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    /* padding: 0.5rem; */
-
     position: static;
     width: 2.5rem;
     height: 2.5rem;
     left: 1rem;
     top: 0.813rem;
-
-    /* transparent gray - hardcoded */
-
     background: rgba(150, 150, 150, 0.1);
     border-radius: 0.25rem;
-
-    /* Inside auto layout */
-
     flex: none;
     order: 0;
     flex-grow: 0;
@@ -169,4 +170,101 @@ body{
 .loadMoreGIF {
     width: 15%;
     margin: auto;
+}
+
+.backgroundImage-Container {
+    position: relative;
+    width: 100%;
+    height: 13.188rem;
+    background-color: rgba(131, 131, 131, 0.2);
+}
+
+.backgroundImage {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    overflow: hidden;
+    margin: auto;
+}
+
+#main-Image {
+    width: 100%;
+    width: 7.5rem;
+    height: 7.5rem;
+    position: absolute;
+    left: 1rem;
+    top: -5.812rem;
+    box-shadow: 0 0.125rem 0.5rem rgb(150 150 150 / 20%);
+    border-radius: 0.25rem;
+}
+
+#back-Image {
+    display: block;
+    margin: auto;
+    width: 100%;
+    max-width: 582px !important;
+}
+
+.infosContainer {
+    position: relative;
+    width: 100%;
+    height: 65%;
+    max-width: 582px !important;
+    margin: auto;
+}
+
+.item-Title-Section {
+    padding: 5rem 1rem 3rem 1rem;
+}
+
+.item-Title-Section span {
+    display: block;
+}
+
+.item-Title-Section span:nth-child(1) {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 120%;
+    color: #000000;
+}
+
+.item-Title-Section span:nth-child(2) {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 180%;
+    color: #000000;
+}
+
+.wysiwyg-Container{
+    border-radius: 0.25rem;
+    padding: 1rem;
+    width: 100%;
+    /* min-height: 20rem; */
+    position: absolute;
+    height: -webkit-fill-available;
+    /* margin-bottom: auto; */
+    color:#808080;
+    background: #AFAFAF;
+}
+
+@media screen and (min-width:30rem) {
+    .backgroundImage-Container {
+        height: 21.625rem;
+    }
+
+    #main-Image {
+        top: -3.812rem;
+    }
+}
+
+@keyframes showItem {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(0%);
+    }
 }

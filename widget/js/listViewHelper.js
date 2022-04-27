@@ -20,7 +20,6 @@ class ListViewHelper {
         this.pageIndex = 0;
         this.pageSize = 10;
         this.endReached = false;
-        this.itemsLoaded = false;
         this.filter = {};
         this.filterFixed = filterFixed || {};
         this._init();
@@ -30,7 +29,6 @@ class ListViewHelper {
         this.filter = filter;
         this.sort = sort;
         this.pageIndex = 0;
-        this.itemsLoaded = false;
         this.endReached = false;
         this.fetchingNextPage = false;
         this.listView.clear();
@@ -86,7 +84,6 @@ class ListViewHelper {
             if (e && callback) return callback(e);
             console.log({ res });
             this._dataToItems(res).forEach((item) => this.listView.addItem(item));
-            this.itemsLoaded = true;
             this.endReached = res.length < this.pageSize;
             if (callback) callback(res);
         });

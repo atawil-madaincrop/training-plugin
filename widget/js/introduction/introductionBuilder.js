@@ -17,13 +17,14 @@ export class IntroductionBuilder {
     }
 
     static initComponents = () => {
-        viewer = new buildfire.components.carousel.view(".carousel");
+        if(!viewer){
+            viewer = new buildfire.components.carousel.view(".carousel");
+        }
 
         this.appendUpdatedData();
     }
 
     static init_Introduction = () => {
         this.initComponents();
-        buildfire.datastore.onUpdate(this.appendUpdatedData);
     }
 }

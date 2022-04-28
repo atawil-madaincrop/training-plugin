@@ -294,11 +294,12 @@ const onIntroductionUpdate = (data) => {
 }
 
 const onLanguageUpdate = (data) => {
-
+    language = data;
+    initLanguageValues();
 }
 
 const onItemsUpdate = (data) => {
-
+    itemsSearch(null, sort);
 }
 
 const sendMessageToControl = (message) => {

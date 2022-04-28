@@ -26,10 +26,10 @@ export class ContentBuilder {
 
     static print_Item_By_Item = (item, index) => {
         let row = document.createElement("div");
-        row.className = "flexItem-row row stretch padding-bottom-fifteen padding-top-ten padding-left-twenty default-background-hover transition-half"
+        row.className = "margin-zero flexItem-row row stretch padding-bottom-fifteen padding-top-ten padding-left-twenty default-background-hover transition-half"
         row.setAttribute("id", `item-${item.id}-${index}`)
         row.innerHTML = `
-            <section class="leftSection border-radius-four margin-left-fifteen">
+            <section class="leftSection border-radius-four">
                 <img class="border-radius-four" src="${item.data.image || "./media/imagePlaceHolder.png"}" alt="item image" >
             </section>
             <section class="flexItem-col margin-left-fifteen">
@@ -46,38 +46,25 @@ export class ContentBuilder {
     static showItemPage = (item) => {
         pointers.loadItemsList.style.display = "none";
         pointers.loadItemPage.style.display = "block";
-        
-        let squareImage, coverImage; 
-        if(item.data.image){
-            squareImage = buildfire.imageLib.resizeImage(
-                item.data.image,
-                { size: "s", aspect: "1:1" }
-              );
-        }else{
-            squareImage = "./media/empty-image.jpg";
-        }
-        if(item.data.coverImage){
-            coverImage = buildfire.imageLib.resizeImage(
-                item.data.coverImage,
-                { size: "full_width", aspect: "9:16" }
-            );
-        }else{
-            coverImage = "./media/empty-cover.jpg";
-        }
-       
 
-        pointers.backImage.setAttribute("src", coverImage)
-        pointers.mainImage.setAttribute("src", squareImage)
+        let images = this.setImagesToBeShown(item);
+
+        pointers.backImage.setAttribute("src", images.coverImage);
+        pointers.mainImage.setAttribute("src", images.squareImage);
+
+        pointers.backImage.addEventListener("click", () => this.showImage(item.data.coverImage,images));
+        pointers.mainImage.addEventListener("click", () => this.showImage(item.data.image,images));
+
         pointers.itemContent.innerHTML = `
-        <section class="item-Title-Section">
+        <section class="item-Title-Section padding-right-fifteen padding-top-fifteen padding-left-fifteen">
             <span class="row">${item.data.title}</span>
             <span class="row">${item.data.subtitle}</span>
         </section>
-        <div class="border-radius-four wysiwyg-Container"> 
-            
-            <p> ${item.data.description || "<p class='text-center'>WYSIWYG Content</p>"} </p>
+        <div class="border-radius-four padding-right-fifteen padding-top-zero padding-bottom-fifteen padding-left-fifteen"> 
+            <p> ${item.data.description || ""} </p>
         </div>
         `;
+        this.setBackAction(item);
     }
 
     static createLoadMoreContainer = (length) => {
@@ -144,8 +131,59 @@ export class ContentBuilder {
         this.printItems(sortedArr);
     }
 
+    static showImage = (src, images) => {
+        let imageToShow = src || images.coverImage;
+        buildfire.imagePreviewer.show(
+            {
+                images: [imageToShow],
+            },
+            () => {
+                console.log("Image previewer closed");
+            }
+        );
+    }
+
+    static setImagesToBeShown = (item) => {
+        let squareImage, coverImage;
+        if (item.data.image) {
+            squareImage = buildfire.imageLib.resizeImage(
+                item.data.image,
+                { size: "s", aspect: "1:1" }
+            );
+        } else {
+            squareImage = "./media/empty-image.jpg";
+        }
+        if (item.data.coverImage) {
+            coverImage = buildfire.imageLib.resizeImage(
+                item.data.coverImage,
+                { size: "full_width", aspect: "9:16" }
+            );
+        } else {
+            coverImage = "./media/empty-cover.jpg";
+        }
+        return { squareImage, coverImage }
+    }
+
+    static setBackAction = (item) => {
+        buildfire.history.push('item-page', item);
+        buildfire.navigation.onBackButtonClick = () => {
+            this.backFunction();
+            buildfire.navigation.onBackButtonClick = () => { console.log("No back avilable..."); }
+        };
+    }
+
+    static backFunction = () => {
+        buildfire.history.pop();
+        setTimeout(() => {
+            pointers.loadItemsList.style.display = "block";
+            pointers.loadItemPage.style.display = "none";
+            pointers.loadItemPage.style.animation = "showItem 0.3s";
+        }, 200)
+        pointers.loadItemPage.style.animation = "hideItem 0.2s";
+    }
 
     static init_Content = async () => {
+        buildfire.history.push('main-page', {});
         await this.loadItems();
     }
 }

@@ -26,13 +26,13 @@ export class ContentBuilder {
 
     static print_Item_By_Item = (item, index) => {
         let row = document.createElement("div");
-        row.className = "rowItem"
+        row.className = "flexItem-row row stretch padding-bottom-fifteen padding-top-ten padding-left-twenty default-background-hover transition-half"
         row.setAttribute("id", `item-${item.id}-${index}`)
         row.innerHTML = `
-            <section class="leftSection">
-                <img src="${item.data.image || "./media/imagePlaceHolder.png"}" alt="item image" >
+            <section class="leftSection border-radius-four margin-left-fifteen">
+                <img class="border-radius-four" src="${item.data.image || "./media/imagePlaceHolder.png"}" alt="item image" >
             </section>
-            <section class="rightSection">
+            <section class="flexItem-col margin-left-fifteen">
                 <span class="titleSpan">${item.data.title}</span>
                 <span class="subTitleSpan">${item.data.subtitle}</span>
             </section>
@@ -70,12 +70,12 @@ export class ContentBuilder {
         pointers.mainImage.setAttribute("src", squareImage)
         pointers.itemContent.innerHTML = `
         <section class="item-Title-Section">
-            <span >${item.data.title}</span>
-            <span >${item.data.subtitle}</span>
+            <span class="row">${item.data.title}</span>
+            <span class="row">${item.data.subtitle}</span>
         </section>
-        <div class="wysiwyg-Container"> 
+        <div class="border-radius-four wysiwyg-Container"> 
             
-            <span > ${item.data.description || "WYSIWYG Content"} </span>
+            <p> ${item.data.description || "<p class='text-center'>WYSIWYG Content</p>"} </p>
         </div>
         `;
     }

@@ -100,6 +100,7 @@ const load = async () => {
 
 const initListeners = () => {
     buildfire.navigation.onBackButtonClick = () => onBackClick();
+    buildfire.messaging.onReceivedMessage = (message) => onMessageHandler(message);
     pointers.searchInput.onkeyup = (e) => onSearchInputChange(e);
     pointers.iconClear.onclick = (e) => onClearClick(e);
     pointers.iconSort.onclick = (e) => onSortClickr(e);
@@ -252,6 +253,19 @@ const onSearchInputChange = (e) => {
 const debounce = (key, callback, wait) => {
     if (key) clearTimeout(key);
     setTimeout(callback);
+}
+
+const onMessageHandler = (message) => {
+    if (message.section)
+        switch (message.section) {
+            case 'items':
+                goToMainPage();
+                break;
+            case 'item-details':
+                if (!message.item) return;
+                goToDetailsPage(message.item);
+                break;
+        }
 }
 
 const init = async () => {

@@ -240,7 +240,6 @@ const goToItemDetailsSubPage = (item, state) => {
     selectedItem = item;
     itemDetailsState = state;
 
-    console.log({ selectedItem })
     itemDetailsTitleInput.value = selectedItem?.data.title || '';
     itemDetailsSubtitleInput.value = selectedItem?.data.subtitle || '';
     if (itemDetailsDescriptionEditor) itemDetailsDescriptionEditor.setContent(selectedItem?.data.description || '');
@@ -283,7 +282,6 @@ const init = async () => {
     initThumbnailPickers();
     initListeners();
     initItemDetailsDescriptionEditor();
-    sendMessageToWidget();
 }
 
 init();

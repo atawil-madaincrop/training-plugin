@@ -255,6 +255,8 @@ const onSearchInputChange = (e) => {
 
     if (itemsListView)
         debounce('search', () => {
+            pointers.itemsListView.classList.add('hidden');
+
             itemsSearch({
                 $or: [
                     { "$json.title": { "$regex": value, "$options": "i" } },

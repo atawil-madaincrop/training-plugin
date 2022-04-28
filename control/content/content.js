@@ -30,7 +30,7 @@ const initItemsTable = async () => {
     }
 
     const onRowEdit = (obj, tr) => {
-        goToItemDetailsSubPage(obj, "edit");
+        goToItemDetailsSubPage(obj, "edit", true);
     }
 
     const onRowDelete = async (obj, tr) => {
@@ -45,7 +45,7 @@ const initItemsTable = async () => {
     });
 
     searchTableHelper.onCommand('open-item-detials', (obj, tr) => {
-        goToItemDetailsSubPage(obj, "edit");
+        goToItemDetailsSubPage(obj, "edit", true);
     });
 }
 
@@ -97,16 +97,17 @@ const initThumbnailPickers = () => {
 }
 
 const initListeners = () => {
+    buildfire.messaging.onReceivedMessage = (message) => onMessageHandler(message);
     introductionTabLink.onclick = () => navigateToTab("Introduction");
     addItemButton.onclick = () => onAddItemClick();
     addSampleDataButton.onclick = () => addDummyItemsData();
     searchButton.onclick = () => onItemsSearch();
     itemDetailsSaveButton.onclick = () => onItemDetailsSave();
-    itemDetailsCancleButton.onclick = () => goToItemsPage();
+    itemDetailsCancleButton.onclick = () => goToItemsPage(true);
 }
 
 const onAddItemClick = () => {
-    goToItemDetailsSubPage(null, new Item(), "create");
+    goToItemDetailsSubPage({ data: {} }, 'create', false);
 }
 
 const onItemDetailsSave = async () => {
@@ -154,7 +155,7 @@ const onItemDetailsSave = async () => {
             break;
     }
 
-    goToItemsPage();
+    goToItemsPage(true);
 }
 
 const initItemDetailsDescriptionEditor = async () => {
@@ -215,7 +216,7 @@ const navigateToTab = (tab) => {
     );
 }
 
-const goToItemsPage = () => {
+const goToItemsPage = (notifyWidget) => {
     section = "items";
     selectedItem = null;
 
@@ -232,10 +233,11 @@ const goToItemsPage = () => {
     if (imageThumbnail) imageThumbnail.clear();
     if (coverImageThumbnail) coverImageThumbnail.clear();
 
-    sendMessageToWidget();
+    if (notifyWidget)
+        sendMessageToWidget();
 }
 
-const goToItemDetailsSubPage = (item, state) => {
+const goToItemDetailsSubPage = (item, state, notifyWidget) => {
     section = "item-details";
     selectedItem = item;
     itemDetailsState = state;
@@ -254,7 +256,8 @@ const goToItemDetailsSubPage = (item, state) => {
     hideError(itemDetailsSubtitleInputError);
     hideError(itemDetailsImagesError);
 
-    sendMessageToWidget();
+    if (notifyWidget)
+        sendMessageToWidget();
 }
 
 const showError = (element, text) => {
@@ -273,6 +276,20 @@ const sendMessageToWidget = (message) => {
         item: selectedItem,
         ...message,
     });
+}
+
+const onMessageHandler = (message) => {
+    console.log('content message:', { message });
+    if (message.section)
+        switch (message.section) {
+            case 'items':
+                goToItemsPage(false);
+                break;
+            case 'item-details':
+                if (!message.item) return;
+                goToItemDetailsSubPage(message.item, 'edit', false);
+                break;
+        }
 }
 
 const init = async () => {

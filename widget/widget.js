@@ -1,7 +1,7 @@
 import WidgetController from "./widget.controller.js";
 import { pointers } from './js/pointers.js';
 
-let introduction, language, imageCarousel, itemsListView, itemsLoaded, sort, selectedItem, page, searchMode;
+let introduction, language, imageCarousel, itemsListView, itemsLoaded, sort, selectedItem, section, searchMode;
 
 const initCarousel = () => {
     imageCarousel = new buildfire.components.carousel.view(pointers.carousel, introduction.imageCarousel, "WideScreen");
@@ -28,8 +28,8 @@ const initItemsListView = async () => {
     itemsListView = new ListViewHelper(pointers.itemsListView, WidgetController.itemsTag(), pointers.widget, filterFixed, sort);
     itemsSearch(null, sort);
 
-    itemsListView.onItemClicked((item) => {
-        goToDetailsPage(item);
+    itemsListView.onItemClicked((listViewItem) => {
+        goToDetailsPage(listViewItem.data, true);
     });
 }
 
@@ -115,9 +115,9 @@ const onItemImageClick = () => {
 }
 
 const onBackClick = () => {
-    switch (page) {
-        case 'details':
-            goToMainPage();
+    switch (section) {
+        case 'item-details':
+            goToMainPage(true);
             break;
     }
 }
@@ -169,17 +169,20 @@ const onSortClickr = () => {
     );
 }
 
-const goToMainPage = () => {
-    page = 'main';
+const goToMainPage = (notifyControl) => {
+    section = 'items';
     selectedItem = null;
 
     pointers.mainPage.classList.add("slide-in");
     pointers.mainPage.classList.remove("hidden");
     pointers.detailsPage.classList.add("hidden");
+
+    if (notifyControl)
+        sendMessageToControl();
 }
 
-const goToDetailsPage = (item) => {
-    page = 'details';
+const goToDetailsPage = (item, notifyControl) => {
+    section = 'item-details';
     selectedItem = item;
 
     pointers.itemImage.src = item.data.image;
@@ -190,6 +193,9 @@ const goToDetailsPage = (item) => {
 
     pointers.mainPage.classList.add("hidden");
     pointers.detailsPage.classList.remove("hidden");
+
+    if (notifyControl)
+        sendMessageToControl();
 }
 
 
@@ -255,15 +261,23 @@ const debounce = (key, callback, wait) => {
     setTimeout(callback);
 }
 
+const sendMessageToControl = (message) => {
+    buildfire.messaging.sendMessageToControl({
+        section: section,
+        item: selectedItem,
+        ...message,
+    });
+}
+
 const onMessageHandler = (message) => {
     if (message.section)
         switch (message.section) {
             case 'items':
-                goToMainPage();
+                goToMainPage(false);
                 break;
             case 'item-details':
                 if (!message.item) return;
-                goToDetailsPage(message.item);
+                goToDetailsPage(message.item, false);
                 break;
         }
 }

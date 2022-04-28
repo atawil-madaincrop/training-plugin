@@ -96,7 +96,7 @@ class ListViewHelper {
                 title: item.data.title,
                 subtitle: item.data.subtitle,
                 imageUrl: item.data.image,
-                data: item.data,
+                data: item,
             }
         });
     }

@@ -40,6 +40,7 @@ section {
     margin: 0 1.2rem;
     border: none;
     color: var(--bf-theme-body-text);
+    outline: none !important;
 }
 
 #search-container .search-input::placeholder {
@@ -81,6 +82,10 @@ section {
     margin-top: 3.6rem;
 }
 
+#items-list-view.search-mode {
+    margin-top: 1.1rem;
+}
+
 #items-list-view.listViewContainer {
     padding-top: 0;
     max-height: unset;
@@ -102,6 +107,7 @@ section {
     width: 4rem;
     height: 4rem;
     border-radius: 4px;
+    margin-right: 1.2rem;
 }
 
 #items-list-view .listViewItemTitle {
@@ -119,6 +125,10 @@ section {
 
 #items-list-view-loading-state {
     margin-top: 3.6rem;
+}
+
+#items-list-view-loading-state.search-mode {
+    margin-top: 1.1rem;
 }
 
 #items-list-view-loading-state .list-item {

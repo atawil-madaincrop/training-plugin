@@ -1,7 +1,7 @@
 import WidgetController from "./widget.controller.js";
 import { pointers } from './js/pointers.js';
 
-let introduction, language, imageCarousel, itemsListView, itemsLoaded, sort, selectedItem, page;
+let introduction, language, imageCarousel, itemsListView, itemsLoaded, sort, selectedItem, page, searchMode;
 
 const initCarousel = () => {
     imageCarousel = new buildfire.components.carousel.view(pointers.carousel, introduction.imageCarousel, "WideScreen");
@@ -26,19 +26,27 @@ const initItemsListView = async () => {
     }
 
     itemsListView = new ListViewHelper(pointers.itemsListView, WidgetController.itemsTag(), pointers.widget, filterFixed, sort);
-    itemsListView.search(null, sort, () => {
-        pointers.itemsListViewLoadingState.classList.add('hidden');
-        itemsLoaded = true;
-        checkEmptyState();
-    });
+    itemsSearch(null, sort);
 
     itemsListView.onItemClicked((item) => {
         goToDetailsPage(item);
     });
 }
 
+const itemsSearch = (filter, sort, callback) => {
+    itemsLoaded = false;
+    pointers.itemsListView.classList.add('hidden');
+    pointers.itemsListViewLoadingState.classList.remove('hidden');
+    itemsListView.search(filter, sort, () => {
+        itemsLoaded = true;
+        pointers.itemsListViewLoadingState.classList.add('hidden');
+        checkEmptyState();
+        if (callback) callback();
+    });
+}
+
 const checkEmptyState = () => {
-    if (introduction) {
+    if (introduction && !searchMode) {
         if (!introduction.imageCarousel || introduction.imageCarousel.length <= 0) {
             pointers.carousel.classList.add('hidden');
         } else {
@@ -143,14 +151,14 @@ const onSortClickr = () => {
                 case 'sortAscending':
                     if (sort.title < 0) {
                         sort.title = 1;
-                        itemsListView.search(null, sort);
+                        itemsSearch(null, sort);
                     }
                     break;
 
                 case 'sortDescending':
                     if (sort.title > 0) {
                         sort.title = -1;
-                        itemsListView.search(null, sort);
+                        itemsSearch(null, sort);
                     }
                     break;
             }
@@ -190,7 +198,7 @@ const onClearClick = () => {
     toggleSortAndCancelIcons(false);
 
     if (itemsListView)
-        itemsListView.search(null, sort);
+        itemsSearch(null, sort);
 }
 
 const toggleCarouselAndDescription = (on) => {
@@ -216,16 +224,22 @@ const toggleSortAndCancelIcons = (on) => {
 const onSearchInputChange = (e) => {
     let value = e.target.value;
     if (value) {
+        searchMode = true;
+        pointers.itemsListView.classList.add('search-mode');
+        pointers.itemsListViewLoadingState.classList.add('search-mode');
         toggleSortAndCancelIcons(true);
         toggleCarouselAndDescription(true);
     } else {
+        searchMode = false;
+        pointers.itemsListView.classList.remove('search-mode');
+        pointers.itemsListViewLoadingState.classList.add('search-mode');
         toggleSortAndCancelIcons(false);
         toggleCarouselAndDescription(false);
     }
 
     if (itemsListView)
         debounce('search', () => {
-            itemsListView.search({
+            itemsSearch({
                 $or: [
                     { "$json.title": { "$regex": value, "$options": "i" } },
                     { "$json.subtitle": { "$regex": value, "$options": "i" } },

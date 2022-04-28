@@ -79,11 +79,11 @@ section {
 }
 
 #items-list-view {
-    margin-top: 3.6rem;
+    margin-top: 3rem;
 }
 
 #items-list-view.search-mode {
-    margin-top: 1.1rem;
+    margin-top: 0.5rem;
 }
 
 #items-list-view.listViewContainer {
@@ -93,14 +93,6 @@ section {
 
 #items-list-view .listViewItem {
     padding: 0.6rem 1.6rem;
-}
-
-#items-list-view .listViewItem:first-child {
-    padding-top: 0;
-}
-
-#items-list-view .listViewItem:last-child {
-    padding-bottom: 0;
 }
 
 #items-list-view .listViewItemImg {
@@ -124,18 +116,18 @@ section {
 }
 
 #items-list-view-loading-state {
-    margin-top: 3.6rem;
+    margin-top: 3rem;
 }
 
 #items-list-view-loading-state.search-mode {
-    margin-top: 1.1rem;
+    margin-top: 0.5rem;
 }
 
 #items-list-view-loading-state .list-item {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 5.75rem;
+    height: 6.3rem;
     padding: 0 1.6rem;
 }
 

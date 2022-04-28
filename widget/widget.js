@@ -1,10 +1,15 @@
 import WidgetController from "./widget.controller.js";
 import { pointers } from './js/pointers.js';
 
-let introduction, language, imageCarousel, itemsListView, itemsLoaded, sort, selectedItem, section, searchMode;
+let introduction, language, imageCarousel, itemsListView, itemsLoaded, sort, selectedItem, section, searchMode, onDatastoreUpdate;
 
 const initCarousel = () => {
-    imageCarousel = new buildfire.components.carousel.view(pointers.carousel, introduction.imageCarousel, "WideScreen");
+    if (!imageCarousel) {
+        imageCarousel = new buildfire.components.carousel.view(pointers.carousel, introduction.imageCarousel, "WideScreen");
+    } else {
+        imageCarousel.loadItems(introduction.imageCarousel);
+    }
+
     pointers.carouselLoadingState.classList.add('hidden');
 }
 
@@ -99,6 +104,7 @@ const load = async () => {
 }
 
 const initListeners = () => {
+    let onDatastoreUpdate = buildfire.datastore.onUpdate((event) => onDatastoreUpdateHandler(event));
     buildfire.navigation.onBackButtonClick = () => onBackClick();
     buildfire.messaging.onReceivedMessage = (message) => onMessageHandler(message);
     pointers.searchInput.onkeyup = (e) => onSearchInputChange(e);
@@ -259,6 +265,40 @@ const onSearchInputChange = (e) => {
 const debounce = (key, callback, wait) => {
     if (key) clearTimeout(key);
     setTimeout(callback);
+}
+
+const onDatastoreUpdateHandler = (event) => {
+    console.log({ event });
+
+    switch (event.tag) {
+        case WidgetController.introductionTag():
+            onIntroductionUpdate(event.data);
+            break;
+
+        case WidgetController.languageTag():
+            onLanguageUpdate(event.data);
+            break;
+
+        case WidgetController.itemsTag():
+            onItemsUpdate(event.data);
+            break;
+    }
+
+    checkEmptyState();
+}
+
+const onIntroductionUpdate = (data) => {
+    introduction = data;
+    initCarousel();
+    initDescription();
+}
+
+const onLanguageUpdate = (data) => {
+
+}
+
+const onItemsUpdate = (data) => {
+
 }
 
 const sendMessageToControl = (message) => {

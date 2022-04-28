@@ -50,9 +50,24 @@ const initItemsTable = async () => {
 }
 
 const initThumbnailPickers = () => {
-    const onChangeImage = (key, imageUrl) => {
-        if (!selectedItem) return;
-        selectedItem[key] = imageUrl;
+    const onChangeImage = (key, aspectRatio, imageUrl) => {
+        if (!selectedItem || selectedItem[key] == imageUrl) return;
+
+        let croppedImage = buildfire.imageLib.cropImage(imageUrl, { size: "half_width", aspect: aspectRatio });
+        selectedItem[key] = croppedImage;
+
+        switch (key) {
+            case 'image':
+                if (imageThumbnail.imageUrl == croppedImage) return;
+                imageThumbnail.loadbackground(croppedImage)
+                break;
+
+            case 'coverImage':
+                if (coverImageThumbnail.imageUrl == croppedImage) return;
+                coverImageThumbnail.loadbackground(croppedImage)
+                break;
+        }
+
     }
 
     const onDeleteImage = (key, imageUrl) => {
@@ -74,10 +89,10 @@ const initThumbnailPickers = () => {
         multiSelection: false
     });
 
-    imageThumbnail.onChange = (imageUrl) => onChangeImage('image', imageUrl);
+    imageThumbnail.onChange = (imageUrl) => onChangeImage('image', '1:1', imageUrl);
     imageThumbnail.onDelete = (imageUrl) => onDeleteImage('image', imageUrl);
 
-    coverImageThumbnail.onChange = (imageUrl) => onChangeImage('coverImage', imageUrl);
+    coverImageThumbnail.onChange = (imageUrl) => onChangeImage('coverImage', '16:9', imageUrl);
     coverImageThumbnail.onDelete = (imageUrl) => onDeleteImage('coverImage', imageUrl);
 }
 

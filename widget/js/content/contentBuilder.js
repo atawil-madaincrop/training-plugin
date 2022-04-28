@@ -9,10 +9,11 @@ export class ContentBuilder {
     static pageSize = 10;
 
     static loadItems = async () => {
+        pointers.contentItems.innerHTML = "";
+
         let res = await ContentManagement.loadItems(this.page, this.pageSize, "");
         this.itemsRendered = res;
 
-        pointers.contentItems.innerHTML = "";
         this.allItemsSorted = [];
         this.printItems(this.itemsRendered);
     }
@@ -182,8 +183,11 @@ export class ContentBuilder {
         pointers.loadItemPage.style.animation = "hideItem 0.2s";
     }
 
+    static update_Content = async() => {
+        console.log("updated content will be right here ...");
+    }
+
     static init_Content = async () => {
-        buildfire.history.push('main-page', {});
         await this.loadItems();
     }
 }

@@ -15,12 +15,22 @@ const handlersCollection = async () => {
     EventHandlers.setLoading('none');
 }
 
+const handelUpdate = async () => {
+    EventHandlers.setLoading('block');
+
+    LanguageBuilder.init_Language();
+    await ContentBuilder.update_Content();
+
+    IntroductionBuilder.appendUpdatedData();
+    EventHandlers.setLoading('none');
+}
+
 
 
 const init = async () => {
     handlersCollection();
 
-    buildfire.datastore.onUpdate(handlersCollection);
+    buildfire.datastore.onUpdate(handelUpdate);
     buildfire.navigation.onBackButtonClick = () => { console.log("No back avilable..."); }
 
 }

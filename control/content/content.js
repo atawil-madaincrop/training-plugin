@@ -1,7 +1,7 @@
 import Item from "../../widget/common/entities/Item.js";
 import ContentController from "./content.controller.js";
 
-let searchTableHelper, search, itemsCount, selectedItem, state, imageThumbnail, coverImageThumbnail, itemDetailsDescriptionEditor;
+let section, searchTableHelper, search, itemsCount, selectedItem, itemDetailsState, imageThumbnail, coverImageThumbnail, itemDetailsDescriptionEditor;
 const searchInput = document.getElementById("search");
 const searchButton = document.getElementById("search-button");
 const introductionTabLink = document.getElementById("introduction-tab-link");
@@ -34,7 +34,7 @@ const initItemsTable = async () => {
     }
 
     const onRowDelete = async (obj, tr) => {
-        await ContentController.deleteItem(obj);
+        await ContentController.deleteItem(obj.id);
         checkItemsEmptyState(itemsCount - 1);
     }
 
@@ -51,10 +51,10 @@ const initItemsTable = async () => {
 
 const initThumbnailPickers = () => {
     const onChangeImage = (key, aspectRatio, imageUrl) => {
-        if (!selectedItem || selectedItem[key] == imageUrl) return;
+        if (!selectedItem || selectedItem.data[key] == imageUrl) return;
 
         let croppedImage = buildfire.imageLib.cropImage(imageUrl, { size: "half_width", aspect: aspectRatio });
-        selectedItem[key] = croppedImage;
+        selectedItem.data[key] = croppedImage;
 
         switch (key) {
             case 'image':
@@ -72,7 +72,7 @@ const initThumbnailPickers = () => {
 
     const onDeleteImage = (key, imageUrl) => {
         if (!selectedItem) return;
-        selectedItem[key] = null;
+        selectedItem.data[key] = null;
     }
 
     imageThumbnail = new buildfire.components.images.thumbnail("#image-thumbnail", {
@@ -111,9 +111,9 @@ const onAddItemClick = () => {
 
 const onItemDetailsSave = async () => {
     let hasError = false;
-    selectedItem.title = itemDetailsTitleInput.value;
-    selectedItem.subtitle = itemDetailsSubtitleInput.value;
-    if (itemDetailsDescriptionEditor) selectedItem.description = itemDetailsDescriptionEditor.getContent();
+    selectedItem.data.title = itemDetailsTitleInput.value;
+    selectedItem.data.subtitle = itemDetailsSubtitleInput.value;
+    if (itemDetailsDescriptionEditor) selectedItem.data.description = itemDetailsDescriptionEditor.getContent();
 
     if (!itemDetailsTitleInput.checkValidity()) {
         showError(itemDetailsTitleInputError, 'Please insert the title.');
@@ -129,14 +129,14 @@ const onItemDetailsSave = async () => {
         hideError(itemDetailsSubtitleInputError);
     }
 
-    if (!selectedItem.image) {
+    if (!selectedItem.data.image) {
         showError(itemDetailsImagesError, 'Please insert the images.');
         hasError = true;
     } else {
         hideError(itemDetailsImagesError);
     }
 
-    if (!selectedItem.coverImage) {
+    if (!selectedItem.data.coverImage) {
         showError(itemDetailsImagesError, 'Please insert the images.');
         hasError = true;
     } else {
@@ -145,12 +145,12 @@ const onItemDetailsSave = async () => {
 
     if (hasError) return;
 
-    switch (state) {
+    switch (itemDetailsState) {
         case "edit":
-            await ContentController.updateItem(selectedItem.id, selectedItem);
+            await ContentController.updateItem(selectedItem.id, selectedItem.data);
             break;
         case "create":
-            await ContentController.addItem(selectedItem);
+            await ContentController.addItem(selectedItem.data);
             break;
     }
 
@@ -216,6 +216,7 @@ const navigateToTab = (tab) => {
 }
 
 const goToItemsPage = () => {
+    section = "items";
     selectedItem = null;
 
     itemsPage.classList.add("slide-in");
@@ -230,15 +231,19 @@ const goToItemsPage = () => {
 
     if (imageThumbnail) imageThumbnail.clear();
     if (coverImageThumbnail) coverImageThumbnail.clear();
+
+    sendMessageToWidget();
 }
 
-const goToItemDetailsSubPage = (item, newState) => {
+const goToItemDetailsSubPage = (item, state) => {
+    section = "item-details";
     selectedItem = item;
-    state = newState;
+    itemDetailsState = state;
 
-    itemDetailsTitleInput.value = item?.data.title || '';
-    itemDetailsSubtitleInput.value = item?.data.subtitle || '';
-    if (itemDetailsDescriptionEditor) itemDetailsDescriptionEditor.setContent(item?.data.description || '');
+    console.log({ selectedItem })
+    itemDetailsTitleInput.value = selectedItem?.data.title || '';
+    itemDetailsSubtitleInput.value = selectedItem?.data.subtitle || '';
+    if (itemDetailsDescriptionEditor) itemDetailsDescriptionEditor.setContent(selectedItem?.data.description || '');
     if (imageThumbnail) imageThumbnail.loadbackground(selectedItem?.data.image || '');
     if (coverImageThumbnail) coverImageThumbnail.loadbackground(selectedItem?.data.coverImage || '');
 
@@ -249,6 +254,8 @@ const goToItemDetailsSubPage = (item, newState) => {
     hideError(itemDetailsTitleInputError);
     hideError(itemDetailsSubtitleInputError);
     hideError(itemDetailsImagesError);
+
+    sendMessageToWidget();
 }
 
 const showError = (element, text) => {
@@ -261,11 +268,22 @@ const hideError = (element) => {
     element.classList.add('invisible');
 }
 
+const sendMessageToWidget = (message) => {
+    buildfire.messaging.sendMessageToWidget({
+        section: section,
+        item: selectedItem,
+        ...message,
+    });
+}
+
 const init = async () => {
+    section = "items";
+
     initItemsTable();
     initThumbnailPickers();
     initListeners();
     initItemDetailsDescriptionEditor();
+    sendMessageToWidget();
 }
 
 init();

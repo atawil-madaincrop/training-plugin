@@ -10,7 +10,7 @@ export default {
     updateItem: async (id, item) => {
         return await Items.update(id, item);
     },
-    deleteItem: async (id, item) => {
-        return await Items.delete(id, item);
+    deleteItem: async (id) => {
+        return await Items.delete(id);
     },
 }

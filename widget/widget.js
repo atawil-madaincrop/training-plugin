@@ -253,10 +253,11 @@ const onSearchInputChange = (e) => {
         toggleCarouselAndDescription(false);
     }
 
-    if (itemsListView)
-        debounce('search', () => {
-            pointers.itemsListView.classList.add('hidden');
+    if (itemsListView) {
+        pointers.itemsListView.classList.add('hidden');
+        pointers.itemsListViewLoadingState.classList.remove('hidden');
 
+        debounce('search', () => {
             itemsSearch({
                 $or: [
                     { "$json.title": { "$regex": value, "$options": "i" } },
@@ -264,12 +265,12 @@ const onSearchInputChange = (e) => {
                 ],
             }, sort);
         }, 500);
-
+    }
 }
 
 const debounce = (key, callback, wait) => {
     if (key) clearTimeout(key);
-    setTimeout(callback);
+    setTimeout(callback, wait);
 }
 
 const onDatastoreUpdateHandler = (event) => {

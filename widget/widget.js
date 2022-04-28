@@ -4,7 +4,7 @@ import { pointers } from './js/pointers.js';
 let introduction, language, imageCarousel, itemsListView, itemsLoaded, sort, selectedItem, page;
 
 const initCarousel = () => {
-    imageCarousel = new buildfire.components.carousel.view(pointers.carousel, introduction.imageCarousel);
+    imageCarousel = new buildfire.components.carousel.view(pointers.carousel, introduction.imageCarousel, "WideScreen");
     pointers.carouselLoadingState.classList.add('hidden');
 }
 
@@ -27,6 +27,7 @@ const initItemsListView = async () => {
 
     itemsListView = new ListViewHelper(pointers.itemsListView, WidgetController.itemsTag(), pointers.widget, filterFixed, sort);
     itemsListView.search(null, sort, () => {
+        pointers.itemsListViewLoadingState.classList.add('hidden');
         itemsLoaded = true;
         checkEmptyState();
     });

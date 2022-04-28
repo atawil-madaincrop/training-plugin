@@ -4,6 +4,7 @@ export const pointers = {
     detailsPage: document.querySelector('#details'),
     mainEmptyState: document.querySelector('#main-empty-state'),
     carouselLoadingState: document.querySelector('#carousel-loading-state'),
+    itemsListViewLoadingState: document.querySelector('#items-list-view-loading-state'),
     carousel: document.querySelector('#carousel'),
     description: document.querySelector('#description'),
     itemsListView: document.querySelector('#items-list-view'),

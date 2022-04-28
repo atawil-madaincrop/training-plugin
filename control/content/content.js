@@ -1,7 +1,7 @@
 import Item from "../../widget/common/entities/Item.js";
 import ContentController from "./content.controller.js";
 
-let searchTableHelper, search, itemsCount, selectedItemId, selectedItem, state, imageThumbnail, coverImageThumbnail, itemDetailsDescriptionEditor;
+let searchTableHelper, search, itemsCount, selectedItem, state, imageThumbnail, coverImageThumbnail, itemDetailsDescriptionEditor;
 const searchInput = document.getElementById("search");
 const searchButton = document.getElementById("search-button");
 const introductionTabLink = document.getElementById("introduction-tab-link");
@@ -30,11 +30,11 @@ const initItemsTable = async () => {
     }
 
     const onRowEdit = (obj, tr) => {
-        goToItemDetailsSubPage(obj.id, obj.data, "edit");
+        goToItemDetailsSubPage(obj, "edit");
     }
 
     const onRowDelete = async (obj, tr) => {
-        await ContentController.deleteItem(obj.id, obj.data);
+        await ContentController.deleteItem(obj);
         checkItemsEmptyState(itemsCount - 1);
     }
 
@@ -45,7 +45,7 @@ const initItemsTable = async () => {
     });
 
     searchTableHelper.onCommand('open-item-detials', (obj, tr) => {
-        goToItemDetailsSubPage(obj.id, obj.data, "edit");
+        goToItemDetailsSubPage(obj, "edit");
     });
 }
 
@@ -147,7 +147,7 @@ const onItemDetailsSave = async () => {
 
     switch (state) {
         case "edit":
-            await ContentController.updateItem(selectedItemId, selectedItem);
+            await ContentController.updateItem(selectedItem.id, selectedItem);
             break;
         case "create":
             await ContentController.addItem(selectedItem);
@@ -216,7 +216,6 @@ const navigateToTab = (tab) => {
 }
 
 const goToItemsPage = () => {
-    selectedItemId = null;
     selectedItem = null;
 
     itemsPage.classList.add("slide-in");
@@ -233,16 +232,15 @@ const goToItemsPage = () => {
     if (coverImageThumbnail) coverImageThumbnail.clear();
 }
 
-const goToItemDetailsSubPage = (id, item, newState) => {
-    selectedItemId = id;
+const goToItemDetailsSubPage = (item, newState) => {
     selectedItem = item;
     state = newState;
 
-    itemDetailsTitleInput.value = item?.title || '';
-    itemDetailsSubtitleInput.value = item?.subtitle || '';
-    if (itemDetailsDescriptionEditor) itemDetailsDescriptionEditor.setContent(item?.description || '');
-    if (imageThumbnail) imageThumbnail.loadbackground(selectedItem?.image || '');
-    if (coverImageThumbnail) coverImageThumbnail.loadbackground(selectedItem?.coverImage || '');
+    itemDetailsTitleInput.value = item?.data.title || '';
+    itemDetailsSubtitleInput.value = item?.data.subtitle || '';
+    if (itemDetailsDescriptionEditor) itemDetailsDescriptionEditor.setContent(item?.data.description || '');
+    if (imageThumbnail) imageThumbnail.loadbackground(selectedItem?.data.image || '');
+    if (coverImageThumbnail) coverImageThumbnail.loadbackground(selectedItem?.data.coverImage || '');
 
     itemsPage.classList.add("hidden");
     itemDetailsSubPage.classList.remove("hidden");

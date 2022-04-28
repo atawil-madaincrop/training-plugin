@@ -212,6 +212,9 @@ const onClearClick = () => {
 
     if (itemsListView)
         itemsSearch(null, sort);
+
+    pointers.itemsListView.classList.remove('search-mode');
+    pointers.itemsListViewLoadingState.classList.remove('search-mode');
 }
 
 const toggleCarouselAndDescription = (on) => {
@@ -245,7 +248,7 @@ const onSearchInputChange = (e) => {
     } else {
         searchMode = false;
         pointers.itemsListView.classList.remove('search-mode');
-        pointers.itemsListViewLoadingState.classList.add('search-mode');
+        pointers.itemsListViewLoadingState.classList.remove('search-mode');
         toggleSortAndCancelIcons(false);
         toggleCarouselAndDescription(false);
     }

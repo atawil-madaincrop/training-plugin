@@ -25,7 +25,8 @@ const initCarousel = () => {
     let editor = new buildfire.components.carousel.editor("#carousel", introduction.imageCarousel);
 
     editor.onItemChange = (item, index) => {
-        introduction.imageCarousel[index] = item;
+        let croppedImage = buildfire.imageLib.cropImage(item, { size: "half_width", aspect: "16:9" });
+        introduction.imageCarousel[index] = croppedImage;
         IntroductionController.saveIntroduction(introduction);
     };
 

@@ -279,7 +279,6 @@ const sendMessageToWidget = (message) => {
 }
 
 const onMessageHandler = (message) => {
-    console.log('content message:', { message });
     if (message.section)
         switch (message.section) {
             case 'items':

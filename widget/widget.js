@@ -18,7 +18,7 @@ const initDescription = () => {
 }
 
 const initLanguageValues = () => {
-    pointers.searchInput.placeholder = language.search;
+    pointers.searchInput.placeholder = language.search || '';
 }
 
 const initItemsListView = async () => {

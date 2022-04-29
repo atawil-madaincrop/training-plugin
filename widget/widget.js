@@ -75,6 +75,17 @@ const checkEmptyState = () => {
 
     if (
         pointers.carousel.classList.contains('hidden') &&
+        pointers.description.classList.contains('hidden')
+    ) {
+        pointers.itemsListView.classList.add('solo');
+        pointers.itemsListViewLoadingState.classList.add('solo');
+    } else {
+        pointers.itemsListView.classList.remove('solo');
+        pointers.itemsListViewLoadingState.classList.remove('solo');
+    }
+
+    if (
+        pointers.carousel.classList.contains('hidden') &&
         pointers.description.classList.contains('hidden') &&
         pointers.itemsListView.classList.contains('hidden')
     ) {

@@ -82,7 +82,8 @@ section {
     margin-top: 3rem;
 }
 
-#items-list-view.search-mode {
+#items-list-view.search-mode,
+#items-list-view.solo {
     margin-top: 0.5rem;
 }
 
@@ -119,7 +120,8 @@ section {
     margin-top: 3rem;
 }
 
-#items-list-view-loading-state.search-mode {
+#items-list-view-loading-state.search-mode,
+#items-list-view-loading-state.solo {
     margin-top: 0.5rem;
 }
 

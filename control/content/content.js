@@ -18,9 +18,6 @@ const itemDetailsCancleButton = document.getElementById("item-details-cancel-but
 const itemDetailsSaveButton = document.getElementById("item-details-save-button");
 const itemDetailsTitleInput = document.getElementById("item-details-title-input");
 const itemDetailsSubtitleInput = document.getElementById("item-details-subtitle-input");
-const itemDetailsTitleInputError = document.getElementById("item-details-title-input-error");
-const itemDetailsSubtitleInputError = document.getElementById("item-details-subtitle-input-error");
-const itemDetailsImagesError = document.getElementById("item-details-images-error");
 
 const initItemsTable = async () => {
     const filterFixed = {
@@ -71,11 +68,14 @@ const initThumbnailPickers = () => {
                 break;
         }
 
+        validateItemForm();
     }
 
     const onDeleteImage = (key, imageUrl) => {
         if (!selectedItem) return;
+
         selectedItem.data[key] = null;
+        validateItemForm();
     }
 
     imageThumbnail = new buildfire.components.images.thumbnail("#image-thumbnail", {
@@ -99,6 +99,15 @@ const initThumbnailPickers = () => {
     coverImageThumbnail.onDelete = (imageUrl) => onDeleteImage('coverImage', imageUrl);
 }
 
+const initItemDetailsDescriptionEditor = async () => {
+    await tinymce.init({
+        selector: "#item-details-description",
+        setup: (editor) => {
+            itemDetailsDescriptionEditor = editor;
+        },
+    });
+}
+
 const initListeners = () => {
     window.onresize = () => tableResize();
     buildfire.messaging.onReceivedMessage = (message) => onMessageHandler(message);
@@ -108,6 +117,8 @@ const initListeners = () => {
     searchButton.onclick = () => onItemsSearch();
     itemDetailsSaveButton.onclick = () => onItemDetailsSave();
     itemDetailsCancleButton.onclick = () => goToItemsPage(true);
+    itemDetailsTitleInput.onkeyup = (e) => validateItemForm();
+    itemDetailsSubtitleInput.onkeyup = (e) => validateItemForm();
 }
 
 const onAddItemClick = () => {
@@ -115,40 +126,7 @@ const onAddItemClick = () => {
 }
 
 const onItemDetailsSave = async () => {
-    let hasError = false;
-    selectedItem.data.title = itemDetailsTitleInput.value;
-    selectedItem.data.subtitle = itemDetailsSubtitleInput.value;
-    if (itemDetailsDescriptionEditor) selectedItem.data.description = itemDetailsDescriptionEditor.getContent();
-
-    if (!itemDetailsTitleInput.checkValidity()) {
-        showError(itemDetailsTitleInputError, 'Please insert the title.');
-        hasError = true;
-    } else {
-        hideError(itemDetailsTitleInputError);
-    }
-
-    if (!itemDetailsSubtitleInput.checkValidity()) {
-        showError(itemDetailsSubtitleInputError, 'Please insert the subtitle.');
-        hasError = true;
-    } else {
-        hideError(itemDetailsSubtitleInputError);
-    }
-
-    if (!selectedItem.data.image) {
-        showError(itemDetailsImagesError, 'Please insert the images.');
-        hasError = true;
-    } else {
-        hideError(itemDetailsImagesError);
-    }
-
-    if (!selectedItem.data.coverImage) {
-        showError(itemDetailsImagesError, 'Please insert the images.');
-        hasError = true;
-    } else {
-        hideError(itemDetailsImagesError);
-    }
-
-    if (hasError) return;
+    if (!validateItemForm()) return;
 
     switch (itemDetailsState) {
         case "edit":
@@ -162,15 +140,6 @@ const onItemDetailsSave = async () => {
     goToItemsPage(true);
 }
 
-const initItemDetailsDescriptionEditor = async () => {
-    await tinymce.init({
-        selector: "#item-details-description",
-        setup: (editor) => {
-            itemDetailsDescriptionEditor = editor;
-        },
-    });
-}
-
 const onItemsSearch = () => {
     search = searchInput.value;
 
@@ -181,6 +150,32 @@ const onItemsSearch = () => {
                 { "$json.subtitle": { "$regex": search, "$options": "i" } },
             ],
         });
+}
+
+const validateItemForm = () => {
+    let hasError = false;
+    selectedItem.data.title = itemDetailsTitleInput.value;
+    selectedItem.data.subtitle = itemDetailsSubtitleInput.value;
+    if (itemDetailsDescriptionEditor) selectedItem.data.description = itemDetailsDescriptionEditor.getContent();
+
+    if (!itemDetailsTitleInput.checkValidity()) {
+        hasError = true;
+    }
+
+    if (!itemDetailsSubtitleInput.checkValidity()) {
+        hasError = true;
+    }
+
+    if (!selectedItem.data.image) {
+        hasError = true;
+    }
+
+    if (!selectedItem.data.coverImage) {
+        hasError = true;
+    }
+
+    itemDetailsSaveButton.disabled = hasError;
+    return !hasError;
 }
 
 const checkItemsEmptyState = (count) => {
@@ -256,22 +251,10 @@ const goToItemDetailsSubPage = (item, state, notifyWidget) => {
     itemDetailsSubPage.classList.remove("hidden");
     itemDetailsBottomActions.classList.remove("hidden");
 
-    hideError(itemDetailsTitleInputError);
-    hideError(itemDetailsSubtitleInputError);
-    hideError(itemDetailsImagesError);
+    validateItemForm();
 
     if (notifyWidget)
         sendMessageToWidget();
-}
-
-const showError = (element, text) => {
-    element.innerHTML = text;
-    element.classList.remove('invisible');
-}
-
-const hideError = (element) => {
-    element.innerHTML = '';
-    element.classList.add('invisible');
 }
 
 const tableResize = () => {

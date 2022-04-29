@@ -33,21 +33,31 @@ class SearchTableHelper {
 			let th = this._create('th', this.thead, colConfig.header, classes);
 			if (colConfig.sortBy) {
 				let classes = ['icon'];
-				if (this.sort[colConfig.sortBy] && this.sort[colConfig.sortBy] > 0) {
-					classes.push('icon-chevron-up');
-				} else {
-					classes.push('icon-chevron-down');
+				if (this.sort[colConfig.sortBy]) {
+					classes.push('active');
+					if (this.sort[colConfig.sortBy] > 0) {
+						classes.push('icon-chevron-up');
+					} else {
+						classes.push('icon-chevron-down');
+					}
 				}
 
 				const icon = this._create('span', th, "", classes);
 
 				th.addEventListener('click', () => {
+					for (let i = 0; i < this.thead.children.length; i++) {
+						if (this.thead.children[i].children[0]) {
+							this.thead.children[i].children[0].classList.remove('active');
+						}
+					}
+
+					icon.classList.add('active');
+
 					if (this.sort[colConfig.sortBy] && this.sort[colConfig.sortBy] > 0) {
 						this.sort = { [colConfig.sortBy]: -1 };
 						icon.classList.remove('icon-chevron-up');
 						icon.classList.add('icon-chevron-down');
-					}
-					else {
+					} else {
 						//revert icon if previously sorted
 						for (let i = 0; i < this.thead.children.length; i++) {
 							if (this.thead.children[i].children[0]) {

@@ -21,11 +21,16 @@ th {
     border-bottom: 1px solid var(--c-gray3);
     color: var(--c-info);
     font-weight: 700;
+    cursor: pointer;
 }
 
-th>span {
+th span {
+    display: none;
     padding-left: 5px;
-    cursor: pointer;
+}
+
+th span.active {
+    display: inline;
 }
 
 td {

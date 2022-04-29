@@ -2,6 +2,7 @@ import Item from "../../widget/common/entities/Item.js";
 import ContentController from "./content.controller.js";
 
 let section, searchTableHelper, search, itemsCount, selectedItem, itemDetailsState, imageThumbnail, coverImageThumbnail, itemDetailsDescriptionEditor;
+const body = document.querySelector("body");
 const searchInput = document.getElementById("search");
 const searchButton = document.getElementById("search-button");
 const introductionTabLink = document.getElementById("introduction-tab-link");
@@ -10,6 +11,7 @@ const itemsTable = document.getElementById("items-table");
 const addItemButton = document.getElementById("add-item-button");
 const addSampleDataButton = document.getElementById("add-sample-data");
 const itemsPage = document.getElementById("items-page");
+const itemsFixedPart = document.getElementById("items-fixed-part");
 const itemDetailsSubPage = document.getElementById("item-details-sub-page");
 const itemDetailsBottomActions = document.getElementById("item-details-bottom-actions");
 const itemDetailsCancleButton = document.getElementById("item-details-cancel-button");
@@ -42,6 +44,7 @@ const initItemsTable = async () => {
 
     searchTableHelper.search(null, (res) => {
         checkItemsEmptyState(res && res.length);
+        tableResize();
     });
 
     searchTableHelper.onCommand('open-item-detials', (obj, tr) => {
@@ -97,6 +100,7 @@ const initThumbnailPickers = () => {
 }
 
 const initListeners = () => {
+    window.onresize = () => tableResize();
     buildfire.messaging.onReceivedMessage = (message) => onMessageHandler(message);
     introductionTabLink.onclick = () => navigateToTab("Introduction");
     addItemButton.onclick = () => onAddItemClick();
@@ -268,6 +272,28 @@ const showError = (element, text) => {
 const hideError = (element) => {
     element.innerHTML = '';
     element.classList.add('invisible');
+}
+
+const tableResize = () => {
+    const thead = itemsTable.querySelector('thead');
+    const tbody = itemsTable.querySelector('tbody');
+
+    const bodyHeight = getAbsoluteHeight(body);
+    const itemsFixedPartHeight = getAbsoluteHeight(itemsFixedPart);
+    const theadHeight = getAbsoluteHeight(thead);
+
+    tbody.style.maxHeight = (bodyHeight - itemsFixedPartHeight - theadHeight) + 'px';
+}
+
+function getAbsoluteHeight(el) {
+    el = (typeof el === 'string') ? document.querySelector(el) : el;
+
+    const rect = el.getBoundingClientRect();
+    const styles = window.getComputedStyle(el);
+    const margin = parseFloat(styles['marginTop']) +
+        parseFloat(styles['marginBottom']);
+
+    return parseFloat(rect.height.toFixed(2)) + margin;
 }
 
 const sendMessageToWidget = (message) => {

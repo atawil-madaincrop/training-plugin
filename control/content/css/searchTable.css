@@ -1,5 +1,6 @@
 table {
     border: none !important;
+    margin-bottom: 0 !important;
 }
 
 thead,
@@ -43,7 +44,7 @@ td {
 
 tbody {
     display: block;
-    max-height: 380px;
+    min-height: 150px;
     overflow: auto;
 }
 

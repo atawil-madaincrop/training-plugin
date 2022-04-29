@@ -84,8 +84,20 @@ class ListViewHelper {
             if (e && callback) return callback(e);
             console.log({ res });
             this._dataToItems(res).forEach((item) => this.listView.addItem(item));
+            this._replaceListItemViewClickListener();
             this.endReached = res.length < this.pageSize;
             if (callback) callback(res);
+        });
+    }
+
+    _replaceListItemViewClickListener = () => {
+        let listViewItems = this.element.querySelectorAll('.listViewItem');
+        listViewItems.forEach((listViewItem) => {
+            let listViewItemBody = listViewItem.querySelector('.listViewItemCopy');
+            if (!listViewItem.onclick) {
+                listViewItem.onclick = listViewItemBody.onclick;
+                listViewItemBody.onclick = () => { };
+            }
         });
     }
 

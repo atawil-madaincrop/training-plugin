@@ -3,6 +3,10 @@ body {
     font-family: 'Conv_apercu_regular';
 }
 
+p.info-note {
+    font-size: 0.8125rem;
+}
+
 .empty-state-lg {
     flex-direction: column;
 }

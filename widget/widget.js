@@ -74,6 +74,7 @@ const checkEmptyState = () => {
     }
 
     if (
+        itemsLoaded &&
         pointers.carousel.classList.contains('hidden') &&
         pointers.description.classList.contains('hidden')
     ) {
@@ -85,6 +86,7 @@ const checkEmptyState = () => {
     }
 
     if (
+        itemsLoaded &&
         pointers.carousel.classList.contains('hidden') &&
         pointers.description.classList.contains('hidden') &&
         pointers.itemsListView.classList.contains('hidden')
@@ -265,6 +267,14 @@ const onSearchInputChange = (e) => {
     }
 
     if (itemsListView) {
+        if (
+            !pointers.carousel.classList.contains('hidden') ||
+            !pointers.description.classList.contains('hidden')
+        ) {
+            pointers.itemsListView.classList.remove('solo');
+            pointers.itemsListViewLoadingState.classList.remove('solo');
+        }
+
         pointers.itemsListView.classList.add('hidden');
         pointers.itemsListViewLoadingState.classList.remove('hidden');
 

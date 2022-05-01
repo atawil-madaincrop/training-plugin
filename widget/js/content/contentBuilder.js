@@ -15,7 +15,7 @@ export class ContentBuilder {
 
         let res = await ContentManagement.loadItems(this.page, this.pageSize, "");
         this.itemsRendered = res;
-        if(res.length > 0){
+        if (res.length > 0) {
             pointers.emptyPage.style.display = "none";
             this.allItemsSorted = [];
             this.printItems(this.itemsRendered);
@@ -24,7 +24,7 @@ export class ContentBuilder {
 
     static printItems = (addItemsArr) => {
         pointers.emptySearchPage.style.display = "none";
-        
+
         addItemsArr.forEach(this.print_Item_By_Item);
         this.createLoadMoreContainer(addItemsArr.length);
 
@@ -37,21 +37,19 @@ export class ContentBuilder {
         row.setAttribute("id", `item-${item.id}-${index}`)
         row.innerHTML = `
             <section class="leftSection border-radius-four">
-                <img class="border-radius-four" src="${item.data.image || "./media/imagePlaceHolder.png"}" alt="item image" >
+                <img class="border-radius-four" src="${item.data?.image || "./media/imagePlaceHolder.png"}" alt="item image" >
             </section>
             <section class="flexItem-col margin-left-fifteen">
-                <span class="titleSpan">${item.data.title}</span>
-                <span class="subTitleSpan">${item.data.subtitle}</span>
+                <span class="titleSpan">${item.data?.title}</span>
+                <span class="subTitleSpan">${item.data?.subtitle}</span>
             </section>
         `
         pointers.contentItems.appendChild(row);
         let myItem = document.getElementById(`item-${item.id}-${index}`);
-        console.log(`item-${item.id}-${index}`);
         myItem.addEventListener("click", () => this.showItemPage(item))
     }
 
     static showItemPage = (item) => {
-        console.log("Show item 444444444");
         pointers.loadItemsList.style.display = "none";
         pointers.loadItemPage.style.display = "block";
 
@@ -62,16 +60,16 @@ export class ContentBuilder {
         pointers.backImage.setAttribute("src", images.coverImage);
         pointers.mainImage.setAttribute("src", images.squareImage);
 
-        pointers.backImage.addEventListener("click", () => this.showImage(item.data.coverImage, images));
-        pointers.mainImage.addEventListener("click", () => this.showImage(item.data.image, images));
+        pointers.backImage.addEventListener("click", () => this.showImage(item.data?.coverImage, images));
+        pointers.mainImage.addEventListener("click", () => this.showImage(item.data?.image, images));
 
         pointers.itemContent.innerHTML = `
         <section class="item-Title-Section padding-right-fifteen padding-top-fifteen padding-left-fifteen">
-            <span class="row">${item.data.title}</span>
-            <span class="row">${item.data.subtitle}</span>
+            <span class="row">${item.data?.title}</span>
+            <span class="row">${item.data?.subtitle}</span>
         </section>
         <div class="border-radius-four padding-right-fifteen padding-top-zero padding-bottom-fifteen padding-left-fifteen"> 
-            <p> ${item.data.description || ""} </p>
+            <p> ${item.data?.description || ""} </p>
         </div>
         `;
     }
@@ -114,13 +112,12 @@ export class ContentBuilder {
     static getSearchData = async (value) => {
         this.page = 0;
         let res = await ContentManagement.loadItems(this.page, this.pageSize, value);
-        if(res.length > 0){
+        if (res.length > 0) {
             if (LanguageBuilder.selectedSort) {
-                console.log("here we should sort the array");
             }
             this.allItemsSorted = [];
             this.printItems(res);
-        }else{
+        } else {
             pointers.emptySearchPage.style.display = "block";
         }
     }
@@ -158,17 +155,17 @@ export class ContentBuilder {
 
     static setImagesToBeShown = (item) => {
         let squareImage, coverImage;
-        if (item.data.image) {
+        if (item.data?.image) {
             squareImage = buildfire.imageLib.resizeImage(
-                item.data.image,
+                item.data?.image,
                 { size: "s", aspect: "1:1" }
             );
         } else {
             squareImage = "./media/empty-image.jpg";
         }
-        if (item.data.coverImage) {
+        if (item.data?.coverImage) {
             coverImage = buildfire.imageLib.resizeImage(
-                item.data.coverImage,
+                item.data?.coverImage,
                 { size: "full_width", aspect: "9:16" }
             );
         } else {
@@ -194,7 +191,6 @@ export class ContentBuilder {
     }
 
     static pushNewItem = (item) => {
-        console.log("----0", item);
         if (item.id !== this.allItemsSorted[this.allItemsSorted.length - 1].id) {
             pointers.contentItems.innerHTML = "";
 
@@ -217,8 +213,27 @@ export class ContentBuilder {
         this.printItems(printedArr);
     }
 
-    static update_Content = async () => {
-        console.log("updated content will be right here ...");
+    static update_Content = (item) => {
+        pointers.contentItems.innerHTML = "";
+        
+        let newArrToPrint = [];
+        let updatedItem = false;
+        this.allItemsSorted.filter((oldItem, idx) => {
+            if (oldItem.id == item.id) {
+                newArrToPrint.push(item)
+                updatedItem = true;
+                console.log("updated here ->", idx+1);
+                return (item)
+            } else {
+                newArrToPrint.push(oldItem)
+                return (oldItem)
+            }
+        })
+        if(!updatedItem){
+            newArrToPrint.push(item);
+        }
+        this.allItemsSorted = [];
+        this.printItems(newArrToPrint);
     }
 
     static init_Content = async () => {

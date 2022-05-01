@@ -19,7 +19,7 @@ export class EventHandlers {
         pointers.contentItems.innerHTML = "";
         ContentBuilder.printItems(ContentBuilder.itemsRendered);
     }
-    
+
     static setSearchState = () => {
         pointers.introductionContainer.style.display = "none";
         pointers.sortIcon.style.display = "none";
@@ -69,17 +69,42 @@ export class EventHandlers {
 
     }
 
-    static setLoading = (type) =>{
+    static setLoading = (type) => {
         pointers.loadingWidget.style.display = `${type}`;
     }
-    
-    static setLoadingSearch = (type) =>{
+
+    static setLoadingSearch = (type) => {
         pointers.loadingSearch.style.display = `${type}`;
+    }
+
+    static messagingHandler = () => {
+        buildfire.messaging.onReceivedMessage = (message) => {
+            console.log("new message------>");
+            switch (message?.type) {
+                case "openItem":
+                    ContentBuilder.showItemPage(message.item);
+                    break;
+                case "closeItemPage":
+                    ContentBuilder.backFunction();
+                    break;
+                case "updateItem":
+                    ContentBuilder.showItemPage(message.item);
+                    break;
+                case "addItem":
+                    ContentBuilder.pushNewItem(message.item);
+                    break;
+                case "deleteItem":
+                    ContentBuilder.removeItem(message.itemID);
+                    break;
+            }
+        };
     }
 
     static init_Events = () => {
         pointers.searchInput.addEventListener("input", this.searchInputHandler);
         pointers.clearIcon.addEventListener("click", this.clearSearchData);
-        pointers.sortIcon.addEventListener("click", this.setSortItems)
+        pointers.sortIcon.addEventListener("click", this.setSortItems);
+
+        this.messagingHandler();
     }
 }

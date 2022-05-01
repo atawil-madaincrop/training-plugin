@@ -118,6 +118,6 @@ td{
 .emptyRow:nth-child(2){
     margin-bottom: 1rem;
 }
-.emptyRow:nth-child(3){
-    padding-left: 2rem;
+#deleteItemBtn-0, #editItemBtn-0{
+    padding: 0.5rem 0.688rem;
 }

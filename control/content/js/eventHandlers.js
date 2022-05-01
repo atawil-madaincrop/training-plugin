@@ -2,6 +2,7 @@ import { ShowController } from "./showController.js";
 import { ContentHandlers } from "./contentHandlers.js";
 import { pointers } from "./pointers.js";
 
+let timer = null;
 
 export class EventHandlers {
 
@@ -43,17 +44,17 @@ export class EventHandlers {
         this.setAddBtn();
     }
     // handel input data
-    static handelTitle(e) {
+    static handelTitle = (e) => {
         ShowController.newItem.title = e.target.value;
-        // this.sendUpdatedItem();
+        this.sendUpdatedItem();
     }
-    static handelSubTitle(e) {
+    static handelSubTitle = (e) => {
         ShowController.newItem.subtitle = e.target.value;
-        // this.sendUpdatedItem();
+        this.sendUpdatedItem();
     }
-    static handelTiny() {
+    static handelTiny = () => {
         ShowController.newItem.description = tinymce.activeEditor.getContent();
-        // this.sendUpdatedItem();
+        this.sendUpdatedItem();
     }
     // handel form to add and edit items 
     static setAddBtn() {
@@ -71,32 +72,56 @@ export class EventHandlers {
             });
         }
     }
+    static handelImage = (type, key, imageUrl) => {
+        this.sendUpdatedItem();
+        if (key == "image") {
+            switch (type) {
+                case "add":
+                    ShowController.newItem.image = imageUrl;
+                    EventHandlers.sendUpdatedItem();
+                    break;
+                case "delete":
+                    ShowController.newItem.image = null;
+                    EventHandlers.sendUpdatedItem();
+                    break;
+            }
+        } else {
+            switch (type) {
+                case "add":
+                    ShowController.newItem.coverImage = imageUrl;
+                    EventHandlers.sendUpdatedItem();
+                    break;
+                case "delete":
+                    ShowController.newItem.coverImage = null;
+                    EventHandlers.sendUpdatedItem();
+                    break;
+            }
+        }
+    }
     static handelSubmitForm = async () => {
         if (ShowController.typeOfHandelForm == "add") {
             let addedData = await ContentHandlers.addItem(ShowController.newItem);
 
             ShowController.sendMessage({
-                type:"addItem",
+                type: "addItem",
                 item: addedData
             })
 
             ShowController.mySateArr.splice(0, 0, addedData)
-            ShowController.emptyData();
             ShowController.showAddModal(false);
             ShowController.printItems(ShowController.mySateArr);
         } else if (ShowController.typeOfHandelForm == "edit") {
             let editedData = await ContentHandlers.editItem(ShowController.itemForEdit.itemElement.id, ShowController.newItem);
-            
+
             ShowController.sendMessage({
-                type:"updateItem",
+                type: "updateItem",
                 item: editedData
             })
-            
+
+            ShowController.newItem = editedData.data;
             ShowController.mySateArr.splice(ShowController.itemForEdit.index, 1, editedData);
-            ShowController.emptyData();
             ShowController.showAddModal(false);
             ShowController.printItems(ShowController.mySateArr);
-            
         }
     }
     static pushNewRow(item) {
@@ -129,11 +154,14 @@ export class EventHandlers {
     }
 
     static sendUpdatedItem = () => {
-        if(ShowController.typeOfHandelForm == "edit"){
-            ShowController.sendMessage({
-                type:"testUpdatedData",
-                item: ShowController.newItem
-            })
+        if (ShowController.typeOfHandelForm == "edit" && ShowController.newItem.title != null) {
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                ShowController.sendMessage({
+                    type: "testUpdatedData",
+                    item: { data: ShowController.newItem, id: ShowController.itemForEdit.itemElement?.id || "" }
+                })
+            }, 500)
         }
     }
 }

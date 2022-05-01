@@ -4,6 +4,7 @@ import { pointers } from "./pointers.js"
 
 
 let timer = 50;
+let oldItem;
 
 export class ShowController {
 
@@ -100,22 +101,31 @@ export class ShowController {
         this.printItems();
     }
     // Modal to add and edit data
-    static showAddModal = (type) => {
+    static showAddModal = (type, cancelCase) => {
+        console.log("item for edit -->", this.mySateArr);
         if (type) {
             this.newItem = new Item();
             pointers.itemsPageDiv.style.display = "none";
             formPage.style.display = "block";
         } else {
+            if (cancelCase) {
+                this.mySateArr[oldItem.index].data = {
+                    ...this.mySateArr[oldItem.index].data,
+                    ...oldItem
+                }
+            }
+            this.newItem = new Item();
+            this.itemForEdit = {};
+
             this.emptyData();
             this.sendMessage({
-                type:"closeItemPage"
+                type: "closeItemPage"
             })
-            this.newItem = null;
             pointers.itemsPageDiv.style.display = "block";
             formPage.style.display = "none";
             this.typeOfHandelForm = "add";
-            this.itemForEdit = {};
         }
+        this.printItems();
     }
     static deleteRow = (idx, itemRow, item) => {
 
@@ -130,7 +140,7 @@ export class ShowController {
                 if (isConfirmed) {
                     //Go back
                     this.sendMessage({
-                        type:"deleteItem",
+                        type: "deleteItem",
                         itemID: item.id
                     })
                     itemRow.style.display = "none";
@@ -144,8 +154,15 @@ export class ShowController {
         );
     }
     static editRow = (itemElement, index) => {
+        oldItem = {
+            title: itemElement.data.title,
+            subtitle: itemElement.data.subtitle,
+            image: itemElement.data.image,
+            coverImage: itemElement.data.coverImage,
+            index: index
+        }
         this.sendMessage({
-            type:"openItem",
+            type: "openItem",
             item: itemElement
         })
         this.typeOfHandelForm = "edit";
@@ -166,13 +183,11 @@ export class ShowController {
         this.image.loadbackground(this.itemForEdit.itemElement.data.image);
         this.coverImage.loadbackground(this.itemForEdit.itemElement.data.coverImage);
         this.newItem = this.itemForEdit.itemElement.data;
+
         tinymce.activeEditor.setContent(this.itemForEdit.itemElement.data.description || '');
     }
 
     static sendMessage = (item) => {
-        clearTimeout(timer);
-        timer = setTimeout(() => {
-            buildfire.messaging.sendMessageToWidget(item)
-        }, 50)
+        buildfire.messaging.sendMessageToWidget(item)
     }
 }

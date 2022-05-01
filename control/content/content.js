@@ -8,7 +8,7 @@ pointers.iconPlcaeCancelSearch.style.display = "none";
 
 // Add Events Listener to manage data
 pointers.addItemBtn.addEventListener('click', () => ShowController.showAddModal(true));
-pointers.cancelAdding.addEventListener('click', () => ShowController.showAddModal(false));
+pointers.cancelAdding.addEventListener('click', () => ShowController.showAddModal(false,true));
 pointers.addItemContainer.addEventListener('click', EventHandlers.submitNewItem);
 pointers.title.addEventListener('input', EventHandlers.handelTitle);
 pointers.subTitle.addEventListener('input', EventHandlers.handelSubTitle);
@@ -43,21 +43,20 @@ const initThumbnail = () => {
     });
 
     ShowController.image.onDelete = (imageUrl) => {
-        ShowController.newItem.image = null;
-        // EventHandlers.sendUpdatedItem();
+        EventHandlers.handelImage('delete', 'image', imageUrl) 
+        
     };
     ShowController.coverImage.onDelete = (imageUrl) => {
-        ShowController.newItem.coverImage = null;
-        // EventHandlers.sendUpdatedItem();
+        EventHandlers.handelImage('delete', 'coverImage', imageUrl) 
+        
     };
 
     ShowController.image.onChange = (imageUrl) => {
-        ShowController.newItem.image = imageUrl;
-        // EventHandlers.sendUpdatedItem();
+        EventHandlers.handelImage('add', 'image', imageUrl) 
+        
     };
     ShowController.coverImage.onChange = (imageUrl) => {
-        ShowController.newItem.coverImage = imageUrl;
-        // EventHandlers.sendUpdatedItem();
+        EventHandlers.handelImage('add', 'coverImage', imageUrl) 
     };
 }
 // Init all functionality ...

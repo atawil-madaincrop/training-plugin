@@ -3,6 +3,7 @@ import Item from "../../../widget/common/entities/Item.js";
 import { pointers } from "./pointers.js"
 
 
+let timer = 50;
 
 export class ShowController {
 
@@ -32,6 +33,7 @@ export class ShowController {
         } else {
             pointers.printTable.style.display = "none";
             pointers.printWhenEmpty.style.display = "flex";
+            pointers.printWhenEmpty.style.flexDirection = "column";
             pointers.printLoading.style.display = "none";
         }
     }
@@ -105,7 +107,9 @@ export class ShowController {
             formPage.style.display = "block";
         } else {
             this.emptyData();
-
+            this.sendMessage({
+                type: "closeItemPage"
+            })
             this.newItem = null;
             pointers.itemsPageDiv.style.display = "block";
             formPage.style.display = "none";
@@ -125,6 +129,10 @@ export class ShowController {
 
                 if (isConfirmed) {
                     //Go back
+                    this.sendMessage({
+                        type: "deleteItem",
+                        itemID: item.id
+                    })
                     itemRow.style.display = "none";
                     this.mySateArr.splice(idx, 1);
                     this.printItems();
@@ -136,6 +144,10 @@ export class ShowController {
         );
     }
     static editRow = (itemElement, index) => {
+        this.sendMessage({
+            type: "openItem",
+            item: itemElement
+        })
         this.typeOfHandelForm = "edit";
         this.itemForEdit = { itemElement, index };
         this.showAddModal(true);
@@ -155,5 +167,12 @@ export class ShowController {
         this.coverImage.loadbackground(this.itemForEdit.itemElement.data.coverImage);
         this.newItem = this.itemForEdit.itemElement.data;
         tinymce.activeEditor.setContent(this.itemForEdit.itemElement.data.description || '');
+    }
+
+    static sendMessage = (item) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+            buildfire.messaging.sendMessageToWidget(item)
+        }, 50)
     }
 }

@@ -213,27 +213,16 @@ export class ContentBuilder {
         this.printItems(printedArr);
     }
 
-    static update_Content = (item) => {
+    static update_Content = (itemEle) => {
         pointers.contentItems.innerHTML = "";
-        
-        let newArrToPrint = [];
-        let updatedItem = false;
-        this.allItemsSorted.filter((oldItem, idx) => {
-            if (oldItem.id == item.id) {
-                newArrToPrint.push(item)
-                updatedItem = true;
-                console.log("updated here ->", idx+1);
-                return (item)
-            } else {
-                newArrToPrint.push(oldItem)
-                return (oldItem)
-            }
+
+        let printedArr = this.allItemsSorted.filter(item => {
+            return item.id != itemEle.id;
         })
-        if(!updatedItem){
-            newArrToPrint.push(item);
-        }
+        printedArr.splice(0,0,itemEle)
+        
         this.allItemsSorted = [];
-        this.printItems(newArrToPrint);
+        this.printItems(printedArr);
     }
 
     static init_Content = async () => {

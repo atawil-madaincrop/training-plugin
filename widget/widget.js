@@ -16,12 +16,8 @@ const handlersCollection = async () => {
 }
 
 const handelUpdate = async () => {
-    EventHandlers.setLoading('block');
-
     LanguageBuilder.init_Language();
-
     IntroductionBuilder.appendUpdatedData();
-    EventHandlers.setLoading('none');
 }
 
 const init = async () => {

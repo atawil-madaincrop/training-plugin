@@ -19,7 +19,6 @@ const handelUpdate = async () => {
     EventHandlers.setLoading('block');
 
     LanguageBuilder.init_Language();
-    await ContentBuilder.update_Content();
 
     IntroductionBuilder.appendUpdatedData();
     EventHandlers.setLoading('none');

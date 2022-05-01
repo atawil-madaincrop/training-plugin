@@ -30,7 +30,6 @@ export const itemsTests1 = (expect) => {
         describe('#search()', () => {
             it('search with no options argument is an array', async () => {
                 const items = await Items.search();
-                console.log('items:', items);
                 expect(items).to.be.an('array');
             });
 
@@ -124,7 +123,6 @@ export const itemsTests1 = (expect) => {
             it('update an item should be an item', async () => {
                 let item = new Item({ id: "62573728820890036e8e6d93", subtitle: "item updated 2" });
                 let res = await Items.update(item.id, item);
-                console.log('res: ', res.data);
                 expect(res.data).to.be.an('object');
             });
 

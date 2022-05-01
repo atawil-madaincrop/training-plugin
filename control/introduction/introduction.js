@@ -68,7 +68,6 @@ const initCarousel = (selector) => {
 
 const init = async () => {
     myIntroduction = await loadIntroductionDatastore();
-    console.log("myIntroduction", myIntroduction);
     initTiny("#wysiwygContent");
     initCarousel(".carousel");
 }

@@ -6,7 +6,6 @@ import Introductions from "../../../widget/common/repository/Introductions.js";
 export const introductionManagement = {
     load: async () => {
         let data = await Introductions.get();
-        console.log("DAta -->", data.data);
         if (data.data == undefined || data.data == null) {
             let newIntroduction = new Introduction();
             Introductions.save(newIntroduction);

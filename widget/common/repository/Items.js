@@ -19,7 +19,6 @@ export default class Items {
             ];
         }
 
-        console.log('_options:', _options);
         return new Promise((resolve, reject) => {
             buildfire.datastore.search(_options, Items.TAG, (err, res) => {
                 if (err) return reject(err);

@@ -108,7 +108,7 @@ export class ShowController {
         } else {
             this.emptyData();
             this.sendMessage({
-                type: "closeItemPage"
+                type:"closeItemPage"
             })
             this.newItem = null;
             pointers.itemsPageDiv.style.display = "block";
@@ -130,7 +130,7 @@ export class ShowController {
                 if (isConfirmed) {
                     //Go back
                     this.sendMessage({
-                        type: "deleteItem",
+                        type:"deleteItem",
                         itemID: item.id
                     })
                     itemRow.style.display = "none";
@@ -145,7 +145,7 @@ export class ShowController {
     }
     static editRow = (itemElement, index) => {
         this.sendMessage({
-            type: "openItem",
+            type:"openItem",
             item: itemElement
         })
         this.typeOfHandelForm = "edit";

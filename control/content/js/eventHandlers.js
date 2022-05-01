@@ -70,17 +70,30 @@ export class EventHandlers {
     }
     static handelSubmitForm = async () => {
         if (ShowController.typeOfHandelForm == "add") {
-            let addedData = await ContentHandlers.addItem(ShowController.newItem)
+            let addedData = await ContentHandlers.addItem(ShowController.newItem);
+
+            ShowController.sendMessage({
+                type:"addItem",
+                item: addedData
+            })
+
             ShowController.mySateArr.splice(0, 0, addedData)
             ShowController.emptyData();
             ShowController.showAddModal(false);
             ShowController.printItems(ShowController.mySateArr);
         } else if (ShowController.typeOfHandelForm == "edit") {
             let editedData = await ContentHandlers.editItem(ShowController.itemForEdit.itemElement.id, ShowController.newItem);
+            
+            ShowController.sendMessage({
+                type:"updateItem",
+                item: editedData
+            })
+            
             ShowController.mySateArr.splice(ShowController.itemForEdit.index, 1, editedData);
             ShowController.emptyData();
             ShowController.showAddModal(false);
             ShowController.printItems(ShowController.mySateArr);
+            
         }
     }
     static pushNewRow(item) {

@@ -25,14 +25,16 @@ const handelUpdate = async () => {
     EventHandlers.setLoading('none');
 }
 
-
-
 const init = async () => {
     handlersCollection();
+    buildfire.history.push("mainPage");
 
     buildfire.datastore.onUpdate(handelUpdate);
-    buildfire.navigation.onBackButtonClick = () => { console.log("No back avilable..."); }
-
+    buildfire.navigation.onBackButtonClick = () => ContentBuilder.backFunction();
+    
+    buildfire.history.onPop((breadcrumb) => {
+        ContentBuilder.backPOP_Listener(breadcrumb);
+    });
 }
 
 init();

@@ -2,6 +2,8 @@ import { ContentManagement } from "./contentManagement.js";
 import { LanguageBuilder } from "../language/languageBuilder.js";
 import { pointers } from "../pointers.js";
 
+let timer = null;
+
 export class ContentBuilder {
     static itemsRendered = [];
     static allItemsSorted = [];
@@ -48,13 +50,15 @@ export class ContentBuilder {
         pointers.loadItemsList.style.display = "none";
         pointers.loadItemPage.style.display = "block";
 
+        buildfire.history.push("itemPage", item);
+
         let images = this.setImagesToBeShown(item);
 
         pointers.backImage.setAttribute("src", images.coverImage);
         pointers.mainImage.setAttribute("src", images.squareImage);
 
-        pointers.backImage.addEventListener("click", () => this.showImage(item.data.coverImage,images));
-        pointers.mainImage.addEventListener("click", () => this.showImage(item.data.image,images));
+        pointers.backImage.addEventListener("click", () => this.showImage(item.data.coverImage, images));
+        pointers.mainImage.addEventListener("click", () => this.showImage(item.data.image, images));
 
         pointers.itemContent.innerHTML = `
         <section class="item-Title-Section padding-right-fifteen padding-top-fifteen padding-left-fifteen">
@@ -65,7 +69,6 @@ export class ContentBuilder {
             <p> ${item.data.description || ""} </p>
         </div>
         `;
-        this.setBackAction(item);
     }
 
     static createLoadMoreContainer = (length) => {
@@ -165,16 +168,14 @@ export class ContentBuilder {
         return { squareImage, coverImage }
     }
 
-    static setBackAction = (item) => {
-        buildfire.history.push('item-page', item);
-        buildfire.navigation.onBackButtonClick = () => {
-            this.backFunction();
-            buildfire.navigation.onBackButtonClick = () => { console.log("No back avilable..."); }
-        };
+    static backFunction = () => {
+        clearTimeout(timer);
+        timer = setTimeout(function () {
+            buildfire.history.pop();
+        }, 50)
     }
 
-    static backFunction = () => {
-        buildfire.history.pop();
+    static backPOP_Listener = (breadcrumb) => {
         setTimeout(() => {
             pointers.loadItemsList.style.display = "block";
             pointers.loadItemPage.style.display = "none";
@@ -183,7 +184,31 @@ export class ContentBuilder {
         pointers.loadItemPage.style.animation = "hideItem 0.2s";
     }
 
-    static update_Content = async() => {
+    static pushNewItem = (item) => {
+        console.log("----0", item);
+        if (item.id !== this.allItemsSorted[this.allItemsSorted.length - 1].id) {
+            pointers.contentItems.innerHTML = "";
+
+            let printedArr = this.allItemsSorted;
+            printedArr.push(item);
+
+            this.allItemsSorted = [];
+            this.printItems(printedArr);
+        }
+    }
+
+    static removeItem = (id) => {
+        pointers.contentItems.innerHTML = "";
+
+        let printedArr = this.allItemsSorted.filter(item => {
+            return item.id != id;
+        })
+
+        this.allItemsSorted = [];
+        this.printItems(printedArr);
+    }
+
+    static update_Content = async () => {
         console.log("updated content will be right here ...");
     }
 

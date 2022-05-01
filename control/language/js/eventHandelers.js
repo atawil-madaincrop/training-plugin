@@ -4,12 +4,11 @@ import { LanguageManagement } from "./languageManagement.js";
 import Language from "../../../widget/common/entities/Language.js";
 import { language } from "../../../widget/common/config/defaultLanguage.js";
 
+let delay = 1000;
+let timer;
 
 export class Handlers {
     static languageState = new Language();
-
-    delay = 1000;
-    timer;
 
     static setDefaultInput = () => {
         pointers.search.defaultValue = this.languageState.search || '';
@@ -30,10 +29,10 @@ export class Handlers {
     }
 
     static saveLanguage = (e) => {
-        clearTimeout(this.timer);
-        this.timer = setTimeout(async x => {
+        clearTimeout(timer);
+        timer = setTimeout(async () => {
             await LanguageManagement.saveData(this.languageState);
-        }, this.delay, e)
+        }, delay)
     }
 
     static handelInputSearch = (e) => {

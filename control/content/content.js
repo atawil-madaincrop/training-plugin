@@ -44,16 +44,20 @@ const initThumbnail = () => {
 
     ShowController.image.onDelete = (imageUrl) => {
         ShowController.newItem.image = null;
+        // EventHandlers.sendUpdatedItem();
     };
     ShowController.coverImage.onDelete = (imageUrl) => {
         ShowController.newItem.coverImage = null;
+        // EventHandlers.sendUpdatedItem();
     };
 
     ShowController.image.onChange = (imageUrl) => {
         ShowController.newItem.image = imageUrl;
+        // EventHandlers.sendUpdatedItem();
     };
     ShowController.coverImage.onChange = (imageUrl) => {
         ShowController.newItem.coverImage = imageUrl;
+        // EventHandlers.sendUpdatedItem();
     };
 }
 // Init all functionality ...

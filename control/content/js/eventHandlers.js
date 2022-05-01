@@ -45,12 +45,15 @@ export class EventHandlers {
     // handel input data
     static handelTitle(e) {
         ShowController.newItem.title = e.target.value;
+        // this.sendUpdatedItem();
     }
     static handelSubTitle(e) {
         ShowController.newItem.subtitle = e.target.value;
+        // this.sendUpdatedItem();
     }
     static handelTiny() {
         ShowController.newItem.description = tinymce.activeEditor.getContent();
+        // this.sendUpdatedItem();
     }
     // handel form to add and edit items 
     static setAddBtn() {
@@ -122,6 +125,15 @@ export class EventHandlers {
             itemsListTable.appendChild(newRow)
             let deleteBtn = document.getElementById(`deleteItemBtn-${ShowController.mySateArr.length - 1}`);
             deleteBtn.addEventListener("click", () => deleteRow(newRow, item))
+        }
+    }
+
+    static sendUpdatedItem = () => {
+        if(ShowController.typeOfHandelForm == "edit"){
+            ShowController.sendMessage({
+                type:"testUpdatedData",
+                item: ShowController.newItem
+            })
         }
     }
 }

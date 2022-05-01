@@ -17,4 +17,6 @@ export const pointers = {
     backImage: document.getElementById("back-Image"),
     mainImage: document.getElementById("main-Image"),
     itemContent: document.getElementById("itemContent"),
+    emptyPage: document.getElementById("emptyPage"),
+    emptySearchPage: document.getElementById("empty-search-Widget"),
 }

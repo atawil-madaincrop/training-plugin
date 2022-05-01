@@ -8,8 +8,14 @@ let myIntroduction = new Introduction();
 export class IntroductionBuilder {
     static appendUpdatedData = async () => {
         myIntroduction = await introductionManagement.load();
-        viewer.loadItems(myIntroduction.imageCarousel);
-        pointers.introductionDesc.innerHTML = myIntroduction.description
+        if(myIntroduction.imageCarousel || myIntroduction.description){
+            pointers.emptyPage.style.display = "none";
+            pointers.emptySearchPage.style.display = "none";
+            viewer.loadItems(myIntroduction.imageCarousel);
+            pointers.introductionDesc.innerHTML = myIntroduction.description
+        }else{
+            pointers.emptyPage.style.display = "block";
+        }
     }
 
     static initComponents = () => {

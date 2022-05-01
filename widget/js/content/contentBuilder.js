@@ -15,12 +15,16 @@ export class ContentBuilder {
 
         let res = await ContentManagement.loadItems(this.page, this.pageSize, "");
         this.itemsRendered = res;
-
-        this.allItemsSorted = [];
-        this.printItems(this.itemsRendered);
+        if(res.length > 0){
+            pointers.emptyPage.style.display = "none";
+            this.allItemsSorted = [];
+            this.printItems(this.itemsRendered);
+        }
     }
 
     static printItems = (addItemsArr) => {
+        pointers.emptySearchPage.style.display = "none";
+        
         addItemsArr.forEach(this.print_Item_By_Item);
         this.createLoadMoreContainer(addItemsArr.length);
 
@@ -47,6 +51,7 @@ export class ContentBuilder {
     }
 
     static showItemPage = (item) => {
+        console.log("Show item 444444444");
         pointers.loadItemsList.style.display = "none";
         pointers.loadItemPage.style.display = "block";
 
@@ -109,11 +114,15 @@ export class ContentBuilder {
     static getSearchData = async (value) => {
         this.page = 0;
         let res = await ContentManagement.loadItems(this.page, this.pageSize, value);
-        if (LanguageBuilder.selectedSort) {
-            console.log("here we should sort the array");
+        if(res.length > 0){
+            if (LanguageBuilder.selectedSort) {
+                console.log("here we should sort the array");
+            }
+            this.allItemsSorted = [];
+            this.printItems(res);
+        }else{
+            pointers.emptySearchPage.style.display = "block";
         }
-        this.allItemsSorted = [];
-        this.printItems(res);
     }
 
     static sortItems = () => {

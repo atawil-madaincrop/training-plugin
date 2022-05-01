@@ -11,6 +11,7 @@ export class EventHandlers {
 
     static resetSearchState = () => {
         this.setLoadingSearch('none');
+        pointers.emptySearchPage.style.display = "none";
 
         pointers.introductionContainer.style.display = "block";
         pointers.clearIcon.style.display = "none";
@@ -27,6 +28,8 @@ export class EventHandlers {
     }
 
     static searchInputHandler = (e) => {
+        pointers.emptySearchPage.style.display = "none";
+        
         clearTimeout(timer);
         this.setLoadingSearch('block');
         pointers.contentItems.innerHTML = "";
@@ -83,12 +86,16 @@ export class EventHandlers {
             switch (message?.type) {
                 case "openItem":
                     ContentBuilder.showItemPage(message.item);
+                    console.log("----",message.item);
                     break;
                 case "closeItemPage":
                     ContentBuilder.backFunction();
                     break;
                 case "updateItem":
                     ContentBuilder.showItemPage(message.item);
+                    break;
+                case "testUpdatedData":
+                    console.log("----",message.item);
                     break;
                 case "addItem":
                     ContentBuilder.pushNewItem(message.item);

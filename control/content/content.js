@@ -1,14 +1,19 @@
 import { ShowController } from "./js/showController.js";
 import { EventHandlers } from "./js/eventHandlers.js";
-
-
 // Get elements from HTML
 import { pointers } from "./js/pointers.js";
 pointers.iconPlcaeCancelSearch.style.display = "none";
 
+
+
 // Add Events Listener to manage data
 pointers.addItemBtn.addEventListener('click', () => ShowController.showAddModal(true));
-pointers.cancelAdding.addEventListener('click', () => ShowController.showAddModal(false,true));
+pointers.cancelAdding.addEventListener('click', () => {
+    clearTimeout(pointers.timer);
+    pointers.timer = setTimeout(function () {
+        ShowController.showAddModal(false,true)
+    }, 50)
+});
 pointers.addItemContainer.addEventListener('click', EventHandlers.submitNewItem);
 pointers.title.addEventListener('input', EventHandlers.handelTitle);
 pointers.subTitle.addEventListener('input', EventHandlers.handelSubTitle);

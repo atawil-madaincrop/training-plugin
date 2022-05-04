@@ -2,7 +2,6 @@ import { ShowController } from "./showController.js";
 import { ContentHandlers } from "./contentHandlers.js";
 import { pointers } from "./pointers.js";
 
-let timer = null;
 
 export class EventHandlers {
 
@@ -64,13 +63,16 @@ export class EventHandlers {
         }
     }
     static submitNewItem = async () => {
-        if (ShowController.newItem.image && ShowController.newItem.coverImage && ShowController.newItem.title) {
-            await this.handelSubmitForm();
-        } else {
-            buildfire.dialog.alert({
-                message: "Some Needed Data in Missing!",
-            });
-        }
+        clearTimeout(pointers.timer);
+        pointers.timer = setTimeout(async function () {
+            if (ShowController.newItem.image && ShowController.newItem.coverImage && ShowController.newItem.title) {
+                await EventHandlers.handelSubmitForm();
+            } else {
+                buildfire.dialog.alert({
+                    message: "Some Needed Data in Missing!",
+                });
+            }
+        }, 50)
     }
     static handelImage = (type, key, imageUrl) => {
         this.sendUpdatedItem();
@@ -100,16 +102,17 @@ export class EventHandlers {
     }
     static handelSubmitForm = async () => {
         if (ShowController.typeOfHandelForm == "add") {
-            let addedData = await ContentHandlers.addItem(ShowController.newItem);
-
-            ShowController.sendMessage({
-                type: "addItem",
-                item: addedData
+            await ContentHandlers.addItem(ShowController.newItem)
+            .then(addedData=>{
+                ShowController.sendMessage({
+                    type: "addItem",
+                    item: addedData
+                })
+    
+                ShowController.mySateArr.splice(0, 0, addedData)
+                ShowController.showAddModal(false);
+                ShowController.printItems(ShowController.mySateArr);
             })
-
-            ShowController.mySateArr.splice(0, 0, addedData)
-            ShowController.showAddModal(false);
-            ShowController.printItems(ShowController.mySateArr);
         } else if (ShowController.typeOfHandelForm == "edit") {
             let editedData = await ContentHandlers.editItem(ShowController.itemForEdit.itemElement.id, ShowController.newItem);
 
@@ -155,13 +158,10 @@ export class EventHandlers {
 
     static sendUpdatedItem = () => {
         if (ShowController.typeOfHandelForm == "edit" && ShowController.newItem.title != null) {
-            clearTimeout(timer);
-            timer = setTimeout(() => {
                 ShowController.sendMessage({
                     type: "testUpdatedData",
                     item: { data: ShowController.newItem, id: ShowController.itemForEdit.itemElement?.id || "" }
                 })
-            }, 500)
         }
     }
 }

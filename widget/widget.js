@@ -30,7 +30,7 @@ const initItemsListView = async () => {
         title: 1,
     }
 
-    itemsListView = new ListViewHelper(pointers.itemsListView, WidgetController.itemsTag(), pointers.widget, filterFixed, sort);
+    itemsListView = new ListViewHelper(pointers.itemsListView, WidgetController.itemsTag(), pointers.content, filterFixed, sort);
     itemsSearch(null, sort);
 
     itemsListView.onItemClicked((listViewItem) => {

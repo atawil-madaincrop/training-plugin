@@ -2,7 +2,6 @@ import { ContentManagement } from "./contentManagement.js";
 import { LanguageBuilder } from "../language/languageBuilder.js";
 import { pointers } from "../pointers.js";
 
-let timer = null;
 
 export class ContentBuilder {
     static itemsRendered = [];
@@ -175,27 +174,41 @@ export class ContentBuilder {
     }
 
     static backFunction = () => {
-        clearTimeout(timer);
-        timer = setTimeout(function () {
+        clearTimeout(pointers.timer);
+        pointers.timer = setTimeout(function () {
             buildfire.history.pop();
         }, 50)
     }
 
     static backPOP_Listener = (breadcrumb) => {
-        setTimeout(() => {
-            pointers.loadItemsList.style.display = "block";
-            pointers.loadItemPage.style.display = "none";
-            pointers.loadItemPage.style.animation = "showItem 0.3s";
-        }, 200)
-        pointers.loadItemPage.style.animation = "hideItem 0.2s";
+        switch (breadcrumb.label) {
+            case "mainPage":
+                setTimeout(() => {
+                    pointers.loadItemsList.style.display = "block";
+                    pointers.loadItemPage.style.display = "none";
+                    pointers.loadItemPage.style.animation = "showItem 0.3s";
+                }, 200)
+                pointers.loadItemPage.style.animation = "hideItem 0.2s";
+                break;
+        
+            default:
+                if(pointers.loadItemsList.style.display == "block"){
+                    buildfire.history.push("mainPage");
+                }else if(pointers.loadItemPage.style.display == "block"){
+                    buildfire.history.push("itemPage", breadcrumb.item);
+                }
+                console.log("<-- No Back Avilable -->");
+                break;
+        }
     }
 
     static pushNewItem = (item) => {
-        if (item.id !== this.allItemsSorted[this.allItemsSorted.length - 1].id) {
+        console.log("item here  --->", item);
+        if (item?.id !== this.allItemsSorted[0]?.id) {
             pointers.contentItems.innerHTML = "";
 
             let printedArr = this.allItemsSorted;
-            printedArr.push(item);
+            printedArr.splice(0, 0, item);
 
             this.allItemsSorted = [];
             this.printItems(printedArr);
@@ -219,8 +232,8 @@ export class ContentBuilder {
         let printedArr = this.allItemsSorted.filter(item => {
             return item.id != itemEle.id;
         })
-        printedArr.splice(0,0,itemEle)
-        
+        printedArr.splice(0, 0, itemEle)
+
         this.allItemsSorted = [];
         this.printItems(printedArr);
     }

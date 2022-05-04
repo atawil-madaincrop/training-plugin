@@ -82,45 +82,40 @@ export class EventHandlers {
     }
 
     static messagingHandler = () => {
-        clearTimeout(pointers.timer);
-        pointers.timer = setTimeout(async function () {
-            buildfire.messaging.onReceivedMessage = (message) => {
-                switch (message?.type) {
-                    case "openItem":
-                        if (lastAction !== message?.type) {
-                            lastAction = message?.type
-                            ContentBuilder.showItemPage(message.item);
-                        }
-                        break;
-                    case "closeItemPage":
-                        if (lastAction !== message?.type) {
-                            lastAction = message?.type
-                            ContentBuilder.backFunction();
-                        }
-                        break;
-                    case "updateItem":
-                        if (lastAction !== message?.type) {
-                            lastAction = message?.type
-                            ContentBuilder.update_Content(message.item)
-                        }
-                        break;
-                    case "testUpdatedData":
-                        if (lastAction !== message?.type) {
-                            lastAction = message?.type
-                            ContentBuilder.showItemPage(message.item);
-                            break;
-                        }
-                    case "addItem":
+        buildfire.messaging.onReceivedMessage = (message) => {
+            switch (message?.type) {
+                case "openItem":
+                    if (lastAction !== message?.type) {
                         lastAction = message?.type
-                        ContentBuilder.pushNewItem(message.item);
-                        break;
-                    case "deleteItem":
+                        ContentBuilder.showItemPage(message.item);
+                    }
+                    break;
+                case "closeItemPage":
+                    if (lastAction !== message?.type) {
                         lastAction = message?.type
-                        ContentBuilder.removeItem(message.itemID);
-                        break;
-                }
-            };
-        }, 50)
+                        ContentBuilder.backFunction();
+                    }
+                    break;
+                case "updateItem":
+                    if (lastAction !== message?.type) {
+                        lastAction = message?.type
+                        ContentBuilder.update_Content(message.item)
+                    }
+                    break;
+                case "testUpdatedData":
+                    lastAction = message?.type
+                    ContentBuilder.showItemPage(message.item);
+                    break;
+                case "addItem":
+                    lastAction = message?.type
+                    ContentBuilder.pushNewItem(message.item);
+                    break;
+                case "deleteItem":
+                    lastAction = message?.type
+                    ContentBuilder.removeItem(message.itemID);
+                    break;
+            }
+        };
     }
 
     static init_Events = () => {

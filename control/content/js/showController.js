@@ -116,9 +116,11 @@ export class ShowController {
             this.itemForEdit = {};
 
             this.emptyData();
-            this.sendMessage({
-                type: "closeItemPage"
-            })
+            if (this.typeOfHandelForm !== "add") {
+                this.sendMessage({
+                    type: "closeItemPage"
+                })
+            }
             pointers.itemsPageDiv.style.display = "block";
             formPage.style.display = "none";
             this.typeOfHandelForm = "add";
@@ -139,12 +141,12 @@ export class ShowController {
                     itemRow.style.display = "none";
                     this.mySateArr.splice(idx, 1);
                     this.printItems();
-                    await ContentHandlers.deactiveItem(item.id, item);
                     //Go back
                     this.sendMessage({
                         type: "deleteItem",
                         itemID: item.id
                     })
+                    await ContentHandlers.deactiveItem(item.id, item);
                 } else {
                     //Prevent action
                 }

@@ -6,7 +6,8 @@ import { pointers } from "./pointers.js";
 
 
 let delay = 1000;
-let timer;
+let lastAction;
+
 export class EventHandlers {
 
     static resetSearchState = () => {
@@ -30,12 +31,12 @@ export class EventHandlers {
     static searchInputHandler = (e) => {
         pointers.emptySearchPage.style.display = "none";
 
-        clearTimeout(timer);
+        clearTimeout(pointers.timer);
         this.setLoadingSearch('block');
         pointers.contentItems.innerHTML = "";
         if (e.target.value.length > 0) {
             this.setSearchState();
-            timer = setTimeout(async x => {
+            pointers.timer = setTimeout(async x => {
                 await ContentBuilder.getSearchData(e.target.value);
                 this.setLoadingSearch("none")
             }, delay, e)
@@ -81,28 +82,46 @@ export class EventHandlers {
     }
 
     static messagingHandler = () => {
-        buildfire.messaging.onReceivedMessage = (message) => {
-            switch (message?.type) {
-                case "openItem":
-                    ContentBuilder.showItemPage(message.item);
-                    break;
-                case "closeItemPage":
-                    ContentBuilder.backFunction();
-                    break;
-                case "updateItem":
-                    ContentBuilder.update_Content(message.item)
-                    break;
-                case "testUpdatedData":
-                    ContentBuilder.showItemPage(message.item);
-                    break;
-                case "addItem":
-                    ContentBuilder.pushNewItem(message.item);
-                    break;
-                case "deleteItem":
-                    ContentBuilder.removeItem(message.itemID);
-                    break;
-            }
-        };
+        clearTimeout(pointers.timer);
+        pointers.timer = setTimeout(async function () {
+            buildfire.messaging.onReceivedMessage = (message) => {
+                switch (message?.type) {
+                    case "openItem":
+                        if (lastAction !== message?.type) {
+                            lastAction = message?.type
+                            ContentBuilder.showItemPage(message.item);
+                        }
+                        break;
+                    case "closeItemPage":
+                        if (lastAction !== message?.type) {
+                            lastAction = message?.type
+                            ContentBuilder.backFunction();
+                        }
+                        break;
+                    case "updateItem":
+                        if (lastAction !== message?.type) {
+                            lastAction = message?.type
+                            ContentBuilder.update_Content(message.item)
+                        }
+                        break;
+                    case "testUpdatedData":
+                        if (lastAction !== message?.type) {
+                            lastAction = message?.type
+                            ContentBuilder.showItemPage(message.item);
+                            break;
+                        }
+                    case "addItem":
+                        lastAction = message?.type
+                        console.log("item to be added from message in wedgit ->", message.item);
+                        ContentBuilder.pushNewItem(message.item);
+                        break;
+                    case "deleteItem":
+                        lastAction = message?.type
+                        ContentBuilder.removeItem(message.itemID);
+                        break;
+                }
+            };
+        }, 50)
     }
 
     static init_Events = () => {
@@ -111,5 +130,12 @@ export class EventHandlers {
         pointers.sortIcon.addEventListener("click", this.setSortItems);
 
         this.messagingHandler();
+
+
+        buildfire.navigation.onBackButtonClick = () => ContentBuilder.backFunction();
+
+        buildfire.history.onPop((breadcrumb) => {
+            ContentBuilder.backPOP_Listener(breadcrumb);
+        });
     }
 }

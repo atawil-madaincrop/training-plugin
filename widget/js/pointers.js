@@ -12,6 +12,8 @@ export const pointers = {
     iconSearch: document.querySelector('#icon-search'),
     iconSort: document.querySelector('#icon-sort'),
     iconClear: document.querySelector('#icon-clear'),
+    itemDetailsEmptyState: document.querySelector('#item-details-empty-state'),
+    itemImagesContainer: document.querySelector('#item-images-container'),
     itemImage: document.querySelector('#item-image'),
     itemCoverImage: document.querySelector('#item-cover-image'),
     itemTitle: document.querySelector('#item-title'),

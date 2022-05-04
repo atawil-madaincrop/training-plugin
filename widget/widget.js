@@ -117,6 +117,44 @@ const checkItemDetailsEmptyState = () => {
         pointers.itemCoverImage.classList.add("hidden");
         pointers.itemCoverImageEmptyState.classList.remove("hidden");
     }
+
+    if (
+        pointers.itemImage.classList.contains('hidden') &&
+        pointers.itemCoverImage.classList.contains('hidden')
+    ) {
+        pointers.itemImagesContainer.classList.add('hidden');
+    } else {
+        pointers.itemImagesContainer.classList.remove('hidden');
+    }
+
+    if (selectedItem.data.title) {
+        pointers.itemTitle.classList.remove("hidden");
+    } else {
+        pointers.itemTitle.classList.add("hidden");
+    }
+
+    if (selectedItem.data.subtitle) {
+        pointers.itemSubtitle.classList.remove("hidden");
+    } else {
+        pointers.itemSubtitle.classList.add("hidden");
+    }
+
+    if (selectedItem.data.description) {
+        pointers.itemDescription.classList.remove("hidden");
+    } else {
+        pointers.itemDescription.classList.add("hidden");
+    }
+
+    if (
+        pointers.itemTitle.classList.contains('hidden') &&
+        pointers.itemSubtitle.classList.contains('hidden') &&
+        pointers.itemDescription.classList.contains('hidden') &&
+        pointers.itemImagesContainer.classList.contains('hidden')
+    ) {
+        pointers.itemDetailsEmptyState.classList.remove('hidden');
+    } else {
+        pointers.itemDetailsEmptyState.classList.add('hidden');
+    }
 }
 
 const removeItemDetailsShimmers = () => {

@@ -28,12 +28,13 @@
 
 #load-Item-Page {
     display: none;
-    z-index: 10;
+    z-index: 100;
     height: 100%;
     animation: showItem 0.3s;
 }
 
 #load-Items-List {
+    z-index: 10;
     height: 100%;
 }
 
@@ -101,6 +102,7 @@
     position: absolute;
     width: 100%;
     height: 100%;
+    z-index: 10;
     display: none;
 }
 
@@ -171,7 +173,7 @@
 }
 
 #emptyPage{
-    display: none;
+    display: block;
     position: absolute;
     top: 0;
     left: 0;

@@ -62,7 +62,7 @@ section {
 }
 
 #main-empty-state {
-    height: calc(100% - 8rem);
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -170,7 +170,7 @@ section {
 }
 
 #item-details-empty-state {
-    height: calc(100% - 8rem);
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;

@@ -93,7 +93,7 @@ cssTasks.forEach(function (task) {
 
 
 gulp.task("sharedJS", function () {
-    return gulp.src(["widget/js/shared/**.js"], { base: '.' })
+    return gulp.src(["widget/js/shared/**/*.js"], { base: '.' })
 
         .pipe(concat('scripts.shared.js'))
         .pipe(babel({

@@ -195,6 +195,10 @@
     #main-Image {
         top: -3.812rem;
     }
+
+    .item-Title-Section{
+        padding-top: 5rem !important;
+    }
 }
 
 @keyframes showItem {

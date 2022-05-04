@@ -69,13 +69,16 @@ const initThumbnailPickers = () => {
         }
 
         validateItemForm();
+        sendMessageToWidget();
     }
 
     const onDeleteImage = (key, imageUrl) => {
         if (!selectedItem) return;
 
         selectedItem.data[key] = null;
+
         validateItemForm();
+        sendMessageToWidget();
     }
 
     imageThumbnail = new buildfire.components.images.thumbnail("#image-thumbnail", {
@@ -104,6 +107,16 @@ const initItemDetailsDescriptionEditor = async () => {
         selector: "#item-details-description",
         setup: (editor) => {
             itemDetailsDescriptionEditor = editor;
+
+            editor.on('keyup', function (e) {
+                validateItemForm();
+                sendMessageToWidget();
+            });
+
+            editor.on('change', function (e) {
+                validateItemForm();
+                sendMessageToWidget();
+            });
         },
     });
 }
@@ -117,8 +130,18 @@ const initListeners = () => {
     searchButton.onclick = () => onItemsSearch();
     itemDetailsSaveButton.onclick = () => onItemDetailsSave();
     itemDetailsCancleButton.onclick = () => goToItemsPage(true);
-    itemDetailsTitleInput.onkeyup = (e) => validateItemForm();
-    itemDetailsSubtitleInput.onkeyup = (e) => validateItemForm();
+    itemDetailsTitleInput.onkeyup = (e) => onItemDetailsTitleInput(e);
+    itemDetailsSubtitleInput.onkeyup = (e) => onItemDetailsSubtitleInput(e);
+}
+
+const onItemDetailsTitleInput = (e) => {
+    validateItemForm();
+    sendMessageToWidget();
+}
+
+const onItemDetailsSubtitleInput = (e) => {
+    validateItemForm();
+    sendMessageToWidget();
 }
 
 const onAddItemClick = () => {

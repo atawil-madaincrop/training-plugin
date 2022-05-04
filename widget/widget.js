@@ -117,7 +117,7 @@ const load = async () => {
 }
 
 const initListeners = () => {
-    let onDatastoreUpdate = buildfire.datastore.onUpdate((event) => onDatastoreUpdateHandler(event));
+    buildfire.datastore.onUpdate((event) => onDatastoreUpdateHandler(event));
     buildfire.navigation.onBackButtonClick = () => onBackClick();
     buildfire.messaging.onReceivedMessage = (message) => onMessageHandler(message);
     pointers.searchInput.onkeyup = (e) => onSearchInputChange(e);
@@ -295,8 +295,6 @@ const debounce = (key, callback, wait) => {
 }
 
 const onDatastoreUpdateHandler = (event) => {
-    console.log({ event });
-
     switch (event.tag) {
         case WidgetController.introductionTag():
             onIntroductionUpdate(event.data);

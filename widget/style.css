@@ -177,7 +177,14 @@ section {
 .images-container #item-cover-image {
     aspect-ratio: 16 / 9;
     object-fit: cover;
-    height: 21.1rem;
+    width: 100%;
+}
+
+.images-container #item-cover-image-empty-state {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    background-color: var(--bf-theme-body-text);
+    opacity: 20%;
 }
 
 .images-container #item-image {
@@ -190,6 +197,18 @@ section {
     border-radius: 4px;
     box-shadow: 0 .125rem .5rem rgba(150, 150, 150, .2);
     cursor: pointer;
+}
+
+.images-container #item-image-empty-state {
+    aspect-ratio: 1;
+    object-fit: cover;
+    position: absolute;
+    left: 1.6rem;
+    bottom: -2.4rem;
+    width: 12rem;
+    border-radius: 4px;
+    box-shadow: 0 .125rem .5rem rgba(150, 150, 150, .2);
+    background-color: var(--bf-theme-background);
 }
 
 .info-container {

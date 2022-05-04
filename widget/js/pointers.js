@@ -17,4 +17,6 @@ export const pointers = {
     itemTitle: document.querySelector('#item-title'),
     itemSubtitle: document.querySelector('#item-subtitle'),
     itemDescription: document.querySelector('#item-description'),
+    itemImageEmptyState: document.querySelector('#item-image-empty-state'),
+    itemCoverImageEmptyState: document.querySelector('#item-cover-image-empty-state'),
 }

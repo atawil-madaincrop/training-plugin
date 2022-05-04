@@ -97,6 +97,33 @@ const checkEmptyState = () => {
     }
 }
 
+const checkItemDetailsEmptyState = () => {
+    if (selectedItem.data.image) {
+        pointers.itemImage.src = selectedItem.data.image;
+        pointers.itemImage.classList.remove("hidden");
+        pointers.itemImageEmptyState.classList.add("hidden");
+    } else {
+        pointers.itemImage.src = '';
+        pointers.itemImage.classList.add("hidden");
+        pointers.itemImageEmptyState.classList.remove("hidden");
+    }
+
+    if (selectedItem.data.coverImage) {
+        pointers.itemCoverImage.src = selectedItem.data.coverImage;
+        pointers.itemCoverImage.classList.remove("hidden");
+        pointers.itemCoverImageEmptyState.classList.add("hidden");
+    } else {
+        pointers.itemCoverImage.src = '';
+        pointers.itemCoverImage.classList.add("hidden");
+        pointers.itemCoverImageEmptyState.classList.remove("hidden");
+    }
+}
+
+const removeItemDetailsShimmers = () => {
+    pointers.itemImageEmptyState.classList.remove("shimmer");
+    pointers.itemCoverImageEmptyState.classList.remove("shimmer");
+}
+
 const load = async () => {
     const promises = [
         WidgetController.getIntroduction(),
@@ -204,14 +231,17 @@ const goToDetailsPage = (item, notifyControl) => {
     section = 'item-details';
     selectedItem = item;
 
-    pointers.itemImage.src = item.data.image;
-    pointers.itemCoverImage.src = item.data.coverImage;
+    if (pointers.itemImage.src) pointers.itemImage.src = item.data.image;
+    if (pointers.itemCoverImage.src) pointers.itemCoverImage.src = item.data.coverImage;
     pointers.itemTitle.innerHTML = item.data.title;
     pointers.itemSubtitle.innerHTML = item.data.subtitle;
     pointers.itemDescription.innerHTML = item.data.description;
 
     pointers.mainPage.classList.add("hidden");
     pointers.detailsPage.classList.remove("hidden");
+
+    removeItemDetailsShimmers();
+    checkItemDetailsEmptyState();
 
     if (notifyControl)
         sendMessageToControl();

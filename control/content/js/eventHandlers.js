@@ -116,15 +116,17 @@ export class EventHandlers {
         } else if (ShowController.typeOfHandelForm == "edit") {
             let editedData = await ContentHandlers.editItem(ShowController.itemForEdit.itemElement.id, ShowController.newItem);
 
-            ShowController.sendMessage({
-                type: "updateItem",
-                item: editedData
-            })
-
             ShowController.newItem = editedData.data;
             ShowController.mySateArr.splice(ShowController.itemForEdit.index, 1, editedData);
             ShowController.showAddModal(false);
             ShowController.printItems(ShowController.mySateArr);
+
+            setTimeout(()=>{
+                ShowController.sendMessage({
+                    type: "updateItem",
+                    item: editedData
+                })
+            }, 100)
         }
     }
     static pushNewRow(item) {
@@ -157,11 +159,14 @@ export class EventHandlers {
     }
 
     static sendUpdatedItem = () => {
-        if (ShowController.typeOfHandelForm == "edit" && ShowController.newItem.title != null) {
-            ShowController.sendMessage({
-                type: "testUpdatedData",
-                item: { data: ShowController.newItem, id: ShowController.itemForEdit.itemElement?.id || "" }
-            })
-        }
+        clearTimeout(pointers.timer);
+        pointers.timer = setTimeout(async function () {
+            if (ShowController.typeOfHandelForm == "edit" && ShowController.newItem.title != null) {
+                ShowController.sendMessage({
+                    type: "testUpdatedData",
+                    item: { data: ShowController.newItem, id: ShowController.itemForEdit.itemElement?.id || "" }
+                })
+            }
+        }, 500)
     }
 }

@@ -1,5 +1,5 @@
 html {
-    font-size: 10px;
+    font-size: 16px;
 }
 
 body {
@@ -22,7 +22,7 @@ section {
 #search-container {
     position: fixed;
     width: 100%;
-    padding: 1.6rem;
+    padding: 1rem;
     z-index: 9;
     box-sizing: border-box;
 }
@@ -36,13 +36,14 @@ section {
     align-items: center;
     box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25), 0px 1px 2px rgba(0, 0, 0, 0.16);
     border-radius: 0.4rem;
-    padding: 1.2rem 1.6rem;
+    padding: 0.75rem 1rem;
     background-color: var(--bf-theme-background);
+    max-height: 2.5rem;
 }
 
 #search-container .search-input {
     width: 100%;
-    margin: 0 1.2rem;
+    margin: 0 0.75rem;
     border: none;
     color: var(--bf-theme-body-text);
     outline: none !important;
@@ -58,7 +59,7 @@ section {
 }
 
 #content {
-    padding-top: 8rem;
+    padding-top: 5rem;
 }
 
 #main-empty-state {
@@ -89,16 +90,16 @@ section {
 }
 
 #description {
-    padding: 0 1.6rem;
+    padding: 0 1rem;
 }
 
 #items-list-view {
-    margin-top: 3rem;
+    margin-top: 1.875rem;
 }
 
 #items-list-view.search-mode,
 #items-list-view.solo {
-    margin-top: 0.5rem;
+    margin-top: 0.3215rem;
 }
 
 #items-list-view.listViewContainer {
@@ -107,44 +108,54 @@ section {
 }
 
 #items-list-view .listViewItem {
-    padding: 0.6rem 1.6rem;
+    padding: 0.75rem 1rem;
+    min-height: unset;
+}
+
+#items-list-view .listViewItem .listViewItemCopy {
+    padding: 0;
+}
+
+#items-list-view .listViewItem .listViewItemImgContainer {
+    height: 2.5rem;
 }
 
 #items-list-view .listViewItemImg {
-    width: 4rem;
-    height: 4rem;
+    width: 2.5rem;
+    height: 2.5rem;
     border-radius: 4px;
-    margin-right: 1.2rem;
+    margin-right: 0.75rem;
 }
 
 #items-list-view .listViewItemTitle {
     margin: 0;
-    font-size: 1.6rem;
+    margin-bottom: 0.25rem;
+    font-size: 1rem;
     font-weight: 700;
     color: var(--bf-theme-header-text);
 }
 
 #items-list-view .listViewItemSubtitle {
     margin: 0;
-    font-size: 1.4rem;
+    font-size: 0.875rem;
     color: var(--bf-theme-body-text);
 }
 
 #items-list-view-loading-state {
-    margin-top: 3rem;
+    margin-top: 1.875rem;
 }
 
 #items-list-view-loading-state.search-mode,
 #items-list-view-loading-state.solo {
-    margin-top: 0.5rem;
+    margin-top: 0.3125rem;
 }
 
 #items-list-view-loading-state .list-item {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 6.3rem;
-    padding: 0 1.6rem;
+    height: 4.03125rem;
+    padding: 0 1rem;
 }
 
 #items-list-view-loading-state .list-item-image {
@@ -152,18 +163,17 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 4rem;
-    height: 4rem;
+    height: 2.5rem;
     border-radius: 4px;
     opacity: 0.2;
-    margin-right: 1.2rem;
+    margin-right: 0.75rem;
 }
 
 #items-list-view-loading-state .list-item-body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 1.6rem;
+    height: 1rem;
     width: 100%;
     opacity: 0.2;
     border-radius: 16px;
@@ -178,7 +188,7 @@ section {
 
 #item-images-container {
     position: relative;
-    margin-bottom: 4.8rem;
+    margin-bottom: 3rem;
 }
 
 #item-images-container #item-cover-image {
@@ -200,9 +210,9 @@ section {
     display: block;
     object-fit: cover;
     position: absolute;
-    left: 1.6rem;
-    bottom: -2.4rem;
-    width: 12rem;
+    left: 1rem;
+    bottom: -1.5rem;
+    height: 7.5rem;
     border-radius: 4px;
     box-shadow: 0 .125rem .5rem rgba(150, 150, 150, .2);
     cursor: pointer;
@@ -212,35 +222,35 @@ section {
     aspect-ratio: 1;
     object-fit: cover;
     position: absolute;
-    left: 1.6rem;
-    bottom: -2.4rem;
-    width: 12rem;
+    left: 1rem;
+    bottom: -1.5rem;
+    height: 7.5rem;
     border-radius: 4px;
     box-shadow: 0 .125rem .5rem rgba(150, 150, 150, .2);
     background-color: var(--bf-theme-background);
 }
 
 .info-container {
-    padding: 0 1.6rem;
-    margin-bottom: 2.4rem;
+    padding: 0 1rem;
+    margin-bottom: 1.5rem;
 }
 
 .info-container #item-title {
-    font-size: 2.4rem;
-    line-height: 2.88rem;
+    font-size: 1.5rem;
+    line-height: 1.8rem;
     font-weight: 700;
     color: var(--bf-theme-header-text);
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.5rem;
 }
 
 .info-container #item-subtitle {
-    font-size: 1.6rem;
-    line-height: 2.88rem;
+    font-size: 1rem;
+    line-height: 1.8rem;
     color: var(--bf-theme-header-text);
 }
 
 #item-description {
-    padding: 0 1.6rem;
+    padding: 0 1rem;
     color: var(--bf-theme-header-text);
 }
 

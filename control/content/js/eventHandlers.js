@@ -103,16 +103,16 @@ export class EventHandlers {
     static handelSubmitForm = async () => {
         if (ShowController.typeOfHandelForm == "add") {
             await ContentHandlers.addItem(ShowController.newItem)
-            .then(addedData=>{
-                ShowController.sendMessage({
-                    type: "addItem",
-                    item: addedData
+                .then(addedData => {
+                    ShowController.sendMessage({
+                        type: "addItem",
+                        item: addedData
+                    })
+
+                    ShowController.mySateArr.splice(0, 0, addedData)
+                    ShowController.showAddModal(false);
+                    ShowController.printItems(ShowController.mySateArr);
                 })
-    
-                ShowController.mySateArr.splice(0, 0, addedData)
-                ShowController.showAddModal(false);
-                ShowController.printItems(ShowController.mySateArr);
-            })
         } else if (ShowController.typeOfHandelForm == "edit") {
             let editedData = await ContentHandlers.editItem(ShowController.itemForEdit.itemElement.id, ShowController.newItem);
 
@@ -158,10 +158,10 @@ export class EventHandlers {
 
     static sendUpdatedItem = () => {
         if (ShowController.typeOfHandelForm == "edit" && ShowController.newItem.title != null) {
-                ShowController.sendMessage({
-                    type: "testUpdatedData",
-                    item: { data: ShowController.newItem, id: ShowController.itemForEdit.itemElement?.id || "" }
-                })
+            ShowController.sendMessage({
+                type: "testUpdatedData",
+                item: { data: ShowController.newItem, id: ShowController.itemForEdit.itemElement?.id || "" }
+            })
         }
     }
 }

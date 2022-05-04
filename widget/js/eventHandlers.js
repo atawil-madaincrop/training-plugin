@@ -112,7 +112,6 @@ export class EventHandlers {
                         }
                     case "addItem":
                         lastAction = message?.type
-                        console.log("item to be added from message in wedgit ->", message.item);
                         ContentBuilder.pushNewItem(message.item);
                         break;
                     case "deleteItem":

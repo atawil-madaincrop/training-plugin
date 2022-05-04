@@ -136,15 +136,15 @@ export class ShowController {
                 if (err) console.error(err);
 
                 if (isConfirmed) {
+                    itemRow.style.display = "none";
+                    this.mySateArr.splice(idx, 1);
+                    this.printItems();
+                    await ContentHandlers.deactiveItem(item.id, item);
                     //Go back
                     this.sendMessage({
                         type: "deleteItem",
                         itemID: item.id
                     })
-                    itemRow.style.display = "none";
-                    this.mySateArr.splice(idx, 1);
-                    this.printItems();
-                    await ContentHandlers.deactiveItem(item.id, item);
                 } else {
                     //Prevent action
                 }

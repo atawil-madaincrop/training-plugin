@@ -21,7 +21,6 @@ export const introductionTests = (expect) => {
                 expect(newIntroduction).to.have.property('deletedBy');
                 expect(newIntroduction).to.have.property('isActive');
             });
-
         });
 
         describe('Introduction Save Test --> ', async function () {
@@ -43,7 +42,7 @@ export const introductionTests = (expect) => {
 
                 expect(savedResult).to.be.an('String');
             });
-        })
+        });
 
         describe('Introduction Get Test --> ', async function () {
             it('Get Introduction from DataStore  ', async function () {
@@ -53,4 +52,4 @@ export const introductionTests = (expect) => {
             });
         });
     });
-}
+};

@@ -22,8 +22,7 @@ export const languageTests = (expect) => {
                 expect(newLanguage).to.have.property('deletedBy');
                 expect(newLanguage).to.have.property('isActive');
             });
-
-        })
+        });
 
         describe('Language Save Test --> ', async function () {
             it('Should Save the Language to the datastore ', async function () {
@@ -44,7 +43,7 @@ export const languageTests = (expect) => {
 
                 expect(savedResult).to.be.an('String');
             });
-        })
+        });
 
         describe('Language Get Test --> ', async function () {
             it('Get Language from DataStore ', async function () {
@@ -54,4 +53,4 @@ export const languageTests = (expect) => {
             });
         });
     });
-}
+};

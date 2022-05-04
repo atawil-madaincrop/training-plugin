@@ -100,4 +100,4 @@ export const itemsTests2 = (expect) => {
             });
         });
     });
-}
+};

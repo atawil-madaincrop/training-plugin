@@ -17,18 +17,18 @@ const callTestsObject = {
     itemsTests2: new Promise(() => itemsTests2(expect)),
     introductionTest: new Promise(() => introductionTests(expect)),
     languageTests: new Promise(() => languageTests(expect)),
-}
+};
 
 const callTestsFunc = () => {
     callTestsObject.itemsTests1
         .then(callTestsObject.testItems2)
         .then(callTestsObject.introductionTest)
         .then(callTestsObject.languageTests);
-}
+};
 
 const init = async () => {
     callTestsFunc();
     mocha.run();
-}
+};
 
 init();

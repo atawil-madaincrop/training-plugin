@@ -207,4 +207,4 @@ export const itemsTests1 = (expect) => {
             expect(res?.data).to.be.an('undefined');
         });
     });
-}
+};

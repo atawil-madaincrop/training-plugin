@@ -2,7 +2,7 @@ import Items from "../../widget/common/repository/Items.js";
 
 export default {
     itemsTag: () => {
-        return Items.TAG
+        return Items.TAG;
     },
     addItem: async (item) => {
         return await Items.insert(item);
@@ -13,4 +13,4 @@ export default {
     deleteItem: async (id) => {
         return await Items.delete(id);
     },
-}
+};

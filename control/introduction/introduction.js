@@ -19,7 +19,7 @@ const initDescriptionEditor = async () => {
     editor.setContent(introduction.description);
     editor.on('keyup', onEditorUpdate);
     editor.on('change', onEditorUpdate);
-}
+};
 
 const initCarousel = () => {
     let editor = new buildfire.components.carousel.editor("#carousel", introduction.imageCarousel);
@@ -44,7 +44,7 @@ const initCarousel = () => {
         introduction.imageCarousel.splice(index, 1);
         IntroductionController.saveIntroduction(introduction);
     };
-}
+};
 
 const load = async () => {
     const promises = [
@@ -54,12 +54,12 @@ const load = async () => {
     await Promise.all(promises).then((values) => {
         introduction = new Introduction(values[0]?.data);
     });
-}
+};
 
 const init = async () => {
     await load();
     initDescriptionEditor();
     initCarousel();
-}
+};
 
 init();

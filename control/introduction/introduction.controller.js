@@ -7,4 +7,4 @@ export default {
     saveIntroduction: async (payload) => {
         return await Introductions.save(payload);
     },
-}
+};

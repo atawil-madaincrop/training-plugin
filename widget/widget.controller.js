@@ -21,4 +21,4 @@ export default {
     getItems: async (options) => {
         return Items.search(options);
     },
-}
+};

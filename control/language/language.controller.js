@@ -7,4 +7,4 @@ export default {
     saveLanguage: async (payload) => {
         return await Languages.save(payload);
     },
-}
+};

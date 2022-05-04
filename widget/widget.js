@@ -25,11 +25,6 @@ const init = async () => {
     buildfire.history.push("mainPage");
 
     buildfire.datastore.onUpdate(handelUpdate);
-    buildfire.navigation.onBackButtonClick = () => ContentBuilder.backFunction();
-    
-    buildfire.history.onPop((breadcrumb) => {
-        ContentBuilder.backPOP_Listener(breadcrumb);
-    });
 }
 
 init();

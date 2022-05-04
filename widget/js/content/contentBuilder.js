@@ -8,6 +8,7 @@ export class ContentBuilder {
     static allItemsSorted = [];
     static page = 0;
     static pageSize = 10;
+    static emptyPageState;
 
     static loadItems = async () => {
         pointers.contentItems.innerHTML = "";
@@ -18,16 +19,21 @@ export class ContentBuilder {
             pointers.emptyPage.style.display = "none";
             this.allItemsSorted = [];
             this.printItems(this.itemsRendered);
+        }else{
+            pointers.emptyPage.style.display = this.emptyPageState;
         }
     }
 
     static printItems = (addItemsArr) => {
-        pointers.emptySearchPage.style.display = "none";
-
-        addItemsArr.forEach(this.print_Item_By_Item);
-        this.createLoadMoreContainer(addItemsArr.length);
-
-        this.allItemsSorted = [...addItemsArr, ...this.allItemsSorted]
+        clearTimeout(pointers.timer);
+        pointers.timer = setTimeout( ()=> {
+            pointers.emptySearchPage.style.display = "none";
+    
+            addItemsArr.forEach(ContentBuilder.print_Item_By_Item);
+            ContentBuilder.createLoadMoreContainer(addItemsArr.length);
+    
+            ContentBuilder.allItemsSorted = [...addItemsArr, ...ContentBuilder.allItemsSorted]
+        }, 50)
     }
 
     static print_Item_By_Item = (item, index) => {
@@ -190,11 +196,11 @@ export class ContentBuilder {
                 }, 200)
                 pointers.loadItemPage.style.animation = "hideItem 0.2s";
                 break;
-        
+
             default:
-                if(pointers.loadItemsList.style.display == "block"){
+                if (pointers.loadItemsList.style.display == "block") {
                     buildfire.history.push("mainPage");
-                }else if(pointers.loadItemPage.style.display == "block"){
+                } else if (pointers.loadItemPage.style.display == "block") {
                     buildfire.history.push("itemPage", breadcrumb.item);
                 }
                 console.log("<-- No Back Avilable -->");
@@ -203,7 +209,6 @@ export class ContentBuilder {
     }
 
     static pushNewItem = (item) => {
-        console.log("item here  --->", item);
         if (item?.id !== this.allItemsSorted[0]?.id) {
             pointers.contentItems.innerHTML = "";
 
@@ -211,7 +216,11 @@ export class ContentBuilder {
             printedArr.splice(0, 0, item);
 
             this.allItemsSorted = [];
-            this.printItems(printedArr);
+            if (printedArr.length > 1) {
+                this.printItems(printedArr);
+            } else {
+                this.init_Content(this.emptyPageState);
+            }
         }
     }
 
@@ -223,7 +232,11 @@ export class ContentBuilder {
         })
 
         this.allItemsSorted = [];
-        this.printItems(printedArr);
+        if (printedArr.length > 0) {
+            this.printItems(printedArr);
+        } else {
+            this.init_Content(this.emptyPageState);
+        }
     }
 
     static update_Content = (itemEle) => {
@@ -238,7 +251,8 @@ export class ContentBuilder {
         this.printItems(printedArr);
     }
 
-    static init_Content = async () => {
+    static init_Content = async (_emptyPageState) => {
+        this.emptyPageState = _emptyPageState;
         await this.loadItems();
     }
 }

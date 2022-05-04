@@ -11,14 +11,20 @@ export class IntroductionBuilder {
         viewer.loadItems(myIntroduction.imageCarousel);
         pointers.introductionDesc.innerHTML = myIntroduction.description
 
+        if((myIntroduction?.imageCarousel?.length > 0) || (myIntroduction.description?.length > 0)){
+            pointers.emptyPage.style.display = "none";
+
+            return "none";
+        }
+        return "block";
     }
 
     static initComponents = () => {
         viewer = new buildfire.components.carousel.view(".carousel");
-        this.appendUpdatedData();
+        return this.appendUpdatedData();
     }
 
     static init_Introduction = () => {
-        this.initComponents();
+        return this.initComponents();
     }
 }

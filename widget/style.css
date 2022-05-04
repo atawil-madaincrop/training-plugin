@@ -73,8 +73,13 @@ section {
     min-height: unset !important;
 }
 
-#carousel .owl-item img {
+#carousel img {
     aspect-ratio: 16 / 9;
+    width: 100%;
+}
+
+#carousel .plugin-slide {
+    height: 100%;
 }
 
 #carousel-loading-state {

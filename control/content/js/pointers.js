@@ -17,7 +17,8 @@ export const pointers = {
     printTable: document.getElementById("printTable"),
     printWhenEmpty: document.getElementById("printWhenEmpty"),
     printLoading: document.getElementById("printLoading"),
-    itemsListTable: document.getElementById("itemsListTable")
+    itemsListTable: document.getElementById("itemsListTable"),
+    timer: null,
 
 }
 

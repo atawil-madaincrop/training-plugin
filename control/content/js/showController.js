@@ -3,7 +3,6 @@ import Item from "../../../widget/common/entities/Item.js";
 import { pointers } from "./pointers.js"
 
 
-let timer = 50;
 let oldItem;
 
 export class ShowController {
@@ -102,13 +101,12 @@ export class ShowController {
     }
     // Modal to add and edit data
     static showAddModal = (type, cancelCase) => {
-        console.log("item for edit -->", this.mySateArr);
         if (type) {
             this.newItem = new Item();
             pointers.itemsPageDiv.style.display = "none";
             formPage.style.display = "block";
         } else {
-            if (cancelCase) {
+            if (cancelCase && this.typeOfHandelForm !== "add") {
                 this.mySateArr[oldItem.index].data = {
                     ...this.mySateArr[oldItem.index].data,
                     ...oldItem
@@ -188,6 +186,6 @@ export class ShowController {
     }
 
     static sendMessage = (item) => {
-        buildfire.messaging.sendMessageToWidget(item)
+        buildfire.messaging.sendMessageToWidget(item);
     }
 }

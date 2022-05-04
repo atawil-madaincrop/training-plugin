@@ -1,6 +1,3 @@
-import Item from "../../widget/common/entities/Item.js";
-import ContentController from "./content.controller.js";
-
 let section, searchTableHelper, search, itemsCount, selectedItem, itemDetailsState, imageThumbnail, coverImageThumbnail, itemDetailsDescriptionEditor;
 const body = document.querySelector("body");
 const searchInput = document.getElementById("search");

@@ -1,4 +1,4 @@
-export default class Item {
+class Item {
     constructor(data = {}) {
         this.id = data.id || null;
         this.title = data.title || null;

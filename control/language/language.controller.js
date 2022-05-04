@@ -1,10 +1,9 @@
-import Languages from "../../widget/common/repository/Languages.js";
-
-export default {
-    getLanguage: async () => {
+class LanguageController {
+    static getLanguage = async () => {
         return await Languages.get();
-    },
-    saveLanguage: async (payload) => {
+    }
+
+    static saveLanguage = async (payload) => {
         return await Languages.save(payload);
-    },
+    }
 };

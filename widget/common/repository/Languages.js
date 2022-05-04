@@ -1,6 +1,4 @@
-import { Constants } from "../config/Constants.js";
-
-export default class Languages {
+class Languages {
     static TAG = Constants.DATASTORE_LANGUAGE_KEY;
 
     static get = () => {

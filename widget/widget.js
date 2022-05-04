@@ -1,6 +1,3 @@
-import WidgetController from "./widget.controller.js";
-import { pointers } from './js/pointers.js';
-
 let introduction, language, imageCarousel, itemsListView, itemsLoaded, sort, selectedItem, section, searchMode, onDatastoreUpdate;
 
 const initCarousel = () => {

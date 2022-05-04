@@ -1,4 +1,4 @@
-export default class Introduction {
+class Introduction {
     constructor(data = {}) {
         this.id = data.id || undefined;
         this.imageCarousel = data.imageCarousel || [];

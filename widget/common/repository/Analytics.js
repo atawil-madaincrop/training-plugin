@@ -1,6 +1,4 @@
-import { Constants } from "../config/Constants.js";
-
-export default class Analytics {
+class Analytics {
     static trackView = (eventName, metaData) => {
         if (!eventName) {
             return console.error(Constants.LANGUAGE_MISSING_REQUIRED_DATA);

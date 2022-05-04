@@ -1,7 +1,4 @@
-import Languages from '../../../widget/common/repository/Languages.js';
-import Language from '../../../widget/common/entities/Language.js';
-
-export const languageTests = (expect) => {
+const languageTests = (expect) => {
     let newLanguage = new Language({
         sortAscending: 'A-Z'
     });

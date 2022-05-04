@@ -1,7 +1,4 @@
-import Introduction from '../../widget/common/entities/Introduction.js';
-import IntroductionController from '../introduction/introduction.controller.js';
-
-var introduction = new Introduction();
+let introduction;
 
 const initDescriptionEditor = async () => {
     const onEditorUpdate = tinymce.util.Delay.debounce((e) => {

@@ -1,6 +1,3 @@
-import Language from "../../widget/common/entities/Language.js";
-import LanguageController from "./language.controller.js";
-
 let language, languageHelper;
 
 const initLanguageHelper = async () => {

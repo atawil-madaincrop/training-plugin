@@ -1,24 +1,25 @@
-import Introductions from "../widget/common/repository/Introductions.js";
-import Languages from "../widget/common/repository/Languages.js";
-import Items from "../widget/common/repository/Items.js";
-
-export default {
-    introductionTag: () => {
+class WidgetController {
+    static introductionTag = () => {
         return Introductions.TAG;
-    },
-    languageTag: () => {
+    }
+
+    static languageTag = () => {
         return Languages.TAG;
-    },
-    itemsTag: () => {
+    }
+
+    static itemsTag = () => {
         return Items.TAG;
-    },
-    getIntroduction: async () => {
+    }
+
+    static getIntroduction = async () => {
         return Introductions.get();
-    },
-    getLanguage: async () => {
+    }
+
+    static getLanguage = async () => {
         return Languages.get();
-    },
-    getItems: async (options) => {
+    }
+
+    static getItems = async (options) => {
         return Items.search(options);
-    },
+    }
 };

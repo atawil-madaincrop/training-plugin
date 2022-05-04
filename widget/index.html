@@ -14,8 +14,14 @@
   <script src="../../../scripts/buildfire/components/carousel/carousel.js"></script>
   <script src="../../../scripts/buildfire/components/listView/listView.js"></script>
   <script src="../../../scripts/buildfire/components/drawer/drawer.js"></script>
+  <script src="./common/config/Constants.js"></script>
+  <script src="./common/repository/Introductions.js"></script>
+  <script src="./common/repository/Languages.js"></script>
+  <script src="./common/repository/Items.js"></script>
   <script src="./js/listViewHelper.js"></script>
-  <script type="module" src="widget.js"></script>
+  <script src="./widget.controller.js"></script>
+  <script src="./js/pointers.js" defer></script>
+  <script src="widget.js" defer></script>
 
   <link href="../../../styles/helper.css" rel="stylesheet" />
   <link href="../../../styles/material-icons.css" rel="stylesheet" />
@@ -64,13 +70,13 @@
       </div>
 
       <div id="main-empty-state" class="hidden">
-        <img src="./common/media/images/ic_bookmark_empty.svg" alt="">
+        <img src="./.images/ic_bookmark_empty.svg" alt="">
       </div>
     </section>
 
     <section class="slide-in hidden" id="details">
       <div id="item-details-empty-state" class="hidden">
-        <img src="./common/media/images/ic_bookmark_empty.svg" alt="">
+        <img src="./.images/ic_bookmark_empty.svg" alt="">
       </div>
 
       <div id="item-images-container">

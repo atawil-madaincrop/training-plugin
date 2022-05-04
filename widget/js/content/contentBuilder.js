@@ -19,24 +19,25 @@ export class ContentBuilder {
             pointers.emptyPage.style.display = "none";
             this.allItemsSorted = [];
             this.printItems(this.itemsRendered);
-        }else{
+        } else {
             pointers.emptyPage.style.display = this.emptyPageState;
         }
     }
 
     static printItems = (addItemsArr) => {
         clearTimeout(pointers.timer);
-        pointers.timer = setTimeout( ()=> {
+        pointers.timer = setTimeout(() => {
             pointers.emptySearchPage.style.display = "none";
-    
+
             addItemsArr.forEach(ContentBuilder.print_Item_By_Item);
             ContentBuilder.createLoadMoreContainer(addItemsArr.length);
-    
+
             ContentBuilder.allItemsSorted = [...addItemsArr, ...ContentBuilder.allItemsSorted]
         }, 50)
     }
 
     static print_Item_By_Item = (item, index) => {
+        console.log("item is printed ---->");
         let row = document.createElement("div");
         row.className = "margin-zero flexItem-row row stretch padding-bottom-fifteen padding-top-ten padding-left-twenty default-background-hover transition-half"
         row.setAttribute("id", `item-${item.id}-${index}`)
@@ -180,6 +181,7 @@ export class ContentBuilder {
     }
 
     static backFunction = () => {
+
         clearTimeout(pointers.timer);
         pointers.timer = setTimeout(function () {
             buildfire.history.pop();
@@ -188,6 +190,16 @@ export class ContentBuilder {
 
     static backPOP_Listener = (breadcrumb) => {
         switch (breadcrumb.label) {
+            case "Plugin":
+                buildfire.history.get(
+                    {},
+                    (err, result) => {
+                        if(result.length <= 1){
+                            buildfire.history.push("Plugin");
+                        }
+                    }
+                );
+                buildfire.history.push("mainPage");
             case "mainPage":
                 setTimeout(() => {
                     pointers.loadItemsList.style.display = "block";
@@ -198,11 +210,6 @@ export class ContentBuilder {
                 break;
 
             default:
-                if (pointers.loadItemsList.style.display == "block") {
-                    buildfire.history.push("mainPage");
-                } else if (pointers.loadItemPage.style.display == "block") {
-                    buildfire.history.push("itemPage", breadcrumb.item);
-                }
                 console.log("<-- No Back Avilable -->");
                 break;
         }
@@ -217,6 +224,7 @@ export class ContentBuilder {
 
             this.allItemsSorted = [];
             if (printedArr.length > 1) {
+                console.log("all items to render -->", printedArr);
                 this.printItems(printedArr);
             } else {
                 this.init_Content(this.emptyPageState);
@@ -226,7 +234,6 @@ export class ContentBuilder {
 
     static removeItem = (id) => {
         pointers.contentItems.innerHTML = "";
-
         let printedArr = this.allItemsSorted.filter(item => {
             return item.id != id;
         })

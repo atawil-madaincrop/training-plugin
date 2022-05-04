@@ -91,8 +91,10 @@ const checkEmptyState = () => {
         pointers.description.classList.contains('hidden') &&
         pointers.itemsListView.classList.contains('hidden')
     ) {
+        pointers.content.classList.add('hidden');
         pointers.mainEmptyState.classList.remove('hidden');
     } else {
+        pointers.content.classList.remove('hidden');
         pointers.mainEmptyState.classList.add('hidden');
     }
 }

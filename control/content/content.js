@@ -145,7 +145,7 @@ const onItemDetailsSubtitleInput = (e) => {
 }
 
 const onAddItemClick = () => {
-    goToItemDetailsSubPage({ data: {} }, 'create', false);
+    goToItemDetailsSubPage({ data: {} }, 'create', true);
 }
 
 const onItemDetailsSave = async () => {

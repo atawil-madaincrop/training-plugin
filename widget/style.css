@@ -176,6 +176,7 @@ section {
 
 .images-container #item-cover-image {
     aspect-ratio: 16 / 9;
+    display: block;
     object-fit: cover;
     width: 100%;
 }
@@ -189,6 +190,7 @@ section {
 
 .images-container #item-image {
     aspect-ratio: 1;
+    display: block;
     object-fit: cover;
     position: absolute;
     left: 1.6rem;

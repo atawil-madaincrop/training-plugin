@@ -40,7 +40,6 @@ gulp.task('lint', () => {
             "parserOptions": {
                 "requireConfigFile": false,
                 "sourceType": "module",
-                "ecmaVersion": 2017,
             },
             "rules": {
                 "semi": [
@@ -97,8 +96,8 @@ gulp.task("sharedJS", function () {
 
         .pipe(concat('scripts.shared.js'))
         .pipe(babel({
-            presets: ['@babel/env'],
-            plugins: ["@babel/plugin-proposal-class-properties"]
+            presets: ['@babel/preset-env'],
+            plugins: ["@babel/plugin-proposal-class-properties", "@babel/transform-runtime"]
         }))
         .pipe(minify())
         .pipe(gulp.dest(destinationFolder + "/widget"));
@@ -126,8 +125,8 @@ jsTasks.forEach(function (task) {
             /// in an array in the order you like
             .pipe(concat('scripts.js'))
             .pipe(babel({
-                presets: ['@babel/env'],
-                plugins: ["@babel/plugin-proposal-class-properties"]
+                presets: ['@babel/preset-env'],
+                plugins: ["@babel/plugin-proposal-class-properties", "@babel/transform-runtime"]
             }))
             .pipe(minify())
             ///output here

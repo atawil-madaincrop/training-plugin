@@ -4,25 +4,32 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- JS -->
   <script src="../../../../scripts/buildfire.js"></script>
   <script src="../../../../scripts/jquery/jquery-1.11.2.min.js"></script>
   <script src="../../../../scripts/tinymce/tinymce.min.js"></script>
   <script src="../../../../scripts/sortable.min.js"></script>
   <script src="../../../../scripts/buildfire/components/carousel/carousel.js"></script>
   <script src="../../../../scripts/buildfire/components/images/thumbnail.js"></script>
+
+  <!-- build:bundleSharedJSFiles  -->
   <script src="../../widget/js/shared/config/Constants.js"></script>
   <script src="../../widget/js/shared/repository/Introductions.js"></script>
   <script src="../../widget/js/shared/entities/Introduction.js"></script>
+  <!-- endbuild -->
+
+  <!-- build:bundleJSFiles  -->
   <script src="./introduction.controller.js"></script>
   <script src="introduction.js" defer></script>
+  <!-- endbuild -->
 
+  <!-- build:bundleCSSFiles  -->
   <link href="../../../../styles/helper.css" rel="stylesheet" />
   <link href="../../../../styles/siteStyle.css" rel="stylesheet">
   <link href="../../../../styles/siteIcons.css" rel="stylesheet" />
   <link href="../../../../styles/control/siteIcons-control.css" rel="stylesheet">
   <link href="../../../../styles/control/bf-base.css" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+  <link href="style.css" rel="stylesheet" />
+  <!-- endbuild -->
 </head>
 
 <body class="slide-in">

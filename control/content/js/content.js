@@ -1,4 +1,5 @@
 let section, searchTableHelper, search, itemsCount, selectedItem, itemDetailsState, imageThumbnail, coverImageThumbnail, itemDetailsDescriptionEditor;
+
 const body = document.querySelector("body");
 const searchInput = document.getElementById("search");
 const searchButton = document.getElementById("search-button");

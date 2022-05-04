@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/9.2.2/mocha.min.css" integrity="sha512-6RWs5FczsXwODIZJoL0szz3bXX5W+q/m7bFVQ7HSwZbBXd7PpyYrg2f9Dr4Y2Guqi5k4NJsemxXuiiFoI8fQ4A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <!-- JS -->
     <script src="../../../../scripts/buildfire.js"></script>
+
+    <!-- build:bundleSharedJSFiles  -->
     <script src="../../widget/js/shared/config/Constants.js"></script>
     <script src="../../widget/js/shared/repository/Introductions.js"></script>
     <script src="../../widget/js/shared/entities/Introduction.js"></script>
@@ -14,11 +15,15 @@
     <script src="../../widget/js/shared/entities/Language.js"></script>
     <script src="../../widget/js/shared/repository/Items.js"></script>
     <script src="../../widget/js/shared/entities/Item.js"></script>
+    <!-- endbuild -->
+
+    <!-- build:bundleJSFiles  -->
     <script src="./js/introductionTests.js"></script>
     <script src="./js/languageTests.js"></script>
     <script src="./js/itemsTests1.js"></script>
     <script src="./js/itemsTests2.js"></script>
     <script src="tests.js" defer></script>
+    <!-- endbuild -->
 </head>
 
 <body class="slide-in">

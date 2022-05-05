@@ -121,14 +121,6 @@
   </div>
 </div>
 
-<!-- JS-Models -->
-<script src="../../widget/common/config/Constants.js"></script>
-<script src="./js/pointers.js"></script>
-<script src="../../widget/common/entities/Item.js"></script>
-<script src="../../widget/common/repository/Items.js"></script>
-<script src="./js/contentHandlers.js"></script>
-<script src="./js/eventHandlers.js"></script>
-<script src="./js/showController.js"></script>
 <!-- JS -->
 <script src="../../../../scripts/buildfire.min.js"></script>
 <script src="../../../../scripts/buildfire/components/images/thumbnail.js"></script>
@@ -136,7 +128,20 @@
 <script src="../../../../scripts/jquery/jquery-1.11.2.min.js"></script>
 <script src="../../../../scripts/sortable.min.js"></script>
 <script src="../../../../scripts/tinymce/tinymce.min.js"></script>
+<!-- JS-Models -->
+ <!-- build:CommonJSFiles -->
+ <script src="../../widget/common/config/Constants.js"></script>
+<script src="../../widget/common/entities/Item.js"></script>
+<script src="../../widget/common/repository/Items.js"></script>
+ <!-- endbuild -->
+
+<!-- build:ControlJSFiles -->
+<script src="./js/pointers.js"></script>
+<script src="./js/contentHandlers.js"></script>
+<script src="./js/eventHandlers.js"></script>
+<script src="./js/showController.js"></script>
 <script src="content.js"></script>
+ <!-- endbuild -->
 
 
 </html>

@@ -3,17 +3,17 @@
   "version": "1.0.0",
   "description": "Default simple plugin template",
   "devDependencies": {
+    "del": "^2.0.2",
     "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^8.0.0",
     "gulp-concat": "^2.6.1",
+    "gulp-csso": "^2.0.0",
     "gulp-html-replace": "^1.6.2",
     "gulp-htmlmin": "^3.0.0",
     "gulp-imagemin": "^6.0.0",
     "gulp-minify": "^3.1.0",
-    "del": "^2.0.2",
-    "gulp-autoprefixer": "latest",
-    "gulp-csso": "^2.0.0",
     "gulp-sass": "^2.0.0",
-    "gulp-uglify": "^2.0.0",
+    "gulp-uglify": "^2.1.2",
     "run-sequence": "^1.2.2"
   },
   "main": "index.js",
@@ -32,6 +32,8 @@
   },
   "homepage": "https://github.com/atawil-madaincrop/training-plugin#readme",
   "dependencies": {
-    "fs": "0.0.1-security"
+    "fs": "0.0.1-security",
+    "gulp-sourcemaps": "^3.0.0",
+    "gulp-uglify-es": "^3.0.0"
   }
 }

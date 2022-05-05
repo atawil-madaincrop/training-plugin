@@ -1,8 +1,9 @@
-export default class Introduction {
+class Language {
     constructor(data = {}) {
         this.id = data.id || undefined;
-        this.imageCarousel = data.imageCarousel || [];
-        this.description = data.description || '';
+        this.search = data.search || null;
+        this.sortAscending = data.sortAscending || null;
+        this.sortDescending = data.sortDescending || null;
 
         this.createdOn = data.createdOn || new Date();
         this.createdBy = data.createdBy || null;

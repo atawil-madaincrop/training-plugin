@@ -1,11 +1,9 @@
-import { Constants } from "../config/Constants.js";
-
-export default class Introductions {
-    static TAG = Constants.DATASTORE_INTRODUCTION_KEY;
+class Languages {
+    static TAG = Constants.DATASTORE_LANGUAGE_KEY;
 
     static get = () => {
         return new Promise((resolve, reject) => {
-            buildfire.datastore.get(Introductions.TAG, (err, res) => {
+            buildfire.datastore.get(Languages.TAG, (err, res) => {
                 if (err) return reject(err);
                 resolve(res);
             });
@@ -14,7 +12,7 @@ export default class Introductions {
 
     static save = (introduction) => {
         return new Promise((resolve, reject) => {
-            buildfire.datastore.save(introduction, Introductions.TAG, (err, res) => {
+            buildfire.datastore.save(introduction, Languages.TAG, (err, res) => {
                 if (err) return reject(err);
                 resolve(res);
             });

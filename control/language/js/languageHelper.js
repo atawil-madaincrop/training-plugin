@@ -59,7 +59,7 @@ class LanguageHelper {
             inputElement.value = this.data[key];
 
         if (!inputElement.value && label.defaultValue)
-            inputElement.value = label.defaultValue
+            inputElement.value = label.defaultValue;
 
         inputElement.onkeyup = (e) => this._onInputKeyUp(e, key);
     }

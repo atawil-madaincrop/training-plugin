@@ -128,7 +128,7 @@ class SearchTableHelper {
 
 	_onCommand(obj, tr, command) {
 		if (this.commands[command]) {
-			this.commands[command](obj, tr)
+			this.commands[command](obj, tr);
 		} else {
 			console.log(`Command ${command} does not have any handler`);
 		}
@@ -158,7 +158,7 @@ class SearchTableHelper {
 					this._onCommand(obj, tr, colConfig.command);
 				};
 			} else if (colConfig.type == "image") {
-				var output = ""
+				var output = "";
 				try {
 					///needed for the eval statement next
 					var data = obj.data;
@@ -168,7 +168,7 @@ class SearchTableHelper {
 				}
 				td = this._create('td', tr, output, classes);
 			} else {
-				var output = ""
+				var output = "";
 				try {
 					///needed for the eval statement next
 					var data = obj.data;

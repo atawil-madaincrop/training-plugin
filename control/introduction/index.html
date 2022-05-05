@@ -4,27 +4,40 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- JS -->
-  <script src="../../../../scripts/buildfire.js"></script>
+  <script src="../../../../scripts/buildfire.min.js"></script>
   <script src="../../../../scripts/jquery/jquery-1.11.2.min.js"></script>
   <script src="../../../../scripts/tinymce/tinymce.min.js"></script>
   <script src="../../../../scripts/sortable.min.js"></script>
   <script src="../../../../scripts/buildfire/components/carousel/carousel.js"></script>
   <script src="../../../../scripts/buildfire/components/images/thumbnail.js"></script>
-  <script type="module" src="introduction.js"></script>
 
   <link href="../../../../styles/helper.css" rel="stylesheet" />
   <link href="../../../../styles/siteStyle.css" rel="stylesheet">
   <link href="../../../../styles/siteIcons.css" rel="stylesheet" />
   <link href="../../../../styles/control/siteIcons-control.css" rel="stylesheet">
   <link href="../../../../styles/control/bf-base.css" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+
+  <!-- build:bundleSharedJSFiles  -->
+  <script src="../../widget/js/shared/config/Constants.js"></script>
+  <script src="../../widget/js/shared/repository/Introductions.js"></script>
+  <script src="../../widget/js/shared/entities/Introduction.js"></script>
+  <!-- endbuild -->
+
+  <!-- build:bundleCSSFiles  -->
+  <link href="./css/style.css" rel="stylesheet" />
+  <!-- endbuild -->
 </head>
 
 <body class="slide-in">
   <p class="info-note margin-bottom-twenty">Add an introduction section with images, text and other elements with the text editor.</p>
   <div id="carousel" class="margin-bottom-thirty"></div>
   <textarea id="description" name="content"></textarea>
+
+  <!-- build:bundleJSFiles  -->
+  <script src="./js/introduction.controller.js"></script>
+  <script src="./js/introduction.js" defer></script>
+  <!-- endbuild -->
+
 </body>
 
 </html>

@@ -1,7 +1,5 @@
-import Item from "../../widget/common/entities/Item.js";
-import ContentController from "./content.controller.js";
-
 let section, searchTableHelper, search, itemsCount, selectedItem, itemDetailsState, imageThumbnail, coverImageThumbnail, itemDetailsDescriptionEditor;
+
 const body = document.querySelector("body");
 const searchInput = document.getElementById("search");
 const searchButton = document.getElementById("search-button");
@@ -22,20 +20,20 @@ const itemDetailsSubtitleInput = document.getElementById("item-details-subtitle-
 const initItemsTable = async () => {
     const filterFixed = {
         "$json.deletedOn": { "$eq": null },
-    }
+    };
 
     const sort = {
         title: 1,
-    }
+    };
 
     const onRowEdit = (obj, tr) => {
         goToItemDetailsSubPage(obj, "edit", true);
-    }
+    };
 
     const onRowDelete = async (obj, tr) => {
         await ContentController.deleteItem(obj.id);
         checkItemsEmptyState(itemsCount - 1);
-    }
+    };
 
     searchTableHelper = new SearchTableHelper("items-table", ContentController.itemsTag(), searchTableConfig, filterFixed, sort, onRowEdit, onRowDelete);
 
@@ -47,7 +45,7 @@ const initItemsTable = async () => {
     searchTableHelper.onCommand('open-item-detials', (obj, tr) => {
         goToItemDetailsSubPage(obj, "edit", true);
     });
-}
+};
 
 const initThumbnailPickers = () => {
     const onChangeImage = (key, aspectRatio, imageUrl) => {
@@ -59,18 +57,18 @@ const initThumbnailPickers = () => {
         switch (key) {
             case 'image':
                 if (imageThumbnail.imageUrl == croppedImage) return;
-                imageThumbnail.loadbackground(croppedImage)
+                imageThumbnail.loadbackground(croppedImage);
                 break;
 
             case 'coverImage':
                 if (coverImageThumbnail.imageUrl == croppedImage) return;
-                coverImageThumbnail.loadbackground(croppedImage)
+                coverImageThumbnail.loadbackground(croppedImage);
                 break;
-        }
+        };
 
         validateItemForm();
         sendMessageToWidget();
-    }
+    };
 
     const onDeleteImage = (key, imageUrl) => {
         if (!selectedItem) return;
@@ -79,7 +77,7 @@ const initThumbnailPickers = () => {
 
         validateItemForm();
         sendMessageToWidget();
-    }
+    };
 
     imageThumbnail = new buildfire.components.images.thumbnail("#image-thumbnail", {
         imageUrl: '',
@@ -100,7 +98,7 @@ const initThumbnailPickers = () => {
 
     coverImageThumbnail.onChange = (imageUrl) => onChangeImage('coverImage', '16:9', imageUrl);
     coverImageThumbnail.onDelete = (imageUrl) => onDeleteImage('coverImage', imageUrl);
-}
+};
 
 const initItemDetailsDescriptionEditor = async () => {
     await tinymce.init({
@@ -119,7 +117,7 @@ const initItemDetailsDescriptionEditor = async () => {
             });
         },
     });
-}
+};
 
 const initListeners = () => {
     window.onresize = () => tableResize();
@@ -132,21 +130,21 @@ const initListeners = () => {
     itemDetailsCancleButton.onclick = () => goToItemsPage(true);
     itemDetailsTitleInput.onkeyup = (e) => onItemDetailsTitleInput(e);
     itemDetailsSubtitleInput.onkeyup = (e) => onItemDetailsSubtitleInput(e);
-}
+};
 
 const onItemDetailsTitleInput = (e) => {
     validateItemForm();
     sendMessageToWidget();
-}
+};
 
 const onItemDetailsSubtitleInput = (e) => {
     validateItemForm();
     sendMessageToWidget();
-}
+};
 
 const onAddItemClick = () => {
     goToItemDetailsSubPage({ data: {} }, 'create', true);
-}
+};
 
 const onItemDetailsSave = async () => {
     if (!validateItemForm()) return;
@@ -161,7 +159,7 @@ const onItemDetailsSave = async () => {
     }
 
     goToItemsPage(true);
-}
+};
 
 const onItemsSearch = () => {
     search = searchInput.value;
@@ -173,7 +171,7 @@ const onItemsSearch = () => {
                 { "$json.subtitle": { "$regex": search, "$options": "i" } },
             ],
         });
-}
+};
 
 const validateItemForm = () => {
     let hasError = false;
@@ -199,7 +197,7 @@ const validateItemForm = () => {
 
     itemDetailsSaveButton.disabled = hasError;
     return !hasError;
-}
+};
 
 const checkItemsEmptyState = (count) => {
     itemsCount = count;
@@ -210,7 +208,7 @@ const checkItemsEmptyState = (count) => {
         itemsTable.classList.add("hidden");
         emptyState.classList.remove("hidden");
     }
-}
+};
 
 const addDummyItemsData = () => {
     const promises = [
@@ -225,7 +223,7 @@ const addDummyItemsData = () => {
                 checkItemsEmptyState(res && res.length);
             });
     });
-}
+};
 
 const navigateToTab = (tab) => {
     buildfire.navigation.navigateToTab(
@@ -236,7 +234,7 @@ const navigateToTab = (tab) => {
             if (err) return console.error(err);
         }
     );
-}
+};
 
 const goToItemsPage = (notifyWidget) => {
     section = "items";
@@ -257,7 +255,7 @@ const goToItemsPage = (notifyWidget) => {
 
     if (notifyWidget)
         sendMessageToWidget();
-}
+};
 
 const goToItemDetailsSubPage = (item, state, notifyWidget) => {
     section = "item-details";
@@ -278,7 +276,7 @@ const goToItemDetailsSubPage = (item, state, notifyWidget) => {
 
     if (notifyWidget)
         sendMessageToWidget();
-}
+};
 
 const tableResize = () => {
     const thead = itemsTable.querySelector('thead');
@@ -289,7 +287,7 @@ const tableResize = () => {
     const theadHeight = getAbsoluteHeight(thead);
 
     tbody.style.maxHeight = (bodyHeight - itemsFixedPartHeight - theadHeight) + 'px';
-}
+};
 
 function getAbsoluteHeight(el) {
     el = (typeof el === 'string') ? document.querySelector(el) : el;
@@ -300,7 +298,7 @@ function getAbsoluteHeight(el) {
         parseFloat(styles['marginBottom']);
 
     return parseFloat(rect.height.toFixed(2)) + margin;
-}
+};
 
 const sendMessageToWidget = (message) => {
     buildfire.messaging.sendMessageToWidget({
@@ -308,7 +306,7 @@ const sendMessageToWidget = (message) => {
         item: selectedItem,
         ...message,
     });
-}
+};
 
 const onMessageHandler = (message) => {
     if (message.section)
@@ -321,7 +319,7 @@ const onMessageHandler = (message) => {
                 goToItemDetailsSubPage(message.item, 'edit', false);
                 break;
         }
-}
+};
 
 const init = async () => {
     section = "items";
@@ -330,6 +328,6 @@ const init = async () => {
     initThumbnailPickers();
     initListeners();
     initItemDetailsDescriptionEditor();
-}
+};
 
 init();

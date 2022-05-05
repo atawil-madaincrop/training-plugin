@@ -4,24 +4,29 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- JS -->
-  <script src="../../../../scripts/buildfire.js"></script>
+  <script src="../../../../scripts/buildfire.min.js"></script>
   <script src="../../../../scripts/buildfire/services/notifications/pushNotifications.js"></script>
   <script src="../../../../scripts/jquery/jquery-1.11.2.min.js"></script>
   <script src="../../../../scripts/tinymce/tinymce.min.js"></script>
   <script src="../../../../scripts/sortable.min.js"></script>
   <script src="../../../../scripts/buildfire/components/carousel/carousel.js"></script>
   <script src="../../../../scripts/buildfire/components/images/thumbnail.js"></script>
-  <script src="./js/searchTableConfig.js"></script>
-  <script src="./js/searchTableHelper.js"></script>
-  <script type="module" src="content.js"></script>
 
   <link href="../../../../styles/helper.css" rel="stylesheet" />
   <link href="../../../../styles/siteStyle.css" rel="stylesheet">
   <link href="../../../../styles/control/siteIcons-control.css" rel="stylesheet">
   <link href="../../../../styles/control/bf-base.css" rel="stylesheet">
-  <link rel="stylesheet" href="./css/searchTable.css" />
-  <link rel="stylesheet" href="style.css" />
+
+  <!-- build:bundleSharedJSFiles  -->
+  <script src="../../widget/js/shared/config/Constants.js"></script>
+  <script src="../../widget/js/shared/repository/Items.js"></script>
+  <script src="../../widget/js/shared/entities/Item.js"></script>
+  <!-- endbuild -->
+
+  <!-- build:bundleCSSFiles  -->
+  <link href="./css/searchTable.css" rel="stylesheet" />
+  <link href="style.css" rel="stylesheet" />
+  <!-- endbuild -->
 </head>
 
 <body class="sub-page">
@@ -45,7 +50,7 @@
       </div>
 
       <div class="well empty-state-lg hidden" id="empty-state">
-        <h5 class="text-center margin-bottom-twenty empty-state-description">You haven’t added anything yet.<br>Add sample data to preview this feature.</h5>
+        <h5 class="text-center margin-bottom-twenty empty-state-description">You haven't added anything yet.<br>Add sample data to preview this feature.</h5>
         <button class="btn btn-success" id="add-sample-data"><span class="icon icon-plus margin-right-ten"></span>Add Sample Data</button>
       </div>
     </div>
@@ -93,6 +98,12 @@
     <button class="btn btn-success" id="item-details-save-button">Save</button>
   </div>
 
+  <!-- build:bundleJSFiles  -->
+  <script src="./js/searchTableConfig.js"></script>
+  <script src="./js/searchTableHelper.js"></script>
+  <script src="./js/content.controller.js"></script>
+  <script src="./js/content.js" defer></script>
+  <!-- endbuild -->
 </body>
 
 </html>

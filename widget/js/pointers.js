@@ -1,4 +1,4 @@
-export const pointers = {
+const pointers = {
     widget: document.querySelector('#widget'),
     mainPage: document.querySelector('#main'),
     detailsPage: document.querySelector('#details'),
@@ -22,4 +22,4 @@ export const pointers = {
     itemDescription: document.querySelector('#item-description'),
     itemImageEmptyState: document.querySelector('#item-image-empty-state'),
     itemCoverImageEmptyState: document.querySelector('#item-cover-image-empty-state'),
-}
+};

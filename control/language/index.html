@@ -4,21 +4,33 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- JS -->
-    <script src="../../../../scripts/buildfire.js"></script>
-    <script src="./js/languageConfig.js"></script>
-    <script src="./js/languageHelper.js"></script>
-    <script type="module" src="language.js"></script>
+    <script src="../../../../scripts/buildfire.min.js"></script>
+
+    <!-- build:bundleSharedJSFiles  -->
+    <script src="../../widget/js/shared/config/Constants.js"></script>
+    <script src="../../widget/js/shared/repository/Languages.js"></script>
+    <script src="../../widget/js/shared/entities/Language.js"></script>
+    <!-- endbuild -->
 
     <link href="../../../../styles/helper.css" rel="stylesheet" />
     <link href="../../../../styles/siteStyle.css" rel="stylesheet">
     <link href="../../../../styles/control/siteIcons-control.css" rel="stylesheet">
     <link href="../../../../styles/control/bf-base.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css" />
+
+    <!-- build:bundleCSSFiles  -->
+    <link href="./css/style.css" rel="stylesheet" />
+    <!-- endbuild -->
 </head>
 
 <body class="slide-in">
     <section id="language"></section>
+
+    <!-- build:bundleJSFiles  -->
+    <script src="./js/languageConfig.js"></script>
+    <script src="./js/languageHelper.js"></script>
+    <script src="./js/language.controller.js"></script>
+    <script src="./js/language.js" defer></script>
+    <!-- endbuild -->
 </body>
 
 </html>

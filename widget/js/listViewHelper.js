@@ -109,7 +109,7 @@ class ListViewHelper {
                 subtitle: item.data.subtitle,
                 imageUrl: item.data.image,
                 data: item,
-            }
+            };
         });
     }
 }

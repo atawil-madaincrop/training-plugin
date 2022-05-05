@@ -1,7 +1,4 @@
-import Items from '../../../widget/common/repository/Items.js';
-import Item from '../../../widget/common/entities/Item.js';
-
-export const itemsTests1 = (expect) => {
+const itemsTests1 = (expect) => {
     describe('Item', () => {
         const item = new Item();
 
@@ -207,4 +204,4 @@ export const itemsTests1 = (expect) => {
             expect(res?.data).to.be.an('undefined');
         });
     });
-}
+};

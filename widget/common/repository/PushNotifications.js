@@ -1,6 +1,5 @@
-import { Constants } from "../config/Constants.js";
 
-export default class PushNotifications {
+class PushNotifications {
     static schedule = (options) => {
         var _options = {
             title: options.title || null,

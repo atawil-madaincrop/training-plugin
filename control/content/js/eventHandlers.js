@@ -1,9 +1,4 @@
-import { ShowController } from "./showController.js";
-import { ContentHandlers } from "./contentHandlers.js";
-import { pointers } from "./pointers.js";
-
-
-export class EventHandlers {
+ class EventHandlers {
 
     // get and print Items in the list
     static loadItems = async () => {

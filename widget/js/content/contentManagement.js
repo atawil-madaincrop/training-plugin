@@ -1,6 +1,5 @@
-import Items from "../../common/repository/Items.js";
 
-export class ContentManagement {
+class ContentManagement {
     // manage data cycle in datastore
     // save, delete, edit and get items from datastore 
     static loadItems = async(page, pageSize, search)=>{

@@ -1,7 +1,4 @@
 
-import { Handlers } from "./js/eventHandelers.js"
-import { pointers } from "./js/pointers.js";
-
 
 const init = async() => {
     await Handlers.loadLanguage()

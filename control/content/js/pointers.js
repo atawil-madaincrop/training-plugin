@@ -1,6 +1,6 @@
 
 
-export const pointers = {
+ const pointers = {
     addItemBtn: document.getElementById("add-New-Item_btn"),
     cancelAdding: document.getElementById("cancel-Adding-Process"),
     addItemContainer: document.getElementById("add-New-Item-To-DataStore"),

@@ -1,9 +1,5 @@
 
-import Introduction from "../../../widget/common/entities/Introduction.js";
-import Introductions from "../../../widget/common/repository/Introductions.js";
-
-
-export const introductionManagement = {
+ const introductionManagement = {
     load: async () => {
         let data = await Introductions.get();
         if (data.data == undefined || data.data == null) {

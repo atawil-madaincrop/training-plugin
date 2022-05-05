@@ -1,7 +1,4 @@
 
-import { introductionManagement } from "./js/introductionManagement.js";
-import Introduction from "../../widget/common/entities/Introduction.js";
-
 
 let myIntroduction = new Introduction();
 

@@ -1,6 +1,5 @@
-import { Constants } from "../config/Constants.js";
 
-export default class Items {
+ class Items {
     static TAG = Constants.DATASTORE_ITEMS_KEY;
 
     static search = (options = {}) => {

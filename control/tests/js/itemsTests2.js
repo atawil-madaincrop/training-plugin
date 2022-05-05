@@ -1,7 +1,4 @@
-import Items from '../../../widget/common/repository/Items.js';
-import Item from '../../../widget/common/entities/Item.js';
-
-export const itemsTests2 = (expect) => {
+ const itemsTests2 = (expect) => {
     let newItem = new Item({
         title: "test analytics",
         subtitle: "desc",

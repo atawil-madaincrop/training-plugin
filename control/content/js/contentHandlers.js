@@ -1,6 +1,4 @@
-import Items from "../../../widget/common/repository/Items.js";
-
-export class ContentHandlers {
+ class ContentHandlers {
     // manage data cycle in datastore
     // save, delete, edit and get items from datastore 
     static loadItems = async(page, pageSize)=>{

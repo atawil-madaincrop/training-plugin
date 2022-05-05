@@ -1,11 +1,7 @@
-import { introductionManagement } from "./introductionManagement.js";
-import Introduction from "../../common/entities/Introduction.js";
-import { pointers } from "../pointers.js";
-
 let viewer;
 let myIntroduction = new Introduction();
 
-export class IntroductionBuilder {
+class IntroductionBuilder {
     static appendUpdatedData = async () => {
         myIntroduction = await introductionManagement.load();
         viewer.loadItems(myIntroduction.imageCarousel);

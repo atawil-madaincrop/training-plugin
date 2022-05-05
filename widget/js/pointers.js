@@ -1,6 +1,6 @@
 
 
-export const pointers = {
+const pointers = {
     introductionContainer : document.getElementById("introduction-Part"),
     introductionDesc: document.getElementById("introduction-Desc"),
     contentItems: document.getElementById("content-Part"),

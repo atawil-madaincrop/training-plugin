@@ -1,11 +1,7 @@
-import { ContentHandlers } from "./contentHandlers.js";
-import Item from "../../../widget/common/entities/Item.js";
-import { pointers } from "./pointers.js"
-
 
 let oldItem;
 
-export class ShowController {
+ class ShowController {
 
     static newItem;
     static itemForEdit = {};

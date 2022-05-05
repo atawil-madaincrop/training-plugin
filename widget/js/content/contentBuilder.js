@@ -1,9 +1,5 @@
-import { ContentManagement } from "./contentManagement.js";
-import { LanguageBuilder } from "../language/languageBuilder.js";
-import { pointers } from "../pointers.js";
 
-
-export class ContentBuilder {
+ class ContentBuilder {
     static itemsRendered = [];
     static allItemsSorted = [];
     static page = 0;

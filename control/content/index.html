@@ -4,15 +4,6 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- JS -->
-  <script src="../../../../scripts/buildfire.js"></script>
-  <script src="../../../../scripts/buildfire.min.js"></script>
-  <script src="../../../../scripts/buildfire/components/images/thumbnail.js"></script>
-  <script src="../../../../scripts/buildfire/services/notifications/pushNotifications.js"></script>
-  <script src="../../../../scripts/jquery/jquery-1.11.2.min.js"></script>
-  <script src="../../../../scripts/sortable.min.js"></script>
-  <script src="../../../../scripts/tinymce/tinymce.min.js"></script>
-
   <link href="../../../../styles/helper.css" rel="stylesheet">
   <link href="../../../../styles/siteStyle.css" rel="stylesheet">
   <link href="../../../../styles/control/siteIcons-control.css" rel="stylesheet">
@@ -37,7 +28,8 @@
         </div>
       </div>
       <div class="col-md-3">
-        <button id="add-New-Item_btn" class="btn btn-success stretch"><span class="icon icon-plus margin-right-ten"></span>Add
+        <button id="add-New-Item_btn" class="btn btn-success stretch"><span
+            class="icon icon-plus margin-right-ten"></span>Add
           Item</button>
       </div>
     </div>
@@ -75,7 +67,8 @@
         </div>
         <div class="row emptyRow">
           <div class="col-md-12">
-            <button id="add-New-Item_btn2" class="btn btn-success stretch"><span class="icon icon-plus margin-right-ten"></span>Add
+            <button id="add-New-Item_btn2" class="btn btn-success stretch"><span
+                class="icon icon-plus margin-right-ten"></span>Add
               Sample Data</button>
           </div>
         </div>
@@ -127,7 +120,23 @@
     <buttom id="add-New-Item-To-DataStore" class="btn btn-success">Save</button>
   </div>
 </div>
-<script type="module" src="content.js"></script>
+
+<!-- JS-Models -->
+<script src="../../widget/common/config/Constants.js"></script>
+<script src="./js/pointers.js"></script>
+<script src="../../widget/common/entities/Item.js"></script>
+<script src="../../widget/common/repository/Items.js"></script>
+<script src="./js/contentHandlers.js"></script>
+<script src="./js/eventHandlers.js"></script>
+<script src="./js/showController.js"></script>
+<!-- JS -->
+<script src="../../../../scripts/buildfire.min.js"></script>
+<script src="../../../../scripts/buildfire/components/images/thumbnail.js"></script>
+<script src="../../../../scripts/buildfire/services/notifications/pushNotifications.js"></script>
+<script src="../../../../scripts/jquery/jquery-1.11.2.min.js"></script>
+<script src="../../../../scripts/sortable.min.js"></script>
+<script src="../../../../scripts/tinymce/tinymce.min.js"></script>
+<script src="content.js"></script>
 
 
 </html>

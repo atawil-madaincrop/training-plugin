@@ -1,4 +1,4 @@
-export default class Language {
+ class Language {
     constructor(data = {}) {
         this.id = data.id || undefined;
         this.search = data.search || null;

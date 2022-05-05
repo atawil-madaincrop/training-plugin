@@ -1,8 +1,6 @@
 
-import { languageManagement } from "./languageManagement.js";
-import {language} from "../../common/config/defaultLanguage.js";
 
-export class LanguageBuilder{
+class LanguageBuilder{
     static selectedSort;
     static language;
 

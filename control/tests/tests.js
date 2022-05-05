@@ -1,8 +1,4 @@
 
-import { itemsTests1 } from "../tests/js/itemsTests1.js";
-import { itemsTests2 } from "../tests/js/itemsTests2.js";
-import { languageTests } from "../tests/js/languageTests.js";
-import { introductionTests } from "../tests/js/introductionTests.js";
 
 mocha.setup({
     ui: 'bdd',

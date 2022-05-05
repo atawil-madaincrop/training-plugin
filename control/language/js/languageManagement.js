@@ -1,8 +1,7 @@
 
 
-import Languages from '../../../widget/common/repository/Languages.js';
 
-export class LanguageManagement{
+ class LanguageManagement{
     static getData = async () =>{
         let res = await Languages.get();
         return res?.data

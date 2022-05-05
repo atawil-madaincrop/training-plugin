@@ -1,13 +1,8 @@
 
-import { pointers } from "./pointers.js";
-import { LanguageManagement } from "./languageManagement.js";
-import Language from "../../../widget/common/entities/Language.js";
-import { language } from "../../../widget/common/config/defaultLanguage.js";
-
 let delay = 1000;
 let timer;
 
-export class Handlers {
+ class Handlers {
     static languageState = new Language();
 
     static setDefaultInput = () => {

@@ -1,8 +1,3 @@
-import { IntroductionBuilder } from "./js/introduction/introductionBuilder.js";
-import { ContentBuilder } from "./js/content/contentBuilder.js";
-import { LanguageBuilder } from "./js/language/languageBuilder.js";
-import { EventHandlers } from "./js/eventHandlers.js";
-import { pointers } from "./js/pointers.js";
 
 
 const handlersCollection = async () => {

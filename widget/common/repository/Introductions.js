@@ -1,6 +1,5 @@
-import { Constants } from "../config/Constants.js";
 
-export default class Introductions {
+ class Introductions {
     static TAG = Constants.DATASTORE_INTRODUCTION_KEY;
 
     static get = () => {

@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- JS -->
-  <script src="../../../scripts/buildfire.js"></script>
   <script src="../../../scripts/buildfire.min.js"></script>
   <script src="../../../scripts/buildfire/services/notifications/pushNotifications.js"></script>
   <script src="../../../scripts/buildfire/services/notifications/localNotifications.js"></script>
@@ -15,7 +14,6 @@
   <script src="../../../scripts/buildfire/components/listView/listView.js"></script>
   <script src="../../../scripts/buildfire/components/drawer/drawer.js"></script>
   <script src="../../../scripts/sortable.min.js"></script>
-  <script type="module" src="widget.js"></script>
 
   <!-- Styles -->
   <link href="../../../styles/helper.css" rel="stylesheet" />
@@ -99,5 +97,23 @@
     </div>
   </div>
 </body>
+
+ <!-- JS-Models -->
+ <script src="./common/config/Constants.js"></script>
+ <script src="./common/config/defaultLanguage.js"></script>
+ <script src="./common/entities/Introduction.js"></script>
+ <script src="./common/repository/Introductions.js"></script>
+ <script src="./common/repository/Items.js"></script>
+ <script src="./common/repository/Languages.js"></script>
+
+ <script src="./js/pointers.js"></script>
+ <script src="./js/introduction/introductionManagement.js"></script>
+ <script src="./js/introduction/introductionBuilder.js"></script>
+ <script src="./js/content/contentManagement.js"></script>
+ <script src="./js/content/contentBuilder.js"></script>
+ <script src="./js/language/languageManagement.js"></script>
+ <script src="./js/language/languageBuilder.js"></script>
+ <script src="./js/eventHandlers.js"></script>
+ <script src="widget.js" ></script>
 
 </html>

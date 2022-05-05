@@ -1,6 +1,5 @@
-import { Constants } from "../config/Constants.js";
 
-export default class LocalNotifications {
+ class LocalNotifications {
     static checkPermission = () => {
         return new Promise((resolve, reject) => {
             buildfire.notifications.localNotification.checkPermission((err, res) => {

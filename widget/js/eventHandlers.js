@@ -1,14 +1,10 @@
 
 
-import { ContentBuilder } from "./content/contentBuilder.js";
-import { LanguageBuilder } from "./language/languageBuilder.js";
-import { pointers } from "./pointers.js";
-
 
 let delay = 1000;
 let lastAction;
 
-export class EventHandlers {
+class EventHandlers {
 
     static resetSearchState = () => {
         this.setLoadingSearch('none');

@@ -1,7 +1,4 @@
-import Introductions from '../../../widget/common/repository/Introductions.js';
-import Introduction from '../../../widget/common/entities/Introduction.js';
-
-export const introductionTests = (expect) => {
+ const introductionTests = (expect) => {
     let newIntroduction = new Introduction({
         description: 'Introduction to test our Functionality'
     });

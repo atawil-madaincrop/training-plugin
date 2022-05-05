@@ -30,13 +30,13 @@ const AUTOPREFIXER_BROWSERS = [
 
 let globalStates = {
   currentDest: `${__dirname}`,
-  fileDest:"",
+  fileDest: "",
   allFiles: [/* all files with destiniation will be storesd here as objects */],
   allFolders: [/* all folders with destiniation will be storesd here as objects */]
 }
 
 // Set all files in the global state array
-function sendFileFolderToState(fileName, fileDest){
+function sendFileFolderToState(fileName, fileDest) {
   if (fileName.split(".")[1]) {
     globalStates.allFiles.push({
       file: fileName,
@@ -52,10 +52,10 @@ function sendFileFolderToState(fileName, fileDest){
 function setFiles(fileName) {
   let fileDest = globalStates.currentDest.split("/");
   fileDest = fileDest[fileDest.length - 1];
-  
+
   sendFileFolderToState(fileName, fileDest)
 }
-function setInternalFiles (file){
+function setInternalFiles(file) {
   sendFileFolderToState(file, globalStates.fileDest)
 }
 
@@ -80,6 +80,10 @@ function loopThrowFolders() {
     folderItem = globalStates.allFolders[index];
   }
 }
+// loop throw files arr -=>
+function loopThrowFiles() {
+  globalStates.allFiles.forEach(minifyHandlers)
+}
 // Get files and destinations -=>
 function getFiles() {
   globalStates.currentDest = `${__dirname}/widget`;
@@ -90,7 +94,24 @@ function getFiles() {
   files = fs.readdirSync(`${globalStates.currentDest}`);
   files.forEach(setFiles);
 }
-
+// Function to minify all files with respect to extentions -=>
+function minifyHandlers(file) {
+  let extension = file.file.split(".")[1];
+  switch (extension) {
+    case "js":
+      console.log("-- js", file.dest);
+      break;
+    case "css":
+      console.log("-- css", file.dest);
+      break;
+    case "html":
+      console.log("-- html", file.dest);
+      break;
+    default:
+      console.log("-- image file", file.dest);
+      break;
+  }
+}
 // function to Minify our styles and set them back to the same directoty -=>
 function setMinifyStyles() {
   // will minify styles here -=>
@@ -108,6 +129,7 @@ function initGulp(cb) {
   getFiles();
   loopThrowFolders();
 
+  loopThrowFiles();
   cb();
 }
 

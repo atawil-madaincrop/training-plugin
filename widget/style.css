@@ -47,6 +47,7 @@ section {
     border: none;
     color: var(--bf-theme-body-text);
     outline: none !important;
+    background-color: var(--bf-theme-background);
 }
 
 #search-container .search-input::placeholder {

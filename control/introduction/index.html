@@ -11,24 +11,20 @@
   <script src="../../../../scripts/buildfire/components/carousel/carousel.js"></script>
   <script src="../../../../scripts/buildfire/components/images/thumbnail.js"></script>
 
+  <link href="../../../../styles/helper.css" rel="stylesheet" />
+  <link href="../../../../styles/siteStyle.css" rel="stylesheet">
+  <link href="../../../../styles/siteIcons.css" rel="stylesheet" />
+  <link href="../../../../styles/control/siteIcons-control.css" rel="stylesheet">
+  <link href="../../../../styles/control/bf-base.css" rel="stylesheet">
+
   <!-- build:bundleSharedJSFiles  -->
   <script src="../../widget/js/shared/config/Constants.js"></script>
   <script src="../../widget/js/shared/repository/Introductions.js"></script>
   <script src="../../widget/js/shared/entities/Introduction.js"></script>
   <!-- endbuild -->
 
-  <!-- build:bundleJSFiles  -->
-  <script src="./introduction.controller.js"></script>
-  <script src="introduction.js" defer></script>
-  <!-- endbuild -->
-
   <!-- build:bundleCSSFiles  -->
-  <link href="../../../../styles/helper.css" rel="stylesheet" />
-  <link href="../../../../styles/siteStyle.css" rel="stylesheet">
-  <link href="../../../../styles/siteIcons.css" rel="stylesheet" />
-  <link href="../../../../styles/control/siteIcons-control.css" rel="stylesheet">
-  <link href="../../../../styles/control/bf-base.css" rel="stylesheet">
-  <link href="style.css" rel="stylesheet" />
+  <link href="./css/style.css" rel="stylesheet" />
   <!-- endbuild -->
 </head>
 
@@ -36,6 +32,12 @@
   <p class="info-note margin-bottom-twenty">Add an introduction section with images, text and other elements with the text editor.</p>
   <div id="carousel" class="margin-bottom-thirty"></div>
   <textarea id="description" name="content"></textarea>
+
+  <!-- build:bundleJSFiles  -->
+  <script src="./js/introduction.controller.js"></script>
+  <script src="./js/introduction.js" defer></script>
+  <!-- endbuild -->
+
 </body>
 
 </html>

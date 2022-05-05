@@ -4,10 +4,10 @@ const minHTML = require('gulp-htmlmin');
 const minifyCSS = require('gulp-csso');
 const concat = require('gulp-concat');
 const htmlReplace = require('gulp-html-replace');
-const minify = require('gulp-minify');
 const eslint = require('gulp-eslint');
 const imagemin = require('gulp-imagemin');
-let babel = require('gulp-babel');
+const sourcemaps = require('gulp-sourcemaps');
+const uglify = require('gulp-uglify');
 
 let version = new Date().getTime();
 const destinationFolder = releaseFolder();
@@ -21,15 +21,8 @@ function releaseFolder() {
 
 console.log(">> Building to ", destinationFolder);
 
-
 gulp.task('lint', () => {
-    // ESLint ignores files with "node_modules" paths.
-    // So, it's best to have gulp ignore the directory as well.
-    // Also, Be sure to return the stream from the task;
-    // Otherwise, the task may end before the stream has finished.
     return gulp.src(['widget/**/*.js', 'control/**/*.js'])
-        // eslint() attaches the lint output to the "eslint" property
-        // of the file object so it can be used by other modules.
         .pipe(eslint({
             "env": {
                 "browser": true,
@@ -51,100 +44,68 @@ gulp.task('lint', () => {
                 ]
             }
         }))
-        // eslint.format() outputs the lint results to the console.
-        // Alternatively use eslint.formatEach() (see Docs).
         .pipe(eslint.format())
-        // To have the process exit with an error code (1) on
-        // lint error, return the stream and pipe to failAfterError last.
         .pipe(eslint.failAfterError());
 });
-
 
 const cssTasks = [
     { name: "widgetCSS", src: "widget/**/*.css", dest: "/widget" }
     , { name: "controlContentCSS", src: "control/content/**/*.css", dest: "/control/content" }
-    , { name: "controlDesignCSS", src: "control/design/**/*.css", dest: "/control/design" }
-    , { name: "controlSettingsCSS", src: "control/settings/**/*.css", dest: "/control/settings" }
-    , { name: "controlStringsCSS", src: "control/strings/**/*.css", dest: "/control/strings" }
+    , { name: "controlIntroductionCSS", src: "control/introduction/**/*.css", dest: "/control/introduction" }
+    , { name: "controlLanguageCSS", src: "control/language/**/*.css", dest: "/control/language" }
+    , { name: "controlTestsCSS", src: "control/tests/**/*.css", dest: "/control/tests" }
 ];
 
 cssTasks.forEach(function (task) {
-    /*
-     Define a task called 'css' the recursively loops through
-     the widget and control folders, processes each CSS file and puts
-     a processes copy in the 'build' folder
-     note if the order matters you can import each css separately in the array
-
-     */
     gulp.task(task.name, function () {
         return gulp.src(task.src, { base: '.' })
-
-            /// minify the CSS contents
             .pipe(minifyCSS())
-
-            ///merge
             .pipe(concat('styles.min.css'))
-
-            /// write result to the 'build' folder
             .pipe(gulp.dest(destinationFolder + task.dest))
     });
 });
 
-
 gulp.task("sharedJS", function () {
     return gulp.src(["widget/js/shared/**/*.js"], { base: '.' })
-
-        .pipe(concat('scripts.shared.js'))
-        .pipe(babel({
-            presets: ['@babel/preset-env'],
-            plugins: ["@babel/plugin-proposal-class-properties", "@babel/transform-runtime"]
-        }))
-        .pipe(minify())
+        .pipe(sourcemaps.init())
+        .pipe(concat('scripts.shared-min.js'))
+        .pipe(uglify())
+        .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest(destinationFolder + "/widget"));
 });
 
 const jsTasks = [
-    { name: "widgetJS", src: "widget/js/*.js", dest: "/widget" }
-    , { name: "controlContentJS", src: "control/content/js/*.js", dest: "/control/content" }
-    , { name: "controlDesignJS", src: "control/design/js/*.js", dest: "/control/design" }
-    , { name: "controlSettingsJS", src: "control/settings/js/*.js", dest: "/control/settings" }
-    , { name: "controlStringsJS", src: "control/strings/js/*.js", dest: "/control/strings" }
-    //data, data access, tests and analytics
-    , { name: "dataJS", src: ["data/*.js", "dataAccess/*.js"], dest: "/data" }
-    , { name: "testsJS", src: ["tests/*.js", "tests/basic/*.js", "test/screens/*.js"], dest: "/tests" }
+    { name: "widgetJS", src: "widget/js/*.js", dest: "/widget" },
+    {
+        name: "controlContentJS",
+        src: [
+            "control/content/js/searchTableConfig.js",
+            "control/content/js/searchTableHelper.js",
+            "control/content/js/content.controller.js",
+            "control/content/js/content.js",
+        ],
+        dest: "/control/content",
+    },
+    { name: "controlIntroductionJS", src: "control/introduction/js/*.js", dest: "/control/introduction" },
+    { name: "controlLanguageJS", src: "control/language/js/*.js", dest: "/control/language" },
+    { name: "controlTestsJS", src: "control/tests/js/*.js", dest: "/control/tests" },
 ];
-
 
 jsTasks.forEach(function (task) {
     gulp.task(task.name, function () {
         return gulp.src(task.src, { base: '.' })
-
-
-            /// merge all the JS files together. If the
-            /// order matters you can pass each file to the function
-            /// in an array in the order you like
-            .pipe(concat('scripts.js'))
-            .pipe(babel({
-                presets: ['@babel/preset-env'],
-                plugins: ["@babel/plugin-proposal-class-properties", "@babel/transform-runtime"]
-            }))
-            .pipe(minify())
-            ///output here
+            .pipe(sourcemaps.init())
+            .pipe(concat('scripts-min.js'))
+            .pipe(uglify())
+            .pipe(sourcemaps.write('./'))
             .pipe(gulp.dest(destinationFolder + task.dest));
-
     });
-
 });
 
 gulp.task('clean', function () {
     return del([destinationFolder], { force: true });
 });
 
-/*
- Define a task called 'html' the recursively loops through
- the widget and control folders, processes each html file and puts
- a processes copy in the 'build' folder
- */
 gulp.task('controlHTML', function () {
     return gulp.src(['control/**/*.html'], { base: '.' })
         .pipe(htmlReplace({
@@ -175,19 +136,16 @@ gulp.task('widgetHTML', function () {
         .pipe(gulp.dest(destinationFolder));
 });
 
-
 gulp.task('resources', function () {
     return gulp.src(['resources/*', 'plugin.json'], { base: '.' })
         .pipe(gulp.dest(destinationFolder));
 });
-
 
 gulp.task('images', function () {
     return gulp.src(['**/.images/**'], { base: '.' })
         .pipe(imagemin())
         .pipe(gulp.dest(destinationFolder));
 });
-
 
 var buildTasksToRun = ['controlHTML', 'widgetHTML', 'resources', 'images', 'sharedJS'];
 

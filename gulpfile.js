@@ -3,14 +3,16 @@ const gulp = require('gulp');
 const concat = require('gulp-concat');
 const htmlReplace = require('gulp-html-replace');
 const minHTML = require('gulp-htmlmin');
-const imagemin = require('gulp-imagemin');
-const minify = require('gulp-minify');
+// const imagemin = require('gulp-imagemin');
+// const minify = require('gulp-minify');
 var autoprefixer = require('gulp-autoprefixer');
+const sourcemaps = require('gulp-sourcemaps');
 var csso = require('gulp-csso');
-var del = require('del');
-var htmlmin = require('gulp-htmlmin');
-var runSequence = require('run-sequence');
-var uglify = require('gulp-uglify');
+// var del = require('del');
+// var htmlmin = require('gulp-htmlmin');
+// var runSequence = require('run-sequence');
+// var uglify = require('gulp-uglify');
+var uglify = require('gulp-uglify-es').default;
 var fs = require('fs');
 
 
@@ -99,29 +101,70 @@ function minifyHandlers(file) {
   let extension = file.file.split(".")[1];
   switch (extension) {
     case "js":
-      console.log("-- js", file.dest);
+      setMinifyJS(file.dest, file.file)
       break;
     case "css":
-      console.log("-- css", file.dest);
+      setMinifyStyles(file.dest, file.file)
       break;
     case "html":
-      console.log("-- html", file.dest);
+      setMinifyHTML(file.dest, file.file)
       break;
     default:
-      console.log("-- image file", file.dest);
+      setMinifyImages(file.dest, file.file)
       break;
   }
 }
 // function to Minify our styles and set them back to the same directoty -=>
-function setMinifyStyles() {
+function setMinifyStyles(dest, file) {
   // will minify styles here -=>
-  return gulp.src('./widget/*.css')
+  return gulp.src(`./${dest}/${file}`)
     // Auto-prefix css styles for cross browser compatibility
     .pipe(autoprefixer({ browsers: AUTOPREFIXER_BROWSERS }))
     // Minify the file
     .pipe(csso())
     // Output
-    .pipe(gulp.dest('./widget'))
+    .pipe(gulp.dest(`./${dest}`))
+}
+// function to minify html files 
+function setMinifyHTML(dest, file) {
+  let mainDestination, sharedDestination;
+  if (dest.includes("control")) {
+    mainDestination = "../JS_Collection";
+    sharedDestination = "../../widget/JS_Shared";
+  } else {
+    mainDestination = "./JS_Collection";
+    sharedDestination = "./JS_Shared";
+  }
+  return gulp.src(`${dest}/${file}`)
+    .pipe(htmlReplace({
+      CommonJSFiles: `${sharedDestination}/scripts.min.js`
+      , WidgetJSFiles: `${mainDestination}/scripts.min.js`
+      , ControlJSFiles: `${mainDestination}/scripts.min.js`
+    }))
+    .pipe(minHTML({ removeComments: true, collapseWhitespace: true }))
+    .pipe(gulp.dest(`./${dest}`));
+}
+// function to minify JS files
+function setMinifyJS(dest, file) {
+  let destination;
+  if (dest.includes("control")) {
+    destination = 'control/JS_Collection';
+  } else if (dest.includes("common")) {
+    destination = 'widget/JS_Shared';
+  } else {
+    destination = 'widget/JS_Collection';
+  }
+  return gulp.src(`./${dest}/${file}`)
+    .pipe(sourcemaps.init())
+    .pipe(concat('scripts.min.js'))
+    .pipe(uglify())
+    .on('error', function (err) { console.log(err.toString()); })
+    .pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest(destination));
+}
+// function to minify Images
+function setMinifyImages(dest, file) {
+  console.log("-- image file", file);
 }
 
 function initGulp(cb) {
@@ -130,6 +173,7 @@ function initGulp(cb) {
   loopThrowFolders();
 
   loopThrowFiles();
+
   cb();
 }
 

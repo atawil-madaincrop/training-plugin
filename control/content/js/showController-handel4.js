@@ -48,12 +48,12 @@ let oldItem;
             <td class="text-primary"><a id="titleToChange-${index}" class="link">${itemElement.data.title}</a></td>
             <td>${itemElement.data.subtitle}</td>
             <td class="text-center">${myDateToPrint}<td>
-            <td>
+            <td class="action-btns">
                 <span class="input-group-btn col-md-12">
-                    <button id="editItemBtn-${index}" class="btn stretch margin-left-zero btn_in_list">
+                    <button id="editItemBtn-${index}" class="btn margin-left-zero btn_in_list">
                         <span class="cardBtnSpan icon icon-pencil"></span>
                     </button>
-                    <button id="deleteItemBtn-${index}" class="btn stretch margin-left-zero btn_in_list">
+                    <button id="deleteItemBtn-${index}" class="btn margin-left-zero btn_in_list">
                         <span class="cardBtnSpan icon icon-cross2" ></span>
                     </button>
                 </span>

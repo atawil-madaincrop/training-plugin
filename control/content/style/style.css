@@ -120,10 +120,7 @@ td{
 .emptyRow:nth-child(2){
     margin-bottom: 1rem;
 }
-.action-btns{
-    width: 10%;
-    padding-right: 2rem !important;
-}
+
 .action-btns .input-group-btn{
     display: flex;
     flex-wrap: nowrap;
@@ -132,4 +129,16 @@ td{
 }
 .action-btns .input-group-btn button{
     padding: 0.6rem 1.688rem;
+}
+
+.td-25{
+    width: 25% !important;
+}
+.td-10{
+    width: 10% !important;
+    padding-right: 1.5rem !important;
+    padding-left: 1.5rem !important;
+}
+.td-15{
+    width: 15% !important;
 }

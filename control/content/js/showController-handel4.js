@@ -40,15 +40,15 @@ let oldItem;
         let itemRow = document.createElement('tr');
         let imageToPrint = itemElement.data.image || "./media/imagePlaceHolder.png"
         itemRow.innerHTML = `
-            <td>
+            <td class="td-10">
                 <div class="img-holder aspect-1-1">
                     <img class="images_in_List" src=${imageToPrint} alt="">
                 </div>
             </td>
-            <td class="text-primary"><a id="titleToChange-${index}" class="link">${itemElement.data.title}</a></td>
-            <td>${itemElement.data.subtitle}</td>
-            <td class="text-center">${myDateToPrint}<td>
-            <td class="action-btns">
+            <td class="td-25 text-primary"><a id="titleToChange-${index}" class="link">${itemElement.data.title}</a></td>
+            <td class="td-25">${itemElement.data.subtitle}</td>
+            <td class="td-25 text-left">${myDateToPrint}</td>
+            <td class="td-15 action-btns">
                 <span class="input-group-btn col-md-12">
                     <button id="editItemBtn-${index}" class="btn margin-left-zero btn_in_list">
                         <span class="cardBtnSpan icon icon-pencil"></span>

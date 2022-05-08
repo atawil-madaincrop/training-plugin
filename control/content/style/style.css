@@ -78,10 +78,10 @@ td{
     width:100% !important;
 }
 #image .item .main .screens .screen, #image .item .main .screens .screen .change-background{
-    max-width:6rem !important;
+    max-width:10rem !important;
 }
 #imageCover .item .main .screens .screen, #imageCover .item .main .screens .screen .change-background{
-    max-width:10rem !important;
+    max-width:14rem !important;
 }
 #imageCover .item .main{
     float: left !important;

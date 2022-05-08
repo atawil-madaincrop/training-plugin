@@ -3,7 +3,7 @@ const gulp = require('gulp');
 const concat = require('gulp-concat');
 const htmlReplace = require('gulp-html-replace');
 const minHTML = require('gulp-htmlmin');
-// const imagemin = require('gulp-imagemin');
+const imagemin = require('gulp-imagemin');
 // const minify = require('gulp-minify');
 var autoprefixer = require('gulp-autoprefixer');
 const sourcemaps = require('gulp-sourcemaps');
@@ -213,7 +213,9 @@ function setMinifyJS(filesArr, destination) {
 }
 // function to minify Images
 function setMinifyImages(dest, file) {
-  console.log("-- image file", file);
+  return gulp.src(`${dest}/${file}`)
+  .pipe(imagemin())
+  .pipe(gulp.dest(dest));
 }
 
 function initGulp(cb) {

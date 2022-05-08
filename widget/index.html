@@ -1,1 +1,125 @@
-<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><script src="../../../scripts/buildfire.min.js"></script><script src="../../../scripts/buildfire/services/notifications/pushNotifications.js"></script><script src="../../../scripts/buildfire/services/notifications/localNotifications.js"></script><script src="../../../scripts/jquery/jquery-1.11.2.min.js"></script><script src="../../../scripts/owlCarousel/owlCarousel.js"></script><script src="../../../scripts/buildfire/components/carousel/carousel.js"></script><script src="../../../scripts/buildfire/components/listView/listView.js"></script><script src="../../../scripts/buildfire/components/drawer/drawer.js"></script><script src="../../../scripts/sortable.min.js"></script><link href="../../../styles/helper.css" rel="stylesheet"><link href="../../../styles/material-icons.css" rel="stylesheet"><link href="../../../scripts/owlCarousel/owlCarousel.css" rel="stylesheet"><link href="../../../styles/control/siteIcons-control.css" rel="stylesheet"><link href="../../../styles/control/bf-base.css" rel="stylesheet"><link href="../../../styles/components/listView.css" rel="stylesheet"><link rel="stylesheet" href="style.css"></head><body class="sub-page widgetContainer"><div id="load-Items-List"><div class="row searchDiv border-radius-four border-grey margin-bottom-fifteen margin-top-fifteen margin-left-ten margin-right-ten"><div id="searchIcon" class="col-md-3"><span class="iconsTheme padding-right-zero padding-top-five material-icons color-icons-theme">search</span></div><div class="col-md-9 searchInputContainer"><input type="text" id="searchInput" class="padding-left-zero border-none no-background form-control" placeholder="Search"></div><div id="sortIcon" class="col-md-3"><span class="padding-top-five material-icons color-icons-theme">sort</span></div><div id="clearIcon" class="col-md-3"><span class="padding-top-five material-icons color-icons-theme">close</span></div></div><div class="itemsContainer" id="itemsContainer"><div class="loadingDivs" id="loading-Widget"><img src="./media/loading-List.gif"></div><div class="loadingDivs" id="loading-Search"><img src="./media/loading-Search.gif"></div><div class="loadingDivs" id="loading-Item"><img src="https://c.tenor.com/7EVJ9daaZ_cAAAAC/windows-xp-loading-screen.gif"></div><div class="loadingDivs" id="empty-search-Widget"><img src="./media/empty-Page.png"></div><div id="introduction-Part"><div class="carousel"></div><div class="margin-top-twenty"></div><div class="padding-right-fifteen padding-top-fifteen padding-bottom-fifteen padding-left-fifteen" id="introduction-Desc"></div></div><div id="content-Part"></div></div><div id="emptyPage"><img src="./media/empty-Page.png" alt="empty-Page"></div></div><div id="load-Item-Page"><div class="backgroundImage-Container gray-dark"><div class="backgroundImage"><img class="img-responsive" src="" alt="background" id="back-Image"></div></div><div class="infosContainer"><img class="img-responsive border-radius-four" src="" alt="image" id="main-Image"><div id="itemContent" class="itemContent"></div></div></div></body><script src="./JS_Shared/scripts.min.js?v=Fri May 06 2022 02:30:30 GMT+0300 (GMT+03:00)"></script><script src="./JS_Collection/scripts.min.js?v=Fri May 06 2022 02:30:30 GMT+0300 (GMT+03:00)"></script></html>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- JS -->
+  <script src="../../../scripts/buildfire.min.js"></script>
+  <script src="../../../scripts/buildfire/services/notifications/pushNotifications.js"></script>
+  <script src="../../../scripts/buildfire/services/notifications/localNotifications.js"></script>
+  <script src="../../../scripts/jquery/jquery-1.11.2.min.js"></script>
+  <script src="../../../scripts/owlCarousel/owlCarousel.js"></script>
+  <script src="../../../scripts/buildfire/components/carousel/carousel.js"></script>
+  <script src="../../../scripts/buildfire/components/listView/listView.js"></script>
+  <script src="../../../scripts/buildfire/components/drawer/drawer.js"></script>
+  <script src="../../../scripts/sortable.min.js"></script>
+
+  <!-- Styles -->
+  <link href="../../../styles/helper.css" rel="stylesheet" />
+  <link href="../../../styles/material-icons.css" rel="stylesheet" />
+  <link href="../../../scripts/owlCarousel/owlCarousel.css" rel="stylesheet" />
+  <link href="../../../styles/control/siteIcons-control.css" rel="stylesheet">
+  <link href="../../../styles/control/bf-base.css" rel="stylesheet">
+  <link href="../../../styles/components/listView.css" rel="stylesheet" />
+  
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="sub-page widgetContainer">
+  
+  <div id="load-Items-List">
+    <!-- search part -->
+    <div class="row searchDiv border-radius-four border-grey margin-bottom-fifteen margin-top-fifteen margin-left-ten margin-right-ten">
+      <div id="searchIcon" class="col-md-3">
+        <span class="iconsTheme padding-right-zero padding-top-five material-icons color-icons-theme">search</span>
+      </div>
+      <div class="col-md-9 searchInputContainer">
+        <input type="text" id="searchInput" class="padding-left-zero border-none no-background form-control" placeholder="Search">
+      </div>
+      <div id="sortIcon" class="col-md-3">
+        <span class="padding-top-five material-icons color-icons-theme">sort</span>
+      </div>
+      <div id="clearIcon" class="col-md-3">
+        <span class="padding-top-five material-icons color-icons-theme">close</span>
+      </div>
+    </div>
+    <!-- container of all elements -->
+    <div class="itemsContainer" id="itemsContainer">
+      <!-- loading part -->
+      <div class="loadingDivs" id="loading-Widget">
+        <!-- loading inside widget and all items -->
+        <img src="./media/loading-List.gif">
+      </div>
+      <!-- loading inside widget on Search Process -->
+      <div class="loadingDivs" id="loading-Search">
+        <img src="./media/loading-Search.gif">
+      </div>
+      <div class="loadingDivs" id="loading-Item">
+        <!-- loading when open a specific item -->
+        <img src="https://c.tenor.com/7EVJ9daaZ_cAAAAC/windows-xp-loading-screen.gif">
+      </div>
+      <!-- empty search page -->
+      <div class="loadingDivs" id="empty-search-Widget">
+        <!-- loading inside widget and all items -->
+        <img src="./media/empty-Page.png">
+      </div>
+      <!-- introduction container -->
+      <div id="introduction-Part">
+        <div class="carousel"></div>
+        <div class="margin-top-twenty"></div>
+        <div class="padding-right-fifteen padding-top-fifteen padding-bottom-fifteen padding-left-fifteen" id="introduction-Desc"></div>
+      </div>
+      <!-- content container -->
+      <div id="content-Part">
+
+      </div>
+    </div>
+    <!-- empty state -->
+    <div id="emptyPage">
+      <img src="./media/empty-Page.png" alt="empty-Page" />
+    </div>
+  </div>
+
+  <div id="load-Item-Page">
+    <div class="backgroundImage-Container gray-dark">
+      <div class="backgroundImage">
+        <img class="img-responsive" src="" alt="background" id="back-Image">
+      </div>
+
+    </div>
+    <div class="infosContainer">
+      <img class="img-responsive border-radius-four" src="" alt="image" id="main-Image">
+
+      <div id="itemContent" class="itemContent">
+      </div>
+
+    </div>
+  </div>
+</body>
+
+ <!-- JS-Models -->
+
+ <!-- build:CommonJSFiles -->
+ <script src="./common/config/Constants.js"></script>
+ <script src="./common/config/defaultLanguage.js"></script>
+ <script src="./common/entities/Introduction.js"></script>
+ <script src="./common/repository/Introductions.js"></script>
+ <script src="./common/repository/Items.js"></script>
+ <script src="./common/repository/Languages.js"></script>
+ <!-- endbuild -->
+
+ <!-- build:WidgetJSFiles -->
+ <script src="./js/pointers-handel1.js"></script>
+ <script src="./js/introduction/introductionManagement-handel2.js"></script>
+ <script src="./js/introduction/introductionBuilder-handel3.js"></script>
+ <script src="./js/content/contentManagement-handel4.js"></script>
+ <script src="./js/content/contentBuilder-handel5.js"></script>
+ <script src="./js/language/languageManagement-handel6.js"></script>
+ <script src="./js/language/languageBuilder-handel7.js"></script>
+ <script src="./js/eventHandlers-handel8.js"></script>
+ <script src="widget-handel9.js" ></script>
+ <!-- endbuild -->
+
+</html>

@@ -31,6 +31,7 @@ const AUTOPREFIXER_BROWSERS = [
 ];
 let version = new Date();
 let globalStates = {
+  includedControlsPointer: [],
   currentDest: `${__dirname}`,
   fileDest: "",
   allFiles: [/* all files with destiniation will be storesd here as objects */],
@@ -102,6 +103,20 @@ function getFiles() {
   files = fs.readdirSync(`${globalStates.currentDest}`);
   files.forEach(setFiles);
 }
+// Function to sort arrays and set all of them ready to minify -=>
+function sortHandler(a, b) {
+  if (a.split('-handel')[1].split('.')[0] > b.split('-handel')[1].split('.')[0]) {
+    return 1
+  } else {
+    return -1
+  }
+}
+function sortArrays() {
+  globalStates.jsFilesManager.widget.sort(sortHandler);
+  globalStates.jsFilesManager.control.forEach(controlFolders => {
+    controlFolders.items.sort(sortHandler);
+  });
+}
 // Function to minify all files with respect to extentions -=>
 function minifyHandlers(file) {
   let extension = file.file.split(".")[1];
@@ -135,7 +150,7 @@ function setMinifyStyles(dest, file) {
 function setMinifyHTML(dest, file) {
   let mainDestination, sharedDestination;
   if (dest.includes("control")) {
-    mainDestination = "../JS_Collection";
+    mainDestination = `../JS_Collection/${dest.split("/")[1]}`;
     sharedDestination = "../../widget/JS_Shared";
   } else {
     mainDestination = "./JS_Collection";
@@ -150,15 +165,41 @@ function setMinifyHTML(dest, file) {
     .pipe(minHTML({ removeComments: true, collapseWhitespace: true }))
     .pipe(gulp.dest(`./${dest}`));
 }
+function controlJSManagement(file) {
+  // globalStates.jsFilesManager.control.push(`${file.dest}/${file.file}`)
+  let headOfControl = file.dest.split("/")[1];
+  if (globalStates.includedControlsPointer.includes(headOfControl)) {
+    for (let i = 0; i < globalStates.jsFilesManager.control.length; i++) {
+      if (globalStates.jsFilesManager.control[i].head == headOfControl) {
+        globalStates.jsFilesManager.control[i].items.push(`${file.dest}/${file.file}`);
+      }
+    }
+  } else {
+    globalStates.includedControlsPointer.push(`${headOfControl}`);
+    let newControlObj = {
+      head: headOfControl,
+      items: [`${file.dest}/${file.file}`]
+    }
+    globalStates.jsFilesManager.control.push(newControlObj);
+  }
+}
 // function to minify JS files
-function jsManagement(file){
+function jsManagement(file) {
   if (file.dest.includes("control")) {
-    globalStates.jsFilesManager.control.push(`${file.dest}/${file.file}`)
+    controlJSManagement(file)
   } else if (file.dest.includes("common")) {
     globalStates.jsFilesManager.common.push(`${file.dest}/${file.file}`)
   } else {
     globalStates.jsFilesManager.widget.push(`${file.dest}/${file.file}`)
   }
+}
+function minify_JS_Handlers() {
+  setMinifyJS(globalStates.jsFilesManager.common, `${__dirname}/widget/JS_Shared`);
+
+  setMinifyJS(globalStates.jsFilesManager.widget, `${__dirname}/widget/JS_Collection`);
+  globalStates.jsFilesManager.control.forEach(controlFolder => {
+    setMinifyJS(controlFolder.items, `${__dirname}/control/JS_Collection/${controlFolder.head}`);
+  })
 }
 function setMinifyJS(filesArr, destination) {
   console.log(filesArr);
@@ -182,10 +223,9 @@ function initGulp(cb) {
 
   loopThrowFiles();
 
-  setMinifyJS(globalStates.jsFilesManager.common , `${__dirname}/widget/JS_Shared`);
-  
-  setMinifyJS(globalStates.jsFilesManager.control, `${__dirname}/control/JS_Collection`);
-  setMinifyJS(globalStates.jsFilesManager.widget , `${__dirname}/widget/JS_Collection`);
+  sortArrays();
+
+  minify_JS_Handlers();
   cb();
 }
 

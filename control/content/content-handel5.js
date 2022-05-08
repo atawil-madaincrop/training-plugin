@@ -5,7 +5,7 @@ pointers.addItemBtn.addEventListener('click', () => ShowController.showAddModal(
 pointers.cancelAdding.addEventListener('click', () => {
     clearTimeout(pointers.timer);
     pointers.timer = setTimeout(function () {
-        ShowController.showAddModal(false,true)
+        ShowController.showAddModal(false, true)
     }, 50)
 });
 pointers.addItemContainer.addEventListener('click', EventHandlers.submitNewItem);
@@ -14,7 +14,8 @@ pointers.subTitle.addEventListener('input', EventHandlers.handelSubTitle);
 pointers.getSearch.addEventListener('click', EventHandlers.getSearchItems);
 pointers.iconPlcaeCancelSearch.addEventListener('click', EventHandlers.resetSearch);
 pointers.sortSpan.addEventListener('click', ShowController.sortData);
-pointers.getSearchInput.addEventListener('input', EventHandlers.setSearchTyping)
+pointers.getSearchInput.addEventListener('input', EventHandlers.setSearchTyping);
+pointers.itemsTable.addEventListener('scroll', EventHandlers.loadMoreItems_Handler);
 
 // Init WYSIWYG
 const initTiny = (selector) => {
@@ -42,20 +43,20 @@ const initThumbnail = () => {
     });
 
     ShowController.image.onDelete = (imageUrl) => {
-        EventHandlers.handelImage('delete', 'image', imageUrl) 
-        
+        EventHandlers.handelImage('delete', 'image', imageUrl)
+
     };
     ShowController.coverImage.onDelete = (imageUrl) => {
-        EventHandlers.handelImage('delete', 'coverImage', imageUrl) 
-        
+        EventHandlers.handelImage('delete', 'coverImage', imageUrl)
+
     };
 
     ShowController.image.onChange = (imageUrl) => {
-        EventHandlers.handelImage('add', 'image', imageUrl) 
-        
+        EventHandlers.handelImage('add', 'image', imageUrl)
+
     };
     ShowController.coverImage.onChange = (imageUrl) => {
-        EventHandlers.handelImage('add', 'coverImage', imageUrl) 
+        EventHandlers.handelImage('add', 'coverImage', imageUrl)
     };
 }
 // Init all functionality ...

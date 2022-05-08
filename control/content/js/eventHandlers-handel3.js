@@ -1,10 +1,45 @@
- class EventHandlers {
+class EventHandlers {
 
     // get and print Items in the list
+    static page = 0;
+    static pageSize = 10;
+
     static loadItems = async () => {
         pointers.formPage.style.display = "none";
-        let itemsData = await ContentHandlers.loadItems(0, 10);
+        this.page = 0;
+        let itemsData = await ContentHandlers.loadItems(this.page, this.pageSize);
         ShowController.mySateArr = itemsData;
+    }
+    static loadMoreItems_Handler = async () => {
+        if ((pointers.itemsPageDiv.style.display !== 'none') && ((pointers.itemsTable.scrollTop / document.documentElement.clientHeight) * 100) > 100) {
+            pointers.itemsTable.removeEventListener('scroll', EventHandlers.loadMoreItems_Handler);
+
+            let loadingGetItems = document.createElement('div');
+            loadingGetItems.setAttribute("id", "loadMoreDiv");
+            loadingGetItems.innerHTML = `
+                <img class="loadMoreGIF" src="https://www.rugbyplayers.org/wp-content/themes/rugbyplayers/images/loading.gif" alt="Load More Items" >
+            `;
+            pointers.itemsListTable.appendChild(loadingGetItems);
+
+            this.loadMoreItems();
+        }
+    }
+    static loadMoreItems = async () => {
+        this.page += 1;
+        let itemsData = await ContentHandlers.loadItems(this.page, this.pageSize);
+        
+        let loadingGetItems = document.getElementById('loadMoreDiv');
+        loadingGetItems.innerHTML = '';
+
+        if (itemsData.length > 0) {
+            ShowController.mySateArr = [...ShowController.mySateArr, ...itemsData];
+            itemsData.forEach(ShowController.printAllItemsInTable);
+        }
+        if (itemsData.length < 10) {
+            loadingGetItems.innerHTML = 'No More Items ...';
+        }else{
+            pointers.itemsTable.addEventListener('scroll', EventHandlers.loadMoreItems_Handler);
+        }
     }
     static getSearchItems = async () => {
         if (pointers.getSearchInput.value.length > 0) {
@@ -116,7 +151,7 @@
             ShowController.showAddModal(false);
             ShowController.printItems(ShowController.mySateArr);
 
-            setTimeout(()=>{
+            setTimeout(() => {
                 ShowController.sendMessage({
                     type: "updateItem",
                     item: editedData

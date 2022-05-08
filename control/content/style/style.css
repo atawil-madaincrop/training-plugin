@@ -142,3 +142,13 @@ td{
 .td-15{
     width: 15% !important;
 }
+
+#loadMoreDiv{
+    text-align:center;
+    color:var(--c-danger);
+    font-weight:700;
+    font-size:.75rem
+}
+.loadMoreGIF{
+    margin:auto
+}

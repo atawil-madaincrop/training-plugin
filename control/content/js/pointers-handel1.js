@@ -18,8 +18,8 @@
     printWhenEmpty: document.getElementById("printWhenEmpty"),
     printLoading: document.getElementById("printLoading"),
     itemsListTable: document.getElementById("itemsListTable"),
+    itemsTable: document.getElementById("itemsTable"),
     timer: null,
-
 }
 
 

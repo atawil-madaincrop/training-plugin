@@ -29,12 +29,18 @@ const AUTOPREFIXER_BROWSERS = [
   'android >= 4.4',
   'bb >= 10'
 ];
-
+let version = new Date();
 let globalStates = {
   currentDest: `${__dirname}`,
   fileDest: "",
   allFiles: [/* all files with destiniation will be storesd here as objects */],
-  allFolders: [/* all folders with destiniation will be storesd here as objects */]
+  allFolders: [/* all folders with destiniation will be storesd here as objects */],
+  jsFilesManager: {
+    /* array of objects to manage three types of js-files -> control, widget and common */
+    common: [],
+    control: [],
+    widget: []
+  }
 }
 
 // Set all files in the global state array
@@ -101,7 +107,7 @@ function minifyHandlers(file) {
   let extension = file.file.split(".")[1];
   switch (extension) {
     case "js":
-      setMinifyJS(file.dest, file.file)
+      jsManagement(file);
       break;
     case "css":
       setMinifyStyles(file.dest, file.file)
@@ -137,24 +143,26 @@ function setMinifyHTML(dest, file) {
   }
   return gulp.src(`${dest}/${file}`)
     .pipe(htmlReplace({
-      CommonJSFiles: `${sharedDestination}/scripts.min.js`
-      , WidgetJSFiles: `${mainDestination}/scripts.min.js`
-      , ControlJSFiles: `${mainDestination}/scripts.min.js`
+      CommonJSFiles: `${sharedDestination}/scripts.min.js?v=${version}`
+      , WidgetJSFiles: `${mainDestination}/scripts.min.js?v=${version}`
+      , ControlJSFiles: `${mainDestination}/scripts.min.js?v=${version}`
     }))
     .pipe(minHTML({ removeComments: true, collapseWhitespace: true }))
     .pipe(gulp.dest(`./${dest}`));
 }
 // function to minify JS files
-function setMinifyJS(dest, file) {
-  let destination;
-  if (dest.includes("control")) {
-    destination = 'control/JS_Collection';
-  } else if (dest.includes("common")) {
-    destination = 'widget/JS_Shared';
+function jsManagement(file){
+  if (file.dest.includes("control")) {
+    globalStates.jsFilesManager.control.push(`${file.dest}/${file.file}`)
+  } else if (file.dest.includes("common")) {
+    globalStates.jsFilesManager.common.push(`${file.dest}/${file.file}`)
   } else {
-    destination = 'widget/JS_Collection';
+    globalStates.jsFilesManager.widget.push(`${file.dest}/${file.file}`)
   }
-  return gulp.src(`./${dest}/${file}`)
+}
+function setMinifyJS(filesArr, destination) {
+  console.log(filesArr);
+  return gulp.src(filesArr)
     .pipe(sourcemaps.init())
     .pipe(concat('scripts.min.js'))
     .pipe(uglify())
@@ -174,6 +182,10 @@ function initGulp(cb) {
 
   loopThrowFiles();
 
+  setMinifyJS(globalStates.jsFilesManager.common , `${__dirname}/widget/JS_Shared`);
+  
+  setMinifyJS(globalStates.jsFilesManager.control, `${__dirname}/control/JS_Collection`);
+  setMinifyJS(globalStates.jsFilesManager.widget , `${__dirname}/widget/JS_Collection`);
   cb();
 }
 

@@ -1,7 +1,1 @@
-
-.rowEle{
-    display:inline-block;
-}
-.rowEle:nth-child(2){
-    float:right;
-}
+.rowEle{display:inline-block}.rowEle:nth-child(2){float:right}

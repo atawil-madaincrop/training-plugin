@@ -8,7 +8,6 @@
 
     static loadItems = async () => {
         pointers.contentItems.innerHTML = "";
-
         let res = await ContentManagement.loadItems(this.page, this.pageSize, "");
         this.itemsRendered = res;
         if (res.length > 0) {
@@ -19,19 +18,15 @@
             pointers.emptyPage.style.display = this.emptyPageState;
         }
     }
-
     static printItems = (addItemsArr) => {
         clearTimeout(pointers.timer);
         pointers.timer = setTimeout(() => {
             pointers.emptySearchPage.style.display = "none";
-
             addItemsArr.forEach(ContentBuilder.print_Item_By_Item);
             ContentBuilder.createLoadMoreContainer(addItemsArr.length);
-
             ContentBuilder.allItemsSorted = [...addItemsArr, ...ContentBuilder.allItemsSorted]
         }, 50)
     }
-
     static print_Item_By_Item = (item, index) => {
         let row = document.createElement("div");
         row.className = "margin-zero flexItem-row row stretch padding-bottom-fifteen padding-top-ten padding-left-twenty default-background-hover transition-half"
@@ -49,7 +44,6 @@
         let myItem = document.getElementById(`item-${item.id}-${index}`);
         myItem.addEventListener("click", () => this.showItemPage(item))
     }
-
     static showItemPage = (item) => {
         buildfire.history.get(
             {},
@@ -59,15 +53,11 @@
                 }
                 pointers.loadItemsList.style.display = "none";
                 pointers.loadItemPage.style.display = "block";
-
                 let images = this.setImagesToBeShown(item);
-
                 pointers.backImage.setAttribute("src", images.coverImage);
                 pointers.mainImage.setAttribute("src", images.squareImage);
-
                 pointers.backImage.addEventListener("click", () => this.showImage(item.data?.coverImage, images));
                 pointers.mainImage.addEventListener("click", () => this.showImage(item.data?.image, images));
-
                 pointers.itemContent.innerHTML = `
                     <section class="item-Title-Section padding-right-fifteen padding-top-fifteen padding-left-fifteen">
                         <span class="row">${item.data?.title}</span>
@@ -80,7 +70,6 @@
             }
         );
     }
-
     static createLoadMoreContainer = (length) => {
         let loadMore = document.createElement("div");
         loadMore.setAttribute("id", "loadMoreDiv");
@@ -100,10 +89,8 @@
             pointers.itemsContainer.removeEventListener("scroll", this.loadMoreManager);
         }
     }
-
     static loadMoreManager = async () => {
         if ((pointers.itemsContainer.scrollTop / document.documentElement.clientHeight) * 100 > 40) {
-
             this.page += 1;
             let res;
             if (pointers.searchInput.value.length > 0) {
@@ -115,7 +102,6 @@
             this.printItems(res);
         }
     }
-
     static getSearchData = async (value) => {
         this.page = 0;
         let res = await ContentManagement.loadItems(this.page, this.pageSize, value);
@@ -128,7 +114,6 @@
             pointers.emptySearchPage.style.display = "block";
         }
     }
-
     static sortItems = () => {
         pointers.contentItems.innerHTML = "";
         let sortedArr = [];
@@ -147,7 +132,6 @@
         this.allItemsSorted = [];
         this.printItems(sortedArr);
     }
-
     static showImage = (src, images) => {
         let imageToShow = src || images.coverImage;
         buildfire.imagePreviewer.show(
@@ -159,7 +143,6 @@
             }
         );
     }
-
     static setImagesToBeShown = (item) => {
         let squareImage, coverImage;
         if (item.data?.image) {
@@ -180,15 +163,12 @@
         }
         return { squareImage, coverImage }
     }
-
     static backFunction = () => {
-
         clearTimeout(pointers.timer);
         pointers.timer = setTimeout(function () {
             buildfire.history.pop();
         }, 50)
     }
-
     static backPOP_Listener = (breadcrumb) => {
         switch (breadcrumb.label) {
             case "Plugin":
@@ -209,7 +189,6 @@
                 }, 200)
                 pointers.loadItemPage.style.animation = "hideItem 0.2s";
                 break;
-
             default:
                 setTimeout(() => {
                     pointers.loadItemsList.style.display = "block";
@@ -220,16 +199,13 @@
                 break;
         }
     }
-
     static pushNewItem = (item) => {
         clearTimeout(pointers.timer);
         pointers.timer = setTimeout(()=>{
             if (item?.id !== this.allItemsSorted[0]?.id) {
                 pointers.contentItems.innerHTML = "";
-    
                 let printedArr = this.allItemsSorted.map(item=>item);
                 printedArr.splice(0, 0, item);
-    
                 this.allItemsSorted = [];
                 if(printedArr.length > 1){
                     this.printItems(printedArr);
@@ -239,7 +215,6 @@
             }
         }, 50)
     }
-
     static removeItem = (id) => {
         clearTimeout(pointers.timer);
         pointers.timer = setTimeout(()=>{
@@ -247,7 +222,6 @@
             let printedArr = this.allItemsSorted.filter(item => {
                 return item.id != id;
             })
-    
             this.allItemsSorted = [];
             if (printedArr.length > 0) {
                 this.printItems(printedArr);
@@ -256,19 +230,15 @@
             }
         },50)
     }
-
     static update_Content = (itemEle) => {
         pointers.contentItems.innerHTML = "";
-
         let printedArr = this.allItemsSorted.filter(item => {
             return item.id != itemEle.id;
         })
         printedArr.splice(0, 0, itemEle)
-
         this.allItemsSorted = [];
         this.printItems(printedArr);
     }
-
     static init_Content = async (_emptyPageState) => {
         this.emptyPageState = _emptyPageState;
         await this.loadItems();

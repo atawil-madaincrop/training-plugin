@@ -1,5 +1,3 @@
-
-
 const introductionManagement = {
     load: async () => {
         let introductionData = await Introductions.get();

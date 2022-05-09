@@ -19,6 +19,7 @@
     printLoading: document.getElementById("printLoading"),
     itemsListTable: document.getElementById("itemsListTable"),
     itemsTable: document.getElementById("itemsTable"),
+    introductionTab: document.getElementById("introductionTab"),
     timer: null,
 }
 

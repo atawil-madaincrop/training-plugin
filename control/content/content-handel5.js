@@ -16,6 +16,7 @@ pointers.iconPlcaeCancelSearch.addEventListener('click', EventHandlers.resetSear
 pointers.sortSpan.addEventListener('click', ShowController.sortData);
 pointers.getSearchInput.addEventListener('input', EventHandlers.setSearchTyping);
 pointers.itemsTable.addEventListener('scroll', EventHandlers.loadMoreItems_Handler);
+pointers.introductionTab.addEventListener('click', EventHandlers.toIntroduction)
 
 // Init WYSIWYG
 const initTiny = (selector) => {

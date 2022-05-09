@@ -27,7 +27,7 @@ class EventHandlers {
     static loadMoreItems = async () => {
         this.page += 1;
         let itemsData = await ContentHandlers.loadItems(this.page, this.pageSize);
-        
+
         let loadingGetItems = document.getElementById('loadMoreDiv');
         loadingGetItems.innerHTML = '';
 
@@ -37,7 +37,7 @@ class EventHandlers {
         }
         if (itemsData.length < 10) {
             loadingGetItems.innerHTML = 'No More Items ...';
-        }else{
+        } else {
             pointers.itemsTable.addEventListener('scroll', EventHandlers.loadMoreItems_Handler);
         }
     }
@@ -186,6 +186,19 @@ class EventHandlers {
             let deleteBtn = document.getElementById(`deleteItemBtn-${ShowController.mySateArr.length - 1}`);
             deleteBtn.addEventListener("click", () => deleteRow(newRow, item))
         }
+    }
+
+    static toIntroduction = () => {
+        buildfire.navigation.navigateToTab(
+            {
+                tabTitle: "Introduction",
+            },
+            (err) => {
+                if (err) return console.error(err);
+
+                console.log("NAVIGATION FINISHED");
+            }
+        );
     }
 
     static sendUpdatedItem = () => {

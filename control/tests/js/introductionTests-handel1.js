@@ -1,8 +1,10 @@
- const introductionTests = (expect) => {
+
+let lastntroductionData ;
+const introductionTests = (expect) => {
     let newIntroduction = new Introduction({
         description: 'Introduction to test our Functionality'
     });
-
+    
     describe('Introduction Test Part ==> ', function () {
         describe('Object Properties Part --> ', function () {
             it('Introduction Object Properties Test ', function () {
@@ -22,6 +24,7 @@
         });
 
         describe('Introduction Save Test --> ', async function () {
+            lastntroductionData = await Introductions.get();
             it('Should Save the Introduction to the datastore ', async function () {
                 let savedResult = await Introductions.save(newIntroduction);
                 expect(savedResult.data).to.be.an('Object');
@@ -49,5 +52,6 @@
                 expect(getResult.data).to.have.property('isActive');
             });
         });
+        Introductions.save(lastntroductionData);
     });
 }

@@ -1,4 +1,6 @@
- const languageTests = (expect) => {
+
+let last_Language_Date;
+const languageTests = (expect) => {
     let newLanguage = new Language({
         sortAscending: 'A-Z'
     });
@@ -23,6 +25,7 @@
         })
 
         describe('Language Save Test --> ', async function () {
+            last_Language_Date = await Languages.get();
             it('Should Save the Language to the datastore ', async function () {
                 let savedResult = await Languages.save(newLanguage);
                 expect(savedResult.data).to.be.an('Object');
@@ -50,5 +53,6 @@
                 expect(getResult.data).to.have.property('isActive');
             });
         });
+        Languages.save(last_Language_Date);
     });
 }

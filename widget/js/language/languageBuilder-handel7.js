@@ -8,6 +8,7 @@ class LanguageBuilder{
         let res = await languageManagement.load();
         if(res){
             this.language = res;
+            pointers.searchInput.placeholder = res.search || 'Search';
         }else{
             this.language = language;
         }

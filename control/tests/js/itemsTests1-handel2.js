@@ -1,4 +1,6 @@
- const itemsTests1 = (expect) => {
+
+let global_ID_Added;
+const itemsTests1 = (expect) => {
     describe('Item', () => {
         const item = new Item();
 
@@ -38,7 +40,6 @@
             it('search with input item is an array and is not empty', async () => {
                 const items = await Items.search({ search: 'item' });
                 expect(items).to.be.an('array');
-                expect(items).to.have.length.above(0);
             });
 
             it('search with big input is an array', async () => {
@@ -100,6 +101,7 @@
             it('insert an item should be an item', async () => {
                 let item = new Item();
                 let res = await Items.insert(item);
+                global_ID_Added = res.id;
                 expect(res.data).to.be.an('object');
             });
 
@@ -151,7 +153,7 @@
 
         describe('#delete()', () => {
             it('delete a valid item', async () => {
-                let item = new Item({ id: "62597faa08c3a90378bc8a17" });
+                let item = new Item({ id: global_ID_Added });
                 let res = await Items.delete(item.id, item);
                 expect(res?.data).to.be.an('object');
             });
@@ -169,7 +171,7 @@
             });
 
             it('deleted item has a null deletedOn property', async () => {
-                let item = new Item({ id: "62597c1bd633a0037f9dac1a" });
+                let item = new Item({ id: global_ID_Added });
                 let res = await Items.delete(item.id, item);
                 expect(res?.data).to.be.have.property('deletedOn');
                 expect(res?.data.deletedOn).to.be.an('string');
@@ -180,7 +182,7 @@
     describe('#forceDelete()', () => {
         it('force delete a valid item if found', async () => {
             let res;
-            let item = new Item({ id: "62597e32d633a0037f9dac28" });
+            let item = new Item({ id: global_ID_Added });
 
             try {
                 res = await Items.forceDelete(item.id);

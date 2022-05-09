@@ -211,7 +211,12 @@
                 break;
 
             default:
-                console.log("<-- No Back Avilable -->");
+                setTimeout(() => {
+                    pointers.loadItemsList.style.display = "block";
+                    pointers.loadItemPage.style.display = "none";
+                    pointers.loadItemPage.style.animation = "showItem 0.3s";
+                }, 200)
+                pointers.loadItemPage.style.animation = "hideItem 0.2s";
                 break;
         }
     }

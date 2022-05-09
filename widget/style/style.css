@@ -8,3 +8,8 @@
     margin: auto !important;
     margin-top: 25% !important;
 }
+.searchDiv{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
